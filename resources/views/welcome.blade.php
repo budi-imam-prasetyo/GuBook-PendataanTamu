@@ -15,29 +15,7 @@
 
 <body class="text-light" style="background-image: url('{{ asset('assets/background.svg') }}');">
     {{-- Navigation --}}
-    <nav class= "px-8 py-4 md:px-auto w-full">
-        <div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-            <div class="md:order-1">
-                <img src="{{ asset('assets/logo.png') }}" class="h-10" alt="Logo GuBook Title">
-            </div>
-            <div class="order-3 w-full md:w-auto md:order-2">
-                <ul class="flex font-semibold justify-between">
-                    <li class="md:px-4 md:py-2 hover:text-lightBlue2 hover:underline hover:underline-offset-8"><a
-                            href="#">Beranda</a></li>
-                    <li class="md:px-4 md:py-2 hover:text-lightBlue2 hover:underline hover:underline-offset-8"><a
-                            href="#">Pegawai</a></li>
-                    <li class="md:px-4 md:py-2 hover:text-lightBlue2 hover:underline hover:underline-offset-8"><a
-                            href="#">Tentang</a></li>
-                </ul>
-            </div>
-            <div class="order-2 md:order-3">
-                <button
-                    class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
-                    Login
-                </button>
-            </div>
-        </div>
-    </nav>
+    <x-user.navbar></x-user.navbar>
 
     {{-- Main --}}
     <main>
@@ -51,9 +29,9 @@
                     Layani <span class="font-semibold">Sepenuh Hati</span></p>
             </div>
             <div class="mt-6">
-                <a class="flex gap-2 group bg-secondaryBlue rounded-2xl py-5 px-14" href="#">
+                <a class="flex gap-2 group bg-secondaryBlue rounded-2xl py-5 px-14" href="/form-tamu">
                     <div class="h-6 w-6 overflow-hidden">
-                        <img src="{{ asset('assets/icons/plus.svg') }}" class="invert transition-all duration-200 h-0 group-hover:h-7 group-hover:block " alt="">
+                        <img src="{{ asset('assets/icons/plus.svg') }}" class="inver transition-all duration-200 h-0 group-hover:h-6 group-hover:block " alt="">
                     </div>
                     <span class="font-semibold text-lg transition-all duration-200 -translate-x-4 group-hover:translate-x-2">Buat Pertemuan</span>
                 </a>

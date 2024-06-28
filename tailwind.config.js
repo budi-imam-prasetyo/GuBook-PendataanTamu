@@ -49,7 +49,7 @@ export default {
             dark: "#000000",
             blueWhite: "#EAEDFC",
             hover: "#EFEFEF",
-            gray: "#A3A3A3",
+            grey: "#A3A3A3",  //klo "gray" gk bisa :(
             darkGray: "#505258",
             success: "#76FF46",
             warning: "#FFAC0B",
