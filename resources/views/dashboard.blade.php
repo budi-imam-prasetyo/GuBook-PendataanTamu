@@ -299,7 +299,7 @@
 </body>
 <!-- plugin for charts  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ asset('js/charts.js') }}" async></script>
+{{-- <script src="{{ asset('js/charts.js') }}" async></script> --}}
 <!-- plugin for scrollbar  -->
 <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script>
 {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script> --}}

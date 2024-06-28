@@ -9,6 +9,16 @@ export default {
     presets: [],
     darkMode: "class",
     theme: {
+        extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            keyframes: {
+                pop: {
+                    '0%': {}
+                }
+            }
+          },
         screens: {
             sm: "576px",
             "sm-max": { max: "576px" },
