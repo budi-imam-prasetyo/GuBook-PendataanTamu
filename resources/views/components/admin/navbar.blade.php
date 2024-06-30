@@ -37,7 +37,7 @@
                     <a href="../pages/sign-in.html"
                         class="ease-nav-brand block px-0 py-2 text-lg font-semibold text-white transition-all">
                         <i class="fa fa-user sm:mr-1"></i>
-                        <span class="hidden sm:inline">Budi</span>
+                        <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
                     </a>
                 </li>
                 <li class="flex items-center pl-4 xl:hidden">

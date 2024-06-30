@@ -7,15 +7,24 @@
         <div class="order-3 w-full md:w-auto md:order-2">
             <ul class="flex font-semibold justify-between">
                 <x-user.navbar-btn>welcome</x-user.navbar-btn>
-                <x-user.navbar-btn>Pegawai</x-user.navbar-btn>
-                <x-user.navbar-btn>Tentang</x-user.navbar-btn>
+                <x-user.navbar-btn>pegawai</x-user.navbar-btn>
+                <x-user.navbar-btn>tentang</x-user.navbar-btn>
             </ul>
         </div>
         <div class="order-2 md:order-3">
-            <button
-                class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
-                Login
-            </button>
+                @if (Route::has('login'))
+                    @auth
+                        <a href="/dashboard"
+                            class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
+                            Login
+                        </a>
+                    @endauth
+                @endif
         </div>
     </div>
 </nav>
