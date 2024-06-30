@@ -13,11 +13,6 @@ export default {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
             },
-            keyframes: {
-                pop: {
-                    '0%': {}
-                }
-            }
           },
         screens: {
             sm: "576px",

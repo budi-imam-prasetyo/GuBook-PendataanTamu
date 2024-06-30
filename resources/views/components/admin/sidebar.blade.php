@@ -5,7 +5,7 @@
         <i class="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 dark:text-white xl:hidden"
             sidenav-close></i>
         <a class="m-0 block whitespace-nowrap px-8 py-6 text-sm text-slate-700"
-            href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
+            href="/welcome">
             <img src={{ asset('GuBook.png') }}
                 class="ease-nav-brand inline h-full max-h-full w-30 max-w-full transition-all duration-200"
                 alt="main_logo" />
@@ -46,13 +46,17 @@
 
             <li class="mt-0.5 w-full bottom-0">
                 <a class="ease-nav-brand mx-2 my-0 flex items-center whitespace-nowrap px-4 py-2.7 text-sm transition-colors dark:text-white dark:opacity-80 hover:bg-primaryBlue"
-                    href="../pages/sign-up.html">
+                href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
                     <div
                         class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="fa fa-sign-out relative top-0 text-sm leading-normal text-red-500"></i>
                     </div>
-                    <span class="ease pointer-events-none ml-1 opacity-100 duration-300">Log Out</span>
+                    <span class="ease pointer-events-none ml-1 opacity-100 duration-300">{{ __('Logout') }}</span>
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </li>
         </ul>
     </div>
