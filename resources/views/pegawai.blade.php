@@ -115,10 +115,9 @@
                         </div> -->
                         <div class="flex-auto px-0 pb-2 pt-0">
                             <div class="overflow-x-auto p-0">
-                                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                                    <h2 class="text-2xl font-bold mb-4">Tabel Guru</h2>
+                                    <h2 class="text-2xl mx-5 my-5 font-bold mb-4">Tabel Pegawai</h2>
                                     <table id="example" class="table-auto w-full">
-                                        <thead>
+                                        <thead class="border-b border-dark">
                                             <tr>
                                                 <th class="px-4 py-2">Nama</th>
                                                 <th class="px-4 py-2">No Telepon</th>
@@ -128,96 +127,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($listpegawai as $pegawai)
                                             <tr>
-                                                <td class="border px-4 py-2">Tiger Nixon</td>
-                                                <td class="border px-4 py-2">System Architect</td>
-                                                <td class="border px-4 py-2">Edinburgh</td>
-                                                <td class="border px-4 py-2">61</td>
-                                                <td class="border px-4 py-2">2011/04/25</td>
+                                                <td class="border px-4 py-2">{{ $pegawai->name }}</td>
+                                                <td class="border px-4 py-2">{{ $pegawai->no_telpon }}</td>
+                                                <td class="border px-4 py-2">{{ $pegawai->NIP }}</td>
+                                                <td class="border px-4 py-2">{{ $pegawai->PTK }}</td>
+                                                <td class="border px-4 py-2">
+                                                    <a href="" class="text-xs font-semibold leading-tight text-white bg-primaryBlue hover:bg-secondaryBlue px-4 py-2 rounded-lg">Edit</a>
+                                                    <a href="" class="text-xs font-semibold leading-tight text-primaryBlue hover:text-light border-primaryBlue border hover:bg-secondaryBlue px-4 py-2 rounded-lg">Hapus</a>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Garrett Winters</td>
-                                                <td class="border px-4 py-2">Accountant</td>
-                                                <td class="border px-4 py-2">Tokyo</td>
-                                                <td class="border px-4 py-2">63</td>
-                                                <td class="border px-4 py-2">2011/07/25</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Ashton Cox</td>
-                                                <td class="border px-4 py-2">Junior Technical Author</td>
-                                                <td class="border px-4 py-2">San Francisco</td>
-                                                <td class="border px-4 py-2">66</td>
-                                                <td class="border px-4 py-2">2009/01/12</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Cedric Kelly</td>
-                                                <td class="border px-4 py-2">Senior Javascript Developer</td>
-                                                <td class="border px-4 py-2">Edinburgh</td>
-                                                <td class="border px-4 py-2">22</td>
-                                                <td class="border px-4 py-2">2012/03/29</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Airi Satou</td>
-                                                <td class="border px-4 py-2">Accountant</td>
-                                                <td class="border px-4 py-2">Tokyo</td>
-                                                <td class="border px-4 py-2">33</td>
-                                                <td class="border px-4 py-2">2008/11/28</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Brielle Williamson</td>
-                                                <td class="border px-4 py-2">Integration Specialist</td>
-                                                <td class="border px-4 py-2">New York</td>
-                                                <td class="border px-4 py-2">61</td>
-                                                <td class="border px-4 py-2">2012/12/02</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Herrod Chandler</td>
-                                                <td class="border px-4 py-2">Sales Assistant</td>
-                                                <td class="border px-4 py-2">San Francisco</td>
-                                                <td class="border px-4 py-2">59</td>
-                                                <td class="border px-4 py-2">2012/08/06</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Herrod Chandler</td>
-                                                <td class="border px-4 py-2">Sales Assistant</td>
-                                                <td class="border px-4 py-2">San Francisco</td>
-                                                <td class="border px-4 py-2">59</td>
-                                                <td class="border px-4 py-2">2012/08/06</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Ashton Cox</td>
-                                                <td class="border px-4 py-2">Junior Technical Author</td>
-                                                <td class="border px-4 py-2">San Francisco</td>
-                                                <td class="border px-4 py-2">66</td>
-                                                <td class="border px-4 py-2">2009/01/12</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Cedric Kelly</td>
-                                                <td class="border px-4 py-2">Senior Javascript Developer</td>
-                                                <td class="border px-4 py-2">Edinburgh</td>
-                                                <td class="border px-4 py-2">22</td>
-                                                <td class="border px-4 py-2">2012/03/29</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Airi Satou</td>
-                                                <td class="border px-4 py-2">Accountant</td>
-                                                <td class="border px-4 py-2">Tokyo</td>
-                                                <td class="border px-4 py-2">33</td>
-                                                <td class="border px-4 py-2">2008/11/28</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border px-4 py-2">Brielle Williamson</td>
-                                                <td class="border px-4 py-2">Integration Specialist</td>
-                                                <td class="border px-4 py-2">New York</td>
-                                                <td class="border px-4 py-2">61</td>
-                                                <td class="border px-4 py-2">2012/12/02</td>
-                                            </tr>
-
-
-                                            <!-- Add more rows as needed -->
+                                            @endforeach
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                         <div class="m-2 flex justify-between">
@@ -345,7 +268,8 @@
 <!-- main script file  -->
 <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> --}}
 <script>
     $(document).ready(function () {
         $('#example').DataTable({

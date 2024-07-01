@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\UserController;
+use App\Models\Pegawai;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/chart-data', [ChartController::class, 'index']);
@@ -20,11 +22,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::get('/pegawai', [PegawaiController::class, 'index']);
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-Route::get('/pegawai', function () {
-    return view('pegawai');
+    return view('dasboard');
 });
 Route::get('/form-tamu', [UserController::class, 'formTamu']);
 Route::get('/form-kurir', [UserController::class, 'formKurir']);

@@ -14,6 +14,9 @@ return new class extends Migration
     Schema::create('pegawais', function (Blueprint $table) {
         $table->id();
         $table->string('name');
+        $table->string('no_telpon');
+        $table->string('NIP');
+        $table->string('PTK');
         $table->timestamps();
     });
 }
