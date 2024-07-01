@@ -29,7 +29,7 @@
     <main>
         <div class="flex flex-col items-center justify-center">
             <div class="mt-10">
-                <img src="{{ asset('assets/icons/user.svg') }}" class="h-36 z-0" alt="user icon">
+                <img src="{{ asset('assets/icons/truck.svg') }}" class="h-36 z-0" alt="user icon">
             </div>
             <div class="mb-4">
                 <ul class="flex flex-wrap -mb-px font-medium text-3xl">

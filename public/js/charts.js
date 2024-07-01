@@ -83,7 +83,7 @@ if (document.querySelector("#chart-bars")) {
 // chart 2
 
 if (document.querySelector("#chart-line")) {
-  fetch('/chart-data')
+  fetch('/admin/chart-data')
       .then(response => response.json())
       .then(data => {
           var ctx1 = document.getElementById("chart-line").getContext("2d");

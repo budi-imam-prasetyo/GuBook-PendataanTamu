@@ -13,16 +13,16 @@
         </div>
 
         <div class="block w-auto grow basis-full items-center overflow-auto">
-            <ul class="mb-0 flex flex-col pl-0 relative h-[86%]">
+            <ul class="gap-2 flex flex-col pl-0 relative h-[86%]">
 
-                <x-admin.sidebar-btn class="fa fa-tv text-blue-500 text-lg">
+                <x-admin.sidebar-btn src="{{ asset('assets/icons/tv.svg') }}" href="/admin">
                     dashboard
                 </x-admin.sidebar-btn>
 
-                <x-admin.sidebar-btn class="fa fa-user-plus text-orange-500 text-lg">
+                <x-admin.sidebar-btn src="{{ asset('assets/icons/school.svg') }}" class="h-4" href="/admin/pegawai">
                     pegawai
                 </x-admin.sidebar-btn>
-                <x-admin.sidebar-btn class="fa fa-map-marker text-emerald-500 text-lg">
+                <x-admin.sidebar-btn src="{{ asset('assets/icons/map-marker.svg') }} " href="/admin/kunjungan">
                     kunjungan
                 </x-admin.sidebar-btn>
 
@@ -33,11 +33,6 @@
                     </h6>
                 </li>
 
-                <x-admin.sidebar-btn class="fa fa-user text-slate-700 text-lg">
-                    profil
-                </x-admin.sidebar-btn>
-
-
                 <li class="mt-0.5 w-full">
                     <a class="hover:bg-primaryBlue/5 rounded-lg mx-2 my-0 flex items-center whitespace-nowrap px-4 py-2.7 text-base transition-colors"
                         href="{{ route('logout') }}"
@@ -45,7 +40,7 @@
                     document.getElementById('logout-form').submit();">
                         <div
                             class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="fa fa-sign-out relative top-0 text-sm leading-normal text-red-500"></i>
+                            <img class="relative h-4 top-0 " src="{{ asset('assets/icons/open-door.svg') }}"></img>
 
                         </div>
                         <span

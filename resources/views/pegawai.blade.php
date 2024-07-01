@@ -89,9 +89,13 @@
                         <label for="mapel"
                             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">PTK</label>
                         <select id="mapel"
-                            class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            class="block w-full rounded-lg border h-12 border-gray-300 bg-white p-2.5 text-sm text-gray-900 placeholder:text-grey focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required>
                             <option value="" disabled selected>Pilih Mapel</option>
+                            @foreach ($listpegawai as $mapel)
+                            <option value="{{ $mapel->PTK }}" selected>{{ $mapel->PTK }}</option>
+                                
+                            @endforeach
                             <!-- Tambahkan opsi-opsi mata pelajaran di sini -->
                         </select>
                     </div>
