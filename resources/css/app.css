@@ -41,20 +41,9 @@
     font-size: 1.25rem;
     color: white; /* Warna ikon bulan */
 }
-/* Gaya dasar tabel */
-table.dataTable {
-    width: 100%;
-    margin: 0 auto;
-    clear: both;
-    border-collapse: separate;
-    border-spacing: 0;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-    border-radius: 4px;
-    overflow: hidden;
-  }
+
   
-  /* Header tabel */
-  table.dataTable thead th,
+  /*table.dataTable thead th,
   table.dataTable thead td {
     padding: 16px 18px;
     border-bottom: 1px solid #e0e0e0;
@@ -63,39 +52,43 @@ table.dataTable {
     text-transform: uppercase;
   }
 
-  table.dataTable thead .sorting {
-    background-image: url("../images/sort_both.png");
-}
-table.dataTable thead .sorting_asc {
-    background-image: url("../images/sort_asc.png") !important;
-}
-table.dataTable thead .sorting_desc {
-    background-image: url("../images/sort_desc.png") !important;
-}
-table.dataTable thead .sorting_asc_disabled {
-    background-image: url("../images/sort_asc_disabled.png");
-}
-table.dataTable thead .sorting_desc_disabled {
-    background-image: url("../images/sort_desc_disabled.png");
-}
   
-  /* Baris tabel */
   table.dataTable tbody tr {
     background-color: #fff;
     transition: background-color 0.3s ease;
-  }
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+}
   
   table.dataTable tbody tr:hover {
     background-color: #f5f5f5;
   }
   
-  /* Sel tabel */
   table.dataTable tbody th,
   table.dataTable tbody td {
     padding: 16px 18px;
     border-top: 1px solid #e0e0e0;
-  }
+  } */
   
+
+  table.dataTable {
+    table-layout: auto;
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
   /* Paginasi */
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     box-sizing: border-box;
@@ -112,6 +105,7 @@ table.dataTable thead .sorting_desc_disabled {
     background-color: transparent;
     transition: background-color 0.3s ease;
   }
+  
   
   .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background-color: rgba(0,0,0,0.08);

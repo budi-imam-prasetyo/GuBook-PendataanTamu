@@ -28,11 +28,12 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
     @vite('resources/css/app.css')
 </head>
 
 <body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     <div class="absolute min-h-75 w-full bg-primaryBlue dark:hidden"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
@@ -54,8 +55,8 @@
                     <div
                         class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto py-6 px-4">
-                            <div class="-mx-3 flex flex-row">
-                                <div class="w-2/3 max-w-full flex-none px-3">
+                            <div class="-mx-1 flex flex-row justify-between">
+                                <div class="max-w-full flex-none px-3">
                                     <div>
                                         <p
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
@@ -64,10 +65,10 @@
                                         <h5 class="mb-2 font-bold dark:text-white">12</h5>
                                     </div>
                                 </div>
-                                <div class="basis-1/3 px-3 text-right">
+                                <div class="px-3 text-right">
                                     <div
-                                        class="inline-block h-16 w-16 rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500 text-center">
-                                        <i class="fa fa-users relative top-5 text-2xl leading-none text-white"></i>
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500 flex items-center justify-center">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +82,7 @@
                     <div
                         class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto p-4">
-                            <div class="-mx-3 flex flex-row">
+                            <div class="-mx-3 flex flex-row items-center justify-center">
                                 <div class="flex-none w-1/3 max-w-full px-3">
                                     <p
                                         class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
@@ -93,8 +94,8 @@
                                 </div>
                                 <div class="basis-1/3 px-3 text-center  ">
                                     <div
-                                        class="inline-block h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 text-center">
-                                        <i class="fa fa-calendar relative top-6 text-3xl leading-none text-white"></i>
+                                        class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
+                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10" alt="">
                                     </div>
                                 </div>
                                 <div class="w-1/3 max-w-full flex-none px-3">
@@ -116,14 +117,14 @@
                     <div
                         class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto px-4 py-6">
-                            <div class="-mx-3 flex flex-row">
-                                <div class="basis-1/3 px-3 text-left">
+                            <div class="-mx-3 justify-between flex flex-row">
+                                <div class="pl-6 text-left">
                                     <div
-                                        class="inline-block h-16 w-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 text-center">
-                                        <i class="fa fa-box-open relative top-5 text-2xl leading-none text-white"></i>
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 flex items-center justify-center">
+                                        <img src="{{ asset('assets/icons/box.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
-                                <div class="w-2/3 max-w-full flex-none px-3">
+                                <div class="max-w-full flex-none px-3">
                                     <div class="text-right">
                                         <p
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
@@ -299,7 +300,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {{-- <script src="{{ asset('js/charts.js') }}" async></script> --}}
 <!-- plugin for scrollbar  -->
-<script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script>
+{{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
+{{-- <script src="{{ asset('js/sidenav-burger.js') }}" async></script> --}}
 {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script> --}}
 <!-- main script file  -->
 <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>

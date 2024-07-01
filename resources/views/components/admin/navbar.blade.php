@@ -5,7 +5,7 @@
             <!-- breadcrumb -->
             <ol class="mr-12 flex flex-wrap rounded-lg bg-transparent pt-1 sm:mr-16">
                 <li class="text-sm leading-normal">
-                    <a class="text-white opacity-50" href="javascript:;">Home</a>
+                    <a class="text-white opacity-50" href="/">Home</a>
                 </li>
                 <li class="pl-2 text-sm capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']"
                     aria-current="page">
