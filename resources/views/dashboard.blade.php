@@ -29,11 +29,14 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+
     @vite('resources/css/app.css')
 </head>
 
 <body
     class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    @apexchartsScripts
     <div class="absolute min-h-75 w-full bg-primaryBlue dark:hidden"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
@@ -68,7 +71,8 @@
                                 <div class="px-3 text-right">
                                     <div
                                         class="h-16 w-16 rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500 flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +99,8 @@
                                 <div class="basis-1/3 px-3 text-center  ">
                                     <div
                                         class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10" alt="">
+                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="w-1/3 max-w-full flex-none px-3">
@@ -152,10 +157,8 @@
                                 Januari
                             </p>
                         </div>
-                        <div class="flex-auto p-4">
-                            <div>
-                                <canvas id="chart-line" height="300"></canvas>
-                            </div>
+                        <div class="p-6 bg-white rounded shadow">
+                            {!! $chart->container() !!}
                         </div>
                     </div>
                 </div>
@@ -251,10 +254,16 @@
         <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
             white-style-btn navbarFixed dark-toggle />
     </main>
-</body>
-<!-- plugin for charts  -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-{{-- <script src="{{ asset('js/charts.js') }}" async></script> --}}
+    <!-- plugin for charts  -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+{{-- <script src="{{ asset('js/charts.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
+{{-- <script src="{{ $chart->cdn() }}"></script> --}}
+
+{{ $chart->script() }}
 <!-- plugin for scrollbar  -->
 {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
 {{-- <script src="{{ asset('js/sidenav-burger.js') }}" async></script> --}}
@@ -263,4 +272,5 @@
 <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
 {{-- <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script> --}}
 
+</body>
 </html>

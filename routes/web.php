@@ -23,9 +23,7 @@ Route::get('/form-kurir', [UserController::class, 'formKurir']);
 
 //! ROUTE ADMIN
 Route::prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
+    Route::get('/', [ChartController::class, 'chart']);
     Route::get('/pegawai', [PegawaiController::class, 'index']);
     Route::get('/chart-data', [ChartController::class, 'index']);
 });
