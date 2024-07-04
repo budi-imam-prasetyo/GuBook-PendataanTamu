@@ -19,6 +19,8 @@ Route::get('/register', function () {
 });
 Route::get('/form-tamu', [UserController::class, 'formTamu']);
 Route::get('/form-kurir', [UserController::class, 'formKurir']);
+Route::get('/pegawai', [UserController::class, 'listPegawai']);
+Route::get('/pegawai/load', [UserController::class, 'loadlist']);
 //? ROUTE USER
 
 //! ROUTE ADMIN

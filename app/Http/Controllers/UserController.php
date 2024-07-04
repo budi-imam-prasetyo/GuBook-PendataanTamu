@@ -18,5 +18,19 @@ class UserController extends Controller
         $listpegawai = Pegawai::all();
         return view('formKurir', compact('listpegawai'));
     }
+    public function listPegawai()
+    {
+        $listpegawai = Pegawai::take(10)->get();
+        $listmapel = Pegawai::pluck('PTK');
+        return view('listPegawai', compact('listmapel', 'listpegawai'));
+    }
+    public function loadlist(Request $request){
+        if($request->ajax()){
+            $skip = $request->skip;
+            $listpegawai = Pegawai::skip($skip)->take(15)->get();
+            return view('listPegawaiAll', compact('listpegawai'))->render();
+            
+        }
+    }
 
 }
