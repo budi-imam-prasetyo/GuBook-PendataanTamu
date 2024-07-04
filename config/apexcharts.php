@@ -21,9 +21,9 @@ return [
             'height' => 500,
             'width' => null,
             'toolbar' => [
-                'show' => true,
+                'show' => false,
             ],
-            'stacked' => true,
+            'stacked' => false, //false : untuk fix chart
             'zoom' => [
                 'enabled' => false,
             ],
@@ -38,14 +38,14 @@ return [
         ],
 
         'colors' => [ //untuk marker dan warna chart
-            '#008FFB', '#00E396', '#feb019', '#ff455f', '#775dd0', '#80effe',
+            '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
                 '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
         ],
 
         'series' => [],
 
         'dataLabels' => [
-            'enabled' => true
+            'enabled' => false
         ],
 
         'labels' => [],
@@ -65,19 +65,19 @@ return [
   
 
         'grid' => [
-            'show' => false
+            'show' => true
         ],
 
         'markers' => [
-            'size' => 4,
+            'size' => 3,
             'colors' => [
-                '#008FFB', '#00E396', '#feb019', '#ff455f', '#775dd0', '#80effe',
+                '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
                 '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
             ],
-            'strokeColors' => "#fff",
-            'strokeWidth' => 2,
+            // 'strokeColors' => "#fff",
+            // 'strokeWidth' => 2,
             'hover' => [
-                'size' => 7,
+                'size' => 5,
             ],
         ],
 
@@ -85,7 +85,7 @@ return [
             'show' => true,
             'width' => 4,
             'colors' => [
-                '#008FFB', '#00E396', '#feb019', '#ff455f', '#775dd0', '#80effe',
+                '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
                 '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
             ]
         ],

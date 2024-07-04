@@ -39,18 +39,13 @@ class ChartController extends Controller
 
     public function chart()
     {
-        $dates = [];
-
-        for ($i = 0; $i < 7; $i++) {
-            $dates[] = strval($i);
-        }
-        $kurir = 'hello';
+        // $kurir = 'hello';
         $chart = (new Chart)->setType('area')
             ->setWidth('100%')
             ->setHeight(300)
-            ->setLabels([1,2,3,4,5,6,7])
-            ->setDataset($kurir, 'area', [250, 700, 100, 172, 916, 910, 700])
-            ->setDataset('New User', 'area', [1000, 1124, 200, 916, 513, 1124, 200]);
+            ->setLabels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,29,22,23,24,25,26,27,28,29,30])
+            ->setDataset('Tamu', 'area', [5,8,4,9,7,8,4,10,3,9,3,9,9,3,10,12,12,9,3,6,9,7,3,10,9,7,4,9,6,7])
+            ->setDataset('Kurir', 'area', [9,3,6,8,3,10,4,7,5,4,9,5,9,12,6,12,5,7,4,9,5,5,7,6,7,9,8,4,9,8]);
 
         return view('dashboard', compact('chart'));
     }

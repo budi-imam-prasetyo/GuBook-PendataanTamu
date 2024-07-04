@@ -30,6 +30,7 @@
     {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
 
     @vite('resources/css/app.css')
 </head>
@@ -117,7 +118,7 @@
                     </div>
                 </div>
 
-                <!-- card4 -->
+                <!-- card 3 -->
                 <div class="order-3 w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:order-3 xl:w-1/4">
                     <div
                         class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
@@ -144,31 +145,31 @@
                 </div>
             </div>
 
-            <!-- cards row 2 -->
+            <!-- cards row 1 -->
             <div class="-mx-3 mt-6 flex flex-wrap">
                 <div class="mt-0 w-full max-w-full px-3 lg:flex-none">
                     <div
-                        class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
-                        <div class="mb-0 rounded-t-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
+                        class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
+                        <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
                                 <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">4% lebih banyak</span> dari
                                 Januari
                             </p>
-                        </div>
-                        <div class="p-6 bg-white rounded shadow">
-                            {!! $chart->container() !!}
+                            <div class="">
+                                {!! $chart->container() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- cards row 3 -->
+            <!-- cards row 2 -->
 
             <div class="mt-6 w-full max-w-full  md:flex-none">
                 <div
-                    class="relative flex min-w-0 flex-col break-words rounded-2xl border-0 bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
+                    class="relative flex min-w-0 flex-col break-words rounded-2xl border-0 bg-white bg-clip-border shadow">
                     <div class="flex justify-between">
                         <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
                             <h6 class="mb-0 text-lg font-bold dark:text-white">
