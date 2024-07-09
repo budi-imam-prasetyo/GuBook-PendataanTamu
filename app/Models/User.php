@@ -44,4 +44,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function pegawai(){
+        return $this->hasMany(Pegawai::class);
+    }
+
+    
 }

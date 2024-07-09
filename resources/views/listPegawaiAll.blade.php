@@ -11,11 +11,11 @@
     </td>
     <td
         class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
-        {{ $list->name }}
+        {{ $list->user->name }}
     </td>
     <td
         class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark lowercase">
-        {{ $list->name }}@gmail.com
+        {{ $list->user->email }}
     </td>
     <td
         class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">

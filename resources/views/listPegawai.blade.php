@@ -36,9 +36,16 @@
             <div class="flex w-full">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-5 w-full md:w-[70%] mx-auto px-10">
                     <div class="w-full">
-                        <input type="text" name="name" id="name"
-                            class="bg-light border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-darkGray w-full h-12"
-                            placeholder="Nama Pegawai" autocomplete="nickname" />
+                        <form action="/pegawai/search">
+                            <div class="relative">
+                                <input type="text" name="search" id="name"
+                                    class="bg-light border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-darkGray w-full h-12"
+                                    placeholder="Nama Pegawai" autocomplete="nickname" />
+                                    <button class="absolute right-3 top-0 h-12" type="submit">
+                                        <i class="fa fa-search text-dark text-base"></i>
+                                    </button>
+                            </div>
+                        </form>
                     </div>
                     <div class="">
                         <div x-data="select" class="relative w-full z-10" @click.outside="open = false"
@@ -47,7 +54,8 @@
                                 @click.prevent="toggle":class="{'text-darkGray': !selectedPegawai, 'text-dark': selectedPegawai, 'ring-blue-600': open}"
                                 class="flex w-full items-center justify-between rounded-lg bg-white text-dark h-12 p-2 ring-1 ring-gray-300">
                                 <span x-text="selectedPegawai ? selectedPegawai : 'Guru'"></span>
-                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-darkGray" alt="^">
+                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-darkGray"
+                                    alt="^">
                             </button>
 
                             <ul class="z-2 absolute mt-1 w-full rounded text-dark bg-gray-50 ring-1 ring-gray-300 max-h-40 overflow-y-auto"
@@ -65,7 +73,8 @@
                                 @click.prevent="toggle":class="{'text-darkGray': !selectedPegawai, 'text-dark': selectedPegawai, 'ring-blue-600': open}"
                                 class="flex w-full items-center justify-between rounded-lg bg-white text-dark h-12 p-2 ring-1 ring-gray-300">
                                 <span x-text="selectedPegawai ? selectedPegawai : 'Pilih PTK'"></span>
-                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-darkGray" alt="^">
+                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-darkGray"
+                                    alt="^">
                             </button>
 
                             <ul class="z-2 absolute mt-1 w-full rounded text-dark bg-gray-50 ring-1 ring-gray-300 max-h-40 overflow-y-auto"
@@ -112,29 +121,36 @@
 
                         <tbody id="guestTableBody">
                             @foreach ($listpegawai as $list)
-                            <tr class="hover:bg-lightBlue2 group">
-                                <th class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
-                                    {{ $list->id }}.
-                                </th>
-                                <td class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
-                                    {{ $list->NIP }}
-                                </td>
-                                <td class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
-                                    {{ $list->name }}
-                                </td>
-                                <td class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark lowercase">
-                                    {{ $list->name }}@gmail.com
-                                </td>
-                                <td class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
-                                    {{ $list->PTK }}
-                                </td>
-                            </tr>
+                                <tr class="hover:bg-lightBlue2 group">
+                                    <th
+                                        class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
+                                        {{ $list->id }}.
+                                    </th>
+                                    <td
+                                        class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
+                                        {{ $list->NIP }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
+                                        {{ $list->user->name }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 align-center border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark lowercase">
+                                        {{ $list->user->email }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap py-4 text-center text-dark">
+                                        {{ $list->PTK }}
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="{{ request()->is('/pegawai/search') ? 'block' : 'hidden' }}">
                             <tr>
                                 <td colspan="5" class="text-center">
-                                    <button id="loadMoreBtn" class="relative text-secondaryBlue font-bold py-2 px-4 rounded">Lihat Lebih Banyak <i class="ml-1 fas fa-chevron-down"></i></button>
+                                    <button id="toggleButton"
+                                        class="relative text-secondaryBlue font-bold py-2 px-4 rounded">Lihat
+                                        Semua</i></button>
                                 </td>
                             </tr>
                         </tfoot>
@@ -163,21 +179,41 @@
             }))
         })
 
-
+        //tabel
         $(document).ready(function() {
-            var skip = 10; // initial data count
+            var skip = 10;
+            var totalGuests = {{ $total }};
 
-            $('#loadMoreBtn').click(function() {
+            $('#toggleButton').click(function() {
+                if ($(this).text() == 'Lihat Semua') {
+                    loadMoreGuests();
+                } else {
+                    showLessGuests();
+                }
+            });
+
+            function loadMoreGuests() {
                 $.ajax({
                     url: '/pegawai/load',
                     type: 'GET',
-                    data: { skip: skip },
+                    data: {
+                        skip: skip
+                    },
                     success: function(data) {
                         $('#guestTableBody').append(data);
-                        skip += 15; // increment skip count by 15
+                        skip += 15;
+                        if (skip >= totalGuests) {
+                            $('#toggleButton').text('Tampilkan Lebih Sedikit');
+                        }
                     }
                 });
-            });
+            }
+
+            function showLessGuests() {
+                $('#guestTableBody').children().slice(10).remove();
+                $('#toggleButton').text('Lihat Semua');
+                skip = 10;
+            }
         });
     </script>
 </body>
