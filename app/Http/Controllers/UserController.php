@@ -18,5 +18,40 @@ class UserController extends Controller
         $listpegawai = Pegawai::all();
         return view('formKurir', compact('listpegawai'));
     }
+    public function listPegawai()
+    {
+        $listpegawai = Pegawai::take(10)->get();
+        $listmapel = Pegawai::pluck('PTK');
+        $total = Pegawai::count();
+        return view('listPegawai', compact('listmapel', 'listpegawai', 'total'));
+    }
+    public function loadlist(Request $request){
+        if($request->ajax()){
+            $skip = $request->skip;
+            $listpegawai = Pegawai::skip($skip)->take(15)->get();
+            return view('listPegawaiAll', compact('listpegawai'))->render();
+            
+        }
+    }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $listmapel = Pegawai::pluck('PTK');
+        $total = Pegawai::count();
+        $listpegawai = Pegawai::where(function($query) use ($search){
+            $query->where('NIP','like',"%$search%")
+            ->orWhere('PTK','like',"%$search%");
+        })
+        ->orWhereHas('user',function($query) use($search){
+            $query->where('name','like',"%$search%")
+            ->orWhere('email','like',"%$search%");
+        })
+        ->get();
+        return view('listPegawai', compact('listpegawai', 'search', 'listmapel', 'total'));
+    }
+
+    public function about(){
+        return view('about');
+    }
 
 }

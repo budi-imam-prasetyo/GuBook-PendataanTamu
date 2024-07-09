@@ -29,11 +29,15 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
+
     @vite('resources/css/app.css')
 </head>
 
 <body
     class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    @apexchartsScripts
     <div class="absolute min-h-75 w-full bg-primaryBlue dark:hidden"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
@@ -68,7 +72,8 @@
                                 <div class="px-3 text-right">
                                     <div
                                         class="h-16 w-16 rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500 flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +100,8 @@
                                 <div class="basis-1/3 px-3 text-center  ">
                                     <div
                                         class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10" alt="">
+                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="w-1/3 max-w-full flex-none px-3">
@@ -112,7 +118,7 @@
                     </div>
                 </div>
 
-                <!-- card4 -->
+                <!-- card 3 -->
                 <div class="order-3 w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:order-3 xl:w-1/4">
                     <div
                         class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
@@ -139,33 +145,31 @@
                 </div>
             </div>
 
-            <!-- cards row 2 -->
+            <!-- cards row 1 -->
             <div class="-mx-3 mt-6 flex flex-wrap">
                 <div class="mt-0 w-full max-w-full px-3 lg:flex-none">
                     <div
-                        class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
-                        <div class="mb-0 rounded-t-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
+                        class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
+                        <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
                                 <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">4% lebih banyak</span> dari
                                 Januari
                             </p>
-                        </div>
-                        <div class="flex-auto p-4">
-                            <div>
-                                <canvas id="chart-line" height="300"></canvas>
+                            <div class="">
+                                {!! $chart->container() !!}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- cards row 3 -->
+            <!-- cards row 2 -->
 
             <div class="mt-6 w-full max-w-full  md:flex-none">
                 <div
-                    class="relative flex min-w-0 flex-col break-words rounded-2xl border-0 bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
+                    class="relative flex min-w-0 flex-col break-words rounded-2xl border-0 bg-white bg-clip-border shadow">
                     <div class="flex justify-between">
                         <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
                             <h6 class="mb-0 text-lg font-bold dark:text-white">
@@ -246,59 +250,21 @@
                     </div>
                 </div>
             </div>
-
-            <footer class="pt-4">
-                <div class="mx-auto w-full px-6">
-                    <div class="-mx-3 flex flex-wrap items-center lg:justify-between">
-                        <div class="mb-6 mt-0 w-full max-w-full shrink-0 px-3 lg:mb-0 lg:w-1/2 lg:flex-none">
-                            <div class="text-center text-sm leading-normal text-slate-500 lg:text-left">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear() + ",");
-                                </script>
-                                made with <i class="fa fa-heart"></i> by
-                                <a href="https://www.creative-tim.com"
-                                    class="font-semibold text-slate-700 dark:text-white" target="_blank">Creative
-                                    Tim</a>
-                                for a better web.
-                            </div>
-                        </div>
-                        <div class="mt-0 w-full max-w-full shrink-0 px-3 lg:w-1/2 lg:flex-none">
-                            <ul class="mb-0 flex list-none flex-wrap justify-center pl-0 lg:justify-end">
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com"
-                                        class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                        target="_blank">Creative Tim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/presentation"
-                                        class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                        target="_blank">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://creative-tim.com/blog"
-                                        class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                        target="_blank">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/license"
-                                        class="block px-4 pb-1 pr-0 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                        target="_blank">License</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
         <!-- end cards -->
         <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
             white-style-btn navbarFixed dark-toggle />
     </main>
-</body>
-<!-- plugin for charts  -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-{{-- <script src="{{ asset('js/charts.js') }}" async></script> --}}
+    <!-- plugin for charts  -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+{{-- <script src="{{ asset('js/charts.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
+{{-- <script src="{{ $chart->cdn() }}"></script> --}}
+
+{{ $chart->script() }}
 <!-- plugin for scrollbar  -->
 {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
 {{-- <script src="{{ asset('js/sidenav-burger.js') }}" async></script> --}}
@@ -307,4 +273,5 @@
 <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
 {{-- <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script> --}}
 
+</body>
 </html>

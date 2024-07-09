@@ -1,4 +1,3 @@
-@props(['$title'])
 <nav class= "px-8 py-4 md:px-auto w-full">
     <div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
         <div class="md:order-1">
@@ -14,7 +13,7 @@
         <div class="order-2 md:order-3">
                 @if (Route::has('login'))
                     @auth
-                        <a href="/dashboard"
+                        <a href="/admin"
                             class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
                             Dashboard
                         </a>

@@ -16,16 +16,23 @@
         </nav>
 
         <div class="mt-2 flex  items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto">
-            <div class="flex items-center justify-end ml-auto pr-4">
-                <div class="group flex w-full items-center justify-center rounded-lg bg-white hover:bg-secondary transition duration-300 ease-in-out">
-                    <span class="flex items-center justify-center rounded-lg border border-transparent bg-transparent p-2.5 pb-2 text-center text-xl font-bold leading-normal text-slate-800 group-hover:text-white transition duration-300 ease-in-out">
+            <div x-data="{ isOpen: false }" class="flex items-center justify-end ml-auto pr-4">
+                <div @click="isOpen = true" class="group flex w-full items-center justify-center rounded-lg bg-white hover:bg-secondary transition duration-300 ease-in-out">
+                    <span class="flex items-center justify-center rounded-lg border border-transparent bg-transparent p-2.5 pb-2 text-center text-xl font-bold leading-normal text-slate-800 transition duration-300 ease-in-out">
                         <i class="fa fa-qrcode "></i>
                     </span>
-                    <button class="m-0 flex items-center justify-center rounded-lg font-medium text-sm text-gray-700 group-hover:text-white group-hover:font-semibold transition duration-300 ease-in-out dark:bg-slate-850 dark:text-white pr-2.5">
+                    <button class="m-0 flex items-center justify-center rounded-lg font-medium text-sm text-gray-700 group-hover:font-semibold transition duration-300 ease-in-out dark:bg-slate-850 dark:text-white pr-2.5">
                         <span class="md:hidden">Scan</span>
                         <span class="hidden md:block">QR Code</span>
                     </button>
                     
+                </div>
+                <div class="fixed inset-0 flex items-center justify-center z-50" x-show="isOpen" @click.away="isOpen = false">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h2 class="text-xl font-semibold mb-4">Ini Isi Popup</h2>
+                        <p class="text-gray-700 mb-2">Ini adalah konten dari popup.</p>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="isOpen = false">Tutup</button>
+                    </div>
                 </div>
             </div>
             <ul class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full">

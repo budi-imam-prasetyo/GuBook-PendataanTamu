@@ -612,7 +612,7 @@ export default {
                 "inset 0 0 1px 1px hsla(0,0%,100%,.4),0 20px 27px 0 rgba(0,0,0,.05)",
             DEFAULT:
                 "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-            inner: "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
+            inner: "inset 0 10px 4px 0 rgb(0 0 0 / 0.05)",
             none: "none",
         },
         boxShadowColor: ({ theme }) => theme("colors"),

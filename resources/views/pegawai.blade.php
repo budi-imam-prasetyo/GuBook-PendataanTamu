@@ -14,7 +14,9 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Nucleo Icons -->
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
+    
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     <!-- <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" /> -->
@@ -89,9 +91,13 @@
                         <label for="mapel"
                             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">PTK</label>
                         <select id="mapel"
-                            class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            class="block w-full rounded-lg border h-12 border-gray-300 bg-white p-2.5 text-sm text-gray-900 placeholder:text-grey focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required>
                             <option value="" disabled selected>Pilih Mapel</option>
+                            @foreach ($listpegawai as $mapel)
+                            <option value="{{ $mapel->PTK }}" selected>{{ $mapel->PTK }}</option>
+                                
+                            @endforeach
                             <!-- Tambahkan opsi-opsi mata pelajaran di sini -->
                         </select>
                     </div>
@@ -113,7 +119,7 @@
                         <!-- <div class="border-b-solid mb-0 rounded-t-2xl border-b-0 border-b-transparent p-6 pb-0">
                             <h6 class="uppercase dark:text-white">Tabel Guru</h6>
                         </div> -->
-                        <div class="flex-auto px-0 pb-2 pt-0">
+                        <div class="flex-auto p-5 pt-0">
                             <div class="overflow-x-auto p-0">
                                     <h2 class="text-2xl mx-5 my-5 font-bold mb-4">Tabel Pegawai</h2>
                                     <table id="example" class="table-auto w-full">
@@ -159,54 +165,6 @@
                                         Export
                                     </button>
                                 </div>
-                            </div>
-                            <div class="mx-auto flex sm:mx-1">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="flex h-8 items-center -space-x-px text-sm">
-                                        <li>
-                                            <a href="#"
-                                                class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                                <span class="sr-only">Previous</span>
-                                                <svg class="h-2.5 w-2.5 rtl:rotate-180" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" aria-current="page"
-                                                class="z-10 flex h-8 items-center justify-center border border-blue-300 bg-blue-50 px-3 leading-tight text-blue-600 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                                <span class="sr-only">Next</span>
-                                                <svg class="h-2.5 w-2.5 rtl:rotate-180" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
                             </div>
                         </div>
                     </div>
