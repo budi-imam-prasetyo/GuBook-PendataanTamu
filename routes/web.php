@@ -31,6 +31,7 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/pegawai', [PegawaiController::class, 'index']);
         Route::get('/chart-data', [ChartController::class, 'index']);
     });
+    Route::post('/scan-result', [PegawaiController::class, 'store']);
 });
 //! ROUTE ADMIN
 
