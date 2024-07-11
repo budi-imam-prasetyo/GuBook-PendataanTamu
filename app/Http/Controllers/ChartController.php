@@ -47,6 +47,6 @@ class ChartController extends Controller
             ->setDataset('Tamu', 'area', [5,8,4,9,7,8,4,10,3,9,3,9,9,3,10,12,12,9,3,6,9,7,3,10,9,7,4,9,6,7])
             ->setDataset('Kurir', 'area', [9,3,6,8,3,10,4,7,5,4,9,5,9,12,6,12,5,7,4,9,5,5,7,6,7,9,8,4,9,8]);
 
-        return view('dashboard', compact('chart'));
+        return view('admin.dashboard', compact('chart'));
     }
 }

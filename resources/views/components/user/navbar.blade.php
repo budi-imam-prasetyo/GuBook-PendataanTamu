@@ -13,10 +13,17 @@
         <div class="order-2 md:order-3">
                 @if (Route::has('login'))
                     @auth
-                        <a href="/admin"
-                            class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
-                            Dashboard
-                        </a>
+                        @if (Auth::user()->role == 'admin')
+                            <a href="/admin"
+                                class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
+                                Dashboard
+                            </a>
+                        @elseif (Auth::user()->role == 'pegawai')
+                            <a href="/pegawai"
+                                class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">
+                                Dashboard
+                            </a>
+                        @endif
                     @else
                         <a href="{{ route('login') }}"
                             class="ml-12 px-4 py-2 bg-lightBlue hover:bg-lightBlue2 text-primaryBlue hover:text-secondaryBlue font-bold rounded-lg flex items-center gap-2">

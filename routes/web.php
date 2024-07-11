@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\PegawaiController;
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 //? ROUTE USER
 Route::get('/welcome', function () {
-    return view('welcome');
+    return view('user.welcome');
 });
 Route::get('/', function () {
     return redirect('/welcome'); //* redirect to welcome
@@ -28,17 +29,17 @@ Route::get('/tentang', [UserController::class, 'about']);
 Route::middleware(['admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [ChartController::class, 'chart']);
-        Route::get('/pegawai', [PegawaiController::class, 'index']);
         Route::get('/chart-data', [ChartController::class, 'index']);
+        Route::get('/pegawai', [AdminController::class, 'index'])->name('/pegawai');
     });
-    Route::post('/scan-result', [PegawaiController::class, 'store']);
+    Route::post('/scan-result', [AdminController::class, 'store']);
 });
 //! ROUTE ADMIN
 
 //* ROUTE PEGAWAI
 Route::middleware(['pegawai'])->group(function () {
     Route::prefix('pegawai')->group(function () {
-        //
+        Route::get('/', [PegawaiController::class, 'index']);
     });
 });
 //* ROUTE PEGAWAI
