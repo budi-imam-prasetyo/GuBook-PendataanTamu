@@ -10,26 +10,26 @@ class UserController extends Controller
     public function formTamu()
     {
         $listpegawai = Pegawai::all();
-        return view('formTamu', compact('listpegawai'));
+        return view('user.formTamu', compact('listpegawai'));
     }
     
     public function formKurir()
     {
         $listpegawai = Pegawai::all();
-        return view('formKurir', compact('listpegawai'));
+        return view('user.formKurir', compact('listpegawai'));
     }
     public function listPegawai()
     {
         $listpegawai = Pegawai::take(10)->get();
         $listmapel = Pegawai::pluck('PTK');
         $total = Pegawai::count();
-        return view('listPegawai', compact('listmapel', 'listpegawai', 'total'));
+        return view('user.listPegawai', compact('listmapel', 'listpegawai', 'total'));
     }
     public function loadlist(Request $request){
         if($request->ajax()){
             $skip = $request->skip;
             $listpegawai = Pegawai::skip($skip)->take(15)->get();
-            return view('listPegawaiAll', compact('listpegawai'))->render();
+            return view('user.listPegawaiAll', compact('listpegawai'))->render();
             
         }
     }
@@ -47,11 +47,11 @@ class UserController extends Controller
             ->orWhere('email','like',"%$search%");
         })
         ->get();
-        return view('listPegawai', compact('listpegawai', 'search', 'listmapel', 'total'));
+        return view('user.listPegawai', compact('listpegawai', 'search', 'listmapel', 'total'));
     }
 
     public function about(){
-        return view('about');
+        return view('user.about');
     }
 
 }
