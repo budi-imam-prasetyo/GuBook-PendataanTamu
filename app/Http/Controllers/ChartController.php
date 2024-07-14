@@ -39,7 +39,6 @@ class ChartController extends Controller
 
     public function chart()
     {
-        // $kurir = 'hello';
         $chart = (new Chart)->setType('area')
             ->setWidth('100%')
             ->setHeight(300)

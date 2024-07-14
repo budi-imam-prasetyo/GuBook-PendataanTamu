@@ -2,28 +2,14 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | ApexCharts Default Options
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define the default options that will be applied to all
-    | ApexCharts rendered using this package. To learn more about each
-    | available option, check the official ApexCharts documentation.
-    |
-    | https://apexcharts.com/docs/options/
-    |
-    */
-
     'options' => [
         'chart' => [
-            'type' => 'area',
-            'height' => 500,
-            'width' => null,
+            'height' => 300,
+            'width' => '100%',
             'toolbar' => [
-                'show' => false,
+                'show' => true,
             ],
-            'stacked' => false, //false : untuk fix chart
+            'stacked' => false,
             'zoom' => [
                 'enabled' => false,
             ],
@@ -33,13 +19,13 @@ return [
 
         'plotOptions' => [
             'bar' => [
-                'horizontal' => true,
+                'horizontal' => false,
             ],
         ],
 
-        'colors' => [ //untuk marker dan warna chart
+        'colors' => [
             '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
-                '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
+            '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
         ],
 
         'series' => [],
@@ -51,18 +37,27 @@ return [
         'labels' => [],
 
         'title' => [
-            'text' => []
+            'text' => '',
+            'align' => 'center',
         ],
 
         'subtitle' => [
-            'text' => 'Kunjungan',
+            'text' => '',
             'align' => 'left',
-        ],
+        ], 
 
         'xaxis' => [
             'categories' => [],
+            'title' => [
+                'text' => '',
+            ],
         ],
-  
+
+        'yaxis' => [
+            'title' => [
+                'text' => '',
+            ],
+        ],
 
         'grid' => [
             'show' => true
@@ -74,8 +69,6 @@ return [
                 '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
                 '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
             ],
-            // 'strokeColors' => "#fff",
-            // 'strokeWidth' => 2,
             'hover' => [
                 'size' => 5,
             ],
@@ -83,7 +76,7 @@ return [
 
         'stroke' => [
             'show' => true,
-            'width' => 4,
+            'width' => 2,
             'colors' => [
                 '#5369E8', '#EF5F4C', '#feb019', '#ff455f', '#775dd0', '#80effe',
                 '#0077B5', '#ff6384', '#c9cbcf', '#0057ff', '#00a9f4', '#2ccdc9', '#5e72e4'
