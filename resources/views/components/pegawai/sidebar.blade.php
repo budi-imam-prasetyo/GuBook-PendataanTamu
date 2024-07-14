@@ -15,21 +15,15 @@
         <div class="block w-auto grow basis-full items-center overflow-auto">
             <ul class="gap-2 flex flex-col pl-0 relative h-[86%]">
 
-                <x-pegawai.sidebar-btn src="{{ asset('assets/icons/tv.svg') }}" href="/pegawai">
+                <x-pegawai.sidebar-btn src="{{ asset('assets/icons/tv-2.svg') }}" href="/pegawai">
                     dashboard
                 </x-pegawai.sidebar-btn>
-
-                <x-pegawai.sidebar-btn src="{{ asset('assets/icons/school.svg') }}" class="h-4" href="/pegawai/pegawai">
-                    pegawai
-                </x-pegawai.sidebar-btn>
-                <x-pegawai.sidebar-btn src="{{ asset('assets/icons/map-marker.svg') }} " href="/pegawai/kunjungan">
+                <x-pegawai.sidebar-btn src="{{ asset('assets/icons/map-marker-2.svg') }} " href="/pegawai/kunjungan">
                     kunjungan
                 </x-pegawai.sidebar-btn>
-
-
                 <li class="mt-4 w-full">
                     <h6 class="ml-2 pl-6 text-xs font-bold uppercase leading-tight opacity-60 dark:text-white">
-                        Account pages
+                        Akun
                     </h6>
                 </li>
 
@@ -40,7 +34,7 @@
                     document.getElementById('logout-form').submit();">
                         <div
                             class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <img class="relative h-4 top-0 " src="{{ asset('assets/icons/open-door.svg') }}"></img>
+                            <img class="relative h-4 top-0 " src="{{ asset('assets/icons/open-door-2.svg') }}"></img>
 
                         </div>
                         <span

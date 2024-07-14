@@ -19,7 +19,7 @@ Route::get('/register', function () {
 });
 Route::get('/form-tamu', [UserController::class, 'formTamu']);
 Route::get('/form-kurir', [UserController::class, 'formKurir']);
-Route::get('/pegawai', [UserController::class, 'listPegawai']);
+Route::get('/list-pegawai', [UserController::class, 'listPegawai']);
 Route::get('/pegawai/load', [UserController::class, 'loadlist']);
 Route::get('/pegawai/search', [UserController::class, 'search']);
 Route::get('/tentang', [UserController::class, 'about']);
@@ -29,7 +29,7 @@ Route::get('/tentang', [UserController::class, 'about']);
 Route::middleware(['admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [ChartController::class, 'chart']);
-        Route::get('/chart-data', [ChartController::class, 'index']);
+        // Route::get('/chart-data', [ChartController::class, 'index']);
         Route::get('/pegawai', [AdminController::class, 'index'])->name('/pegawai');
     });
     Route::post('/scan-result', [AdminController::class, 'store']);

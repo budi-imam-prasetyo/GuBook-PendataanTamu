@@ -23,13 +23,10 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
-    <!-- <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" /> -->
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
+    {{-- <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    {{-- <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
     {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
 
@@ -67,7 +64,7 @@
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                             Kunjungan Tamu
                                         </p>
-                                        <h5 class="mb-2 font-bold dark:text-white">12</h5>
+                                        <h5 class="mb-2 font-bold dark:text-white">3</h5>
                                     </div>
                                 </div>
                                 <div class="px-3 text-right">
@@ -95,7 +92,7 @@
                                         Kunjungan Minggu Ini
                                     </p>
                                     <h5 class="mb-2 font-bold dark:text-white">
-                                        112
+                                        11
                                     </h5>
                                 </div>
                                 <div class="basis-1/3 px-3 text-center  ">
@@ -111,7 +108,7 @@
                                         Kunjungan Bulan Ini
                                     </p>
                                     <h5 class="mb-2 font-bold text-right dark:text-white">
-                                        541
+                                        42
                                     </h5>
                                 </div>
                             </div>
@@ -137,7 +134,7 @@
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                             Kunjungan Kurir
                                         </p>
-                                        <h5 class="mb-2 font-bold dark:text-white">24</h5>
+                                        <h5 class="mb-2 font-bold dark:text-white">2</h5>
                                     </div>
                                 </div>
                             </div>
@@ -152,34 +149,6 @@
                     <div
                         class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
-                            <div x-data="{ open: false, html5QrCode: null }" x-init="html5QrCode = new Html5Qrcode('reader');">
-                                <!-- Button to trigger modal -->
-                                <button @click="open = true; startScanner()"
-                                    class="inline-block px-8 py-2 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer active:opacity-85 leading-pro tracking-tight-rem bg-150 bg-x-25 hover:scale-102 active:shadow-xs hover:text-blue-500 hover:opacity-75 hover:shadow-none active:scale-100 active:border-blue-500 active:bg-blue-500 active:text-white hover:active:border-blue-500 hover:active:bg-transparent hover:active:text-blue-500 hover:active:opacity-75">
-                                    Import
-                                </button>
-
-                                <!-- Modal content -->
-                                <div x-show="open" @click.away="open = false"
-                                    class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                                    <div
-                                        class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
-                                        <div class="flex items-center justify-between p-4 border-b">
-                                            <h5 class="text-lg font-bold">Scan QR Code</h5>
-                                            <button @click="open = false" class="text-gray-500 hover:text-gray-700">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </div>
-                                        <div class="p-4">
-                                            <div id="reader" style="width:100%;"></div>
-                                        </div>
-                                        <div class="flex justify-end p-4 border-t">
-                                            <button @click="open = false"
-                                                class="px-4 py-2 mr-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
@@ -188,7 +157,7 @@
                                 Januari
                             </p>
                             <div class="">
-                                {{-- {!! $chart->container() !!} --}}
+                                {!! $chart->container() !!}
                             </div>
                         </div>
                     </div>
@@ -206,49 +175,38 @@
                                 Daftar Kunjungan
                             </h6>
                         </div>
-                        <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                        <a class="mb-0 rounded-t-2xl flex flex-row gap-1.5 border-b-0 p-6 px-4 pb-0">
                             <h6 class="mb-0 dark:text-white">
-                                Lihat Semua <i class="fa fa-arrow-right"></i>
+                                Lihat Semua
                             </h6>
-                        </div>
+                            <img src="{{ asset('assets/icons/caret-dark.svg') }}" class="w-2" alt="">
+                        </a>
                     </div>
                     <div class="flex-auto p-4 pt-6">
-                        <ul class="mb-0 flex flex-col rounded-lg pl-0">
+                        <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
                             <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Oliver Liam
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Alamat Email:
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Bertemu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Viking
-                                            Burrito</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">08.30, 27
-                                            March 2020</span></span>
-                                </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
-                            <li class="relative mb-2 mt-4 flex rounded-xl border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Lucas Harper
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Alamat Email:
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">lucas@stone-tech.com</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Bertemu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Stone Tech
-                                            Zone</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13.20, 09
-                                            November 2020</span></span>
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightRed px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ml-auto text-right flex items-center">
                                     <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
@@ -256,20 +214,57 @@
                                 </div>
                             </li>
                             <li
-                                class="relative mb-2 mt-4 flex rounded-xl rounded-b-inherit border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Ethan James
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Ekspedisi
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">JNE</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Untuk:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Fiber
-                                            Notion</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">11.36, 27
-                                            March 2020</span></span>
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightRed px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">J&T</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightRed px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ml-auto text-right flex items-center">
                                     <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
@@ -286,45 +281,16 @@
             white-style-btn navbarFixed dark-toggle />
     </main>
     <!-- plugin for charts  -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-    {{-- <script src="{{ asset('js/charts.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
-    {{-- <script src="{{ $chart->cdn() }}"></script> --}}
 
-    {{-- {{ $chart->script() }} --}}
+    {{ $chart->script() }}
     <!-- plugin for scrollbar  -->
     {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
     {{-- <script src="{{ asset('js/sidenav-burger.js') }}" async></script> --}}
     {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script> --}}
     <!-- main script file  -->
     <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
-    <!-- Initialize QR Code Scanner -->
-    <script>
-        function startScanner() {
-            const html5QrCode = new Html5Qrcode('reader');
-            html5QrCode.start({ facingMode: 'environment' }, {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            }, qrCodeMessage => {
-                console.log(`QR Code detected: ${qrCodeMessage}`);
-                alert(`QR Code detected: ${qrCodeMessage}`);
-                html5QrCode.stop().then(() => {
-                    console.log('QR Code scanning stopped.');
-                }).catch(err => {
-                    console.error('Unable to stop scanning.', err);
-                });
-            }, errorMessage => {
-                console.log('QR Code no longer in front of camera.');
-            }).catch(err => {
-                console.error('Unable to start scanning, error:', err);
-            });
-        }
-    </script>
-    {{-- <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script> --}}
 
 </body>
-
 </html>
