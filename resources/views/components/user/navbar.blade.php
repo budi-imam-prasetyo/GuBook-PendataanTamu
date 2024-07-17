@@ -5,9 +5,9 @@
         </div>
         <div class="order-3 w-full md:w-auto md:order-2">
             <ul class="flex font-semibold justify-between">
-                <x-user.navbar-btn>welcome</x-user.navbar-btn>
-                <x-user.navbar-btn>pegawai</x-user.navbar-btn>
-                <x-user.navbar-btn>tentang</x-user.navbar-btn>
+                <x-user.navbar-btn href="/">welcome</x-user.navbar-btn>
+                <x-user.navbar-btn href="/list-pegawai">pegawai</x-user.navbar-btn>
+                <x-user.navbar-btn href="/tentang">tentang</x-user.navbar-btn>
             </ul>
         </div>
         <div class="order-2 md:order-3">

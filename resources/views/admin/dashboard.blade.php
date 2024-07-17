@@ -213,42 +213,30 @@
                         </div>
                     </div>
                     <div class="flex-auto p-4 pt-6">
-                        <ul class="mb-0 flex flex-col rounded-lg pl-0">
+                        <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
                             <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Oliver Liam
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Alamat Email:
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Bertemu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Viking
-                                            Burrito</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">08.30, 27
-                                            March 2020</span></span>
-                                </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
-                            <li class="relative mb-2 mt-4 flex rounded-xl border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Lucas Harper
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Alamat Email:
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">lucas@stone-tech.com</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Bertemu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Stone Tech
-                                            Zone</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13.20, 09
-                                            November 2020</span></span>
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ml-auto text-right flex items-center">
                                     <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
@@ -256,20 +244,57 @@
                                 </div>
                             </li>
                             <li
-                                class="relative mb-2 mt-4 flex rounded-xl rounded-b-inherit border-0 bg-gray-50 p-6 dark:bg-slate-850">
-                                <div class="flex flex-col">
-                                    <h6 class="mb-4 text-sm leading-normal dark:text-white">
-                                        Ethan James
-                                    </h6>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Ekspedisi
-                                        <span
-                                            class="font-semibold text-slate-700 dark:text-white sm:ml-2">JNE</span></span>
-                                    <span class="mb-2 text-xs leading-tight dark:text-white/80">Untuk:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Fiber
-                                            Notion</span></span>
-                                    <span class="text-xs leading-tight dark:text-white/80">Waktu:
-                                        <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">11.36, 27
-                                            March 2020</span></span>
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">J&T</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <h5 class="text-lg">
+                                            Oliver Liam
+                                        </h5>
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ml-auto text-right flex items-center">
                                     <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
@@ -291,16 +316,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/larapex-charts/apexcharts.js') }}"></script> --}}
     {{-- <script src="{{ $chart->cdn() }}"></script> --}}
 
     {{ $chart->script() }}
     <!-- plugin for scrollbar  -->
     {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
-    {{-- <script src="{{ asset('js/sidenav-burger.js') }}" async></script> --}}
+    <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
+    <script src="{{ asset('js/sidenav-burger.js') }}" async></script>
     {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script> --}}
     <!-- main script file  -->
-    <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
     <!-- Initialize QR Code Scanner -->
     <script>
         function startScanner() {
@@ -323,7 +348,6 @@
             });
         }
     </script>
-    {{-- <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script> --}}
 
 </body>
 
