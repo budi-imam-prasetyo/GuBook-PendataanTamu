@@ -11,19 +11,13 @@
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> --}}
     <!-- Nucleo Icons -->
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
     
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
-
-    <!-- <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" /> -->
-    <!-- Main Styling -->
-    {{--
-    <link href="../../src/output.css" rel="stylesheet" /> --}}
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         
     </style>
@@ -31,7 +25,7 @@
 
 <body
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
-    <div class="absolute min-h-75 w-full bg-blue-500 dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-blue-500 dark:hidden"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -39,7 +33,7 @@
         <!-- Navbar -->
         <x-admin.navbar></x-admin.navbar>
 
-        <div class="mx-auto w-full px-6 py-6">
+        <div class="mx-auto w-full p-6 ">
             <form
                 class="mx-auto mb-4 mt-10 flex w-full flex-col rounded-2xl bg-white p-6 shadow-lg dark:border-transparent dark:bg-slate-850 dark:shadow-dark-xl">
                 <h6 class="uppercase dark:text-white">Tambah Guru</h6>

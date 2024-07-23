@@ -22,9 +22,8 @@
                     <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
                 </a>
             </li>
-            <li class="flex items-center pl-4 xl:hidden">
-                <a href="javascript:;" class="ease-nav-brand block p-0 text-sm text-white transition-all"
-                    sidenav-trigger>
+            <li id="hamburger-menu" class="flex items-center pl-4 xl:hidden">
+                <a href="javascript:;" class="ease-nav-brand block p-0 text-sm text-white transition-all">
                     <div class="w-4.5 overflow-hidden">
                         <i class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"></i>
                         <i class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"></i>

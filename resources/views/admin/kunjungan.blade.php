@@ -17,13 +17,7 @@
 
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
-
-    <!-- <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" /> -->
-    <!-- Main Styling -->
-    {{--
-    <link href="../../src/output.css" rel="stylesheet" /> --}}
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
 
     </style>
@@ -33,7 +27,7 @@
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
 
-    <div class="absolute min-h-75 w-full bg-blue-500 dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-blue-500 dark:hidden"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -41,7 +35,7 @@
         {{-- Navbar --}}
         <x-admin.navbar></x-admin.navbar>
 
-        <div class="w-full flex flex-col gap-7 px-10">
+        <div class="w-full flex flex-col gap-7 p-6">
             {{-- Rows 1 --}}
             <div class="w-full flex">
                 <div class=" w-full h-full grid grid-cols-1 md:grid-cols-4 gap-6">
