@@ -1,18 +1,3 @@
-<!--
-
-=========================================================
-* Argon Dashboard 2 Tailwind - v1.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-tailwind
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-* Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!doctype html>
 <html>
 
@@ -23,42 +8,35 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
-    <!-- <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" /> -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    {{-- <link href="../../src/output.css" rel="stylesheet" /> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
     {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
 
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body
     class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
-    <div class="absolute min-h-75 w-full bg-primaryBlue dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-primaryBlue dark:hidden"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
-
-    <!-- end sidenav -->
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         <!-- Navbar -->
         <x-admin.navbar></x-admin.navbar>
 
-        <!-- end Navbar -->
-
         <!-- cards -->
-        <div class="mx-auto w-full px-6 py-6">
+        <div class="mx-auto w-full p-6">
             <!-- row 1 -->
             <div class="-mx-3 flex flex-wrap">
                 <!-- card1 -->
-                <div class="order-2 mb-6 w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:order-1 xl:mb-0 xl:w-1/4">
+                <div class="order-2 mb-6 w-full px-3 sm:w-1/2 sm:flex-none xl:order-1 xl:mb-0 xl:w-1/4">
                     <div
-                        class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
+                        class="relative flex min-w-0 flex-col break-words rounded-3xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto py-6 px-4">
                             <div class="-mx-1 flex flex-row justify-between">
                                 <div class="max-w-full flex-none px-3">
@@ -86,7 +64,7 @@
                 <div
                     class="order-1 mb-6 w-full max-w-full px-3 sm:w-full sm:flex-none lg:w-full xl:order-2 xl:mb-0 xl:w-2/4">
                     <div
-                        class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
+                        class="relative flex min-w-0 flex-col break-words rounded-3xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto p-4">
                             <div class="-mx-3 flex flex-row items-center justify-center">
                                 <div class="flex-none w-1/3 max-w-full px-3">
@@ -122,7 +100,7 @@
                 <!-- card 3 -->
                 <div class="order-3 w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:order-3 xl:w-1/4">
                     <div
-                        class="relative flex min-w-0 flex-col break-words rounded-2xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
+                        class="relative flex min-w-0 flex-col break-words rounded-3xl bg-white bg-clip-border shadow-xl dark:bg-slate-850 dark:shadow-dark-xl">
                         <div class="flex-auto px-4 py-6">
                             <div class="-mx-3 justify-between flex flex-row">
                                 <div class="pl-6 text-left">
@@ -152,18 +130,17 @@
                     <div
                         class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
-                            <div x-data="{ open: false, html5QrCode: null }" x-init="html5QrCode = new Html5Qrcode('reader');">
+                            <div x-data="{ open: false, html5QrCode: null, photoTaken: false, imageData: '' }" x-init="html5QrCode = new Html5Qrcode('reader');">
                                 <!-- Button to trigger modal -->
                                 <button @click="open = true; startScanner()"
                                     class="inline-block px-8 py-2 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer active:opacity-85 leading-pro tracking-tight-rem bg-150 bg-x-25 hover:scale-102 active:shadow-xs hover:text-blue-500 hover:opacity-75 hover:shadow-none active:scale-100 active:border-blue-500 active:bg-blue-500 active:text-white hover:active:border-blue-500 hover:active:bg-transparent hover:active:text-blue-500 hover:active:opacity-75">
                                     Import
                                 </button>
-
+                            
                                 <!-- Modal content -->
                                 <div x-show="open" @click.away="open = false"
                                     class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                                    <div
-                                        class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
                                         <div class="flex items-center justify-between p-4 border-b">
                                             <h5 class="text-lg font-bold">Scan QR Code</h5>
                                             <button @click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -171,9 +148,12 @@
                                             </button>
                                         </div>
                                         <div class="p-4">
-                                            <div id="reader" style="width:100%;"></div>
+                                            <div x-show="!photoTaken" id="reader" style="width:100%;"></div>
+                                            <img x-show="photoTaken" :src="imageData" alt="Captured Photo" style="width: 100%;" />
                                         </div>
                                         <div class="flex justify-end p-4 border-t">
+                                            <button x-show="!photoTaken" @click="takePicture"
+                                                class="px-4 py-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Shutter</button>
                                             <button @click="open = false"
                                                 class="px-4 py-2 mr-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600">Close</button>
                                         </div>
@@ -309,23 +289,25 @@
         <!-- end cards -->
         <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
             white-style-btn navbarFixed dark-toggle />
+            <footer class="text-center py-4 dark:bg-gray-800">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    &copy; <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang lebih baik.
+                </p>
+            </footer>
     </main>
-    <!-- plugin for charts  -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-    {{-- <script src="{{ asset('js/charts.js') }}"></script> --}}
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    {{-- <script src="{{ asset('vendor/larapex-charts/apexcharts.js') }}"></script> --}}
-    {{-- <script src="{{ $chart->cdn() }}"></script> --}}
 
     {{ $chart->script() }}
     <!-- plugin for scrollbar  -->
     {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
     <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
     <script src="{{ asset('js/sidenav-burger.js') }}" async></script>
-    {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script> --}}
-    <!-- main script file  -->
     <!-- Initialize QR Code Scanner -->
     <script>
         function startScanner() {
@@ -346,6 +328,29 @@
             }).catch(err => {
                 console.error('Unable to start scanning, error:', err);
             });
+        }
+    
+        function takePicture() {
+            // Mengambil gambar dari video stream
+            const videoElement = document.querySelector('#reader video');
+            if (videoElement) {
+                const canvas = document.createElement('canvas');
+                canvas.width = videoElement.videoWidth;
+                canvas.height = videoElement.videoHeight;
+                const context = canvas.getContext('2d');
+                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/png');
+    
+                // Menampilkan gambar di console log atau melakukan tindakan lain
+                console.log(imageData);
+                alert('Picture taken! Check console for image data.');
+    
+                // Menyembunyikan video dan menampilkan gambar
+                document.querySelector('[x-data]').__x.$data.photoTaken = true;
+                document.querySelector('[x-data]').__x.$data.imageData = imageData;
+            } else {
+                console.error('No video element found.');
+            }
         }
     </script>
 

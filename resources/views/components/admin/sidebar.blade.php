@@ -1,4 +1,5 @@
-<aside id="sidebar" class="hidden fixed inset-y-0 flex-wrap items-center justify-between w-full p-0 my-4 overflow-y-auto antialiased bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 z-990 xl:block xl:ml-6 rounded-2xl xl:left-0">
+<!-- resources/views/components/admin/sidebar.blade.php -->
+<aside id="sidebar" class="hidden fixed inset-y-0 flex-wrap items-center justify-between w-full p-0 m-4 overflow-y-auto antialiased bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 z-990 xl:block sm:left-auto sm:right-0 left-0 rounded-2xl xl:left-0 xl:right-auto">
     <div class="h-full">
         <div class="flex h-20 justify-center">
             <i id="close-sidebar" class="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 dark:text-white xl:hidden"></i>
@@ -9,7 +10,7 @@
         <div class="block w-auto grow basis-full items-center overflow-auto">
             <ul class="gap-2 flex flex-col pl-0 relative h-[86%]">
                 <x-admin.sidebar-btn src="{{ asset('assets/icons/tv.svg') }}" href="/admin">dashboard</x-admin.sidebar-btn>
-                <x-admin.sidebar-btn src="{{ asset('assets/icons/school.svg') }}" class="h-4" href="/admin/pegawai">pegawai</x-admin.sidebar-btn>
+                <x-admin.sidebar-btn src="{{ asset('assets/icons/school.svg') }}" href="/admin/pegawai">pegawai</x-admin.sidebar-btn>
                 <x-admin.sidebar-btn src="{{ asset('assets/icons/map-marker.svg') }}" href="/admin/kunjungan">kunjungan</x-admin.sidebar-btn>
                 <li class="mt-4 w-full">
                     <h6 class="ml-2 pl-6 text-xs font-bold uppercase leading-tight opacity-60 dark:text-white">Account pages</h6>

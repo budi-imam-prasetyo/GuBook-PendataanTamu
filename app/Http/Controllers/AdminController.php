@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\User;
 use Akaunting\Apexcharts\Chart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PegawaiExport;
+use App\Imports\PegawaiImport;
 
 class AdminController extends Controller
 {
@@ -24,6 +29,114 @@ class AdminController extends Controller
         $listpegawai = Pegawai::all();
         return view('admin.pegawai', compact('listpegawai'));
     }
+
+    public function storePegawai(Request $request)
+    {
+        // Debugging: Lihat semua data yang diterima dari form
+        // \Log::info('Data yang diterima:', $request->all());
+
+        // Validasi input
+        // $request->validate([
+        //     'nama' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'password' => 'required|string|min:8',
+        //     'nip' => 'required|string|max:255',
+        //     'no_telpon' => 'required|string|max:255',
+        //     'ptk' => 'required|string|max:255',
+        // ]);
+
+        // dd($request->all());
+        // Buat user baru
+        $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'pegawai',
+        ]);
+
+        // Cek apakah user berhasil dibuat
+        if ($user) {
+            // Buat pegawai baru
+            $pegawai = Pegawai::create([
+                'id_user' => $user->id,
+                'NIP' => $request->NIP,
+                'no_telpon' => $request->no_telpon,
+                'PTK' => $request->PTK,
+            ]);
+
+            return redirect()->route('admin.pegawai')->with('success', 'Pegawai berhasil ditambahkan');
+        }
+
+        return redirect()->route('admin.pegawai')->with('error', 'Gagal menambahkan pegawai');
+    }
+
+    public function editPegawai($id)
+    {
+        $pegawai = Pegawai::find($id);
+
+        if ($pegawai) {
+            return view('admin.edit-pegawai', compact('pegawai'));
+        }
+
+        return redirect()->route('admin.pegawai')->with('error', 'Pegawai tidak ditemukan');
+    }
+
+    public function updateGuru(Request $request, $id)
+{
+    $pegawai = User::find($id);
+    if ($pegawai) {
+        $pegawai->nama = $request->newName;
+        $pegawai->email = $request->newEmail;
+        if (!empty($request->newPassword)) {
+            $pegawai->password = Hash::make($request->newPassword);
+        }
+        $pegawai->save();
+        
+        return redirect()->route('admin.pegawai')->with('success', 'Pegawai berhasil diupdate');
+    }
+
+    return redirect()->route('admin.pegawai')->with('error', 'Gagal mengupdate pegawai');
+}
+
+
+
+    public function deletePegawai($id)
+    {
+        // return $id;
+        $pegawai = User::find($id);
+
+        if ($pegawai) {
+            $pegawai->delete();
+            return redirect()->route('admin.pegawai')->with('success', 'Pegawai berhasil dihapus');
+        }
+
+        return redirect()->route('admin.pegawai')->with('error', 'Pegawai tidak ditemukan');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PegawaiExport, 'pegawai.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        
+        try {
+            Excel::import(new PegawaiImport, $request->file('file'));
+            // dd($request->all());
+            return redirect()->back()->with('success', 'Data pegawai berhasil diimport');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengimport data: ' . $e->getMessage());
+        }
+    }
+
+
+
+
     public function kunjungan()
     {
         $chart = (new Chart)->setType('donut')
