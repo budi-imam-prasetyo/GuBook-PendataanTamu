@@ -1,5 +1,6 @@
 <?php
 
+use Livewire\Volt\Volt;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
@@ -30,7 +31,13 @@ Route::middleware(['admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
         // Route::get('/chart-data', [ChartController::class, 'index']);
-        Route::get('/pegawai', [AdminController::class, 'pegawai']);
+        Route::get('/pegawai', [AdminController::class, 'pegawai'])->name('admin.pegawai');
+        Route::post('/store/pegawai', [AdminController::class, 'storePegawai'])->name('admin.store.pegawai');
+        Route::delete('/pegawai/{id}', [AdminController::class, 'deletePegawai'])->name('admin.pegawai.delete');
+        Route::get('/pegawai/{id}/edit', [AdminController::class, 'editPegawai'])->name('admin.pegawai.edit');
+        Route::post('/pegawai/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.pegawai.update');
+        Route::get('pegawai/export/', [AdminController::class, 'export'])->name('pegawai.export');
+        Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         Route::get('/kunjungan', [AdminController::class, 'kunjungan']);
     });
     Route::post('/scan-result', [AdminController::class, 'store']);

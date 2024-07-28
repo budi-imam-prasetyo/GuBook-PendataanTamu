@@ -19,7 +19,7 @@
                 <a href=""
                     class="ease-nav-brand px-0 py-2 text-lg flex gap-2 font-semibold text-white transition-all">
                     <img src="{{ asset('assets/icons/user.svg') }}" class="h-5" alt="">
-                    <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
+                    <span class="hidden sm:inline">{{ Auth::user()->nama }}</span>
                 </a>
             </li>
             <li id="hamburger-menu" class="flex items-center pl-4 xl:hidden">

@@ -28,7 +28,7 @@ class PegawaiSeeder extends Seeder
 
         for ($i = 0; $i < 15; $i++) {
             Pegawai::create([
-                'user_id' => $users->random()->id,
+                'id_user' => $users->random()->id,
                 'no_telpon' => '0812' . rand(10000000, 99999999),
                 'NIP' => 'NIP' . str_pad($i + 1, 5, '0', STR_PAD_LEFT),
                 'PTK' => $subjects[$i],

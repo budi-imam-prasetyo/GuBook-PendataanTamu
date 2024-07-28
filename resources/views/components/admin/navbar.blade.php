@@ -27,13 +27,13 @@
                     </button>
                     
                 </div>
-                <div class="fixed inset-0 flex items-center justify-center z-50" x-show="isOpen" @click.away="isOpen = false">
+                {{-- <div class="fixed inset-0 flex items-center justify-center z-50" x-show="isOpen" @click.away="isOpen = false">
                     <div class="bg-white p-6 rounded-lg shadow-lg">
                         <h2 class="text-xl font-semibold mb-4">Ini Isi Popup</h2>
                         <p class="text-gray-700 mb-2">Ini adalah konten dari popup.</p>
                         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="isOpen = false">Tutup</button>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <ul class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full">
                 <!-- online builder btn  -->
@@ -44,7 +44,7 @@
                     <a href="../pages/sign-in.html"
                         class="ease-nav-brand block px-0 py-2 text-lg font-semibold text-white transition-all">
                         <i class="fa fa-user sm:mr-1"></i>
-                        <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
+                        <span class="hidden sm:inline">{{ Auth::user()->nama }}</span>
                     </a>
                 </li>
                 <li id="hamburger-menu" class="flex items-center pl-4 xl:hidden">

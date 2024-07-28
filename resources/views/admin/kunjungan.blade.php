@@ -115,10 +115,11 @@
             </div>
             {{-- Rows 2 --}}
             <div class="w-full flex mt-1">
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="w-full flex flex-col bg-light p-5 gap-6 rounded-4.5 shadow-md   ">
+                <div class="w-full grid grid-cols-1 md:grid-cols-7 gap-6">
+                    <div class="w-full flex flex-col bg-light p-5 col-span-3 gap-6 rounded-4.5 shadow-md   ">
                         <div class="w-full flex items-center justify-center">
-                            <div class="rounded-full flex items-center justify-center w-25 h-25 outline outline-4 outline-green-400">
+                            <div
+                                class="rounded-full flex items-center justify-center w-25 h-25 outline outline-4 outline-green-400">
                                 <img src="{{ asset('assets/user.jpg') }}" class="h-full rounded-full" alt="">
                             </div>
                         </div>
@@ -164,7 +165,97 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full bg-light rounded-4.5 shadow-md">a</div>
+                    <div class="w-full bg-light rounded-4.5 shadow-md col-span-4 p-4.5">
+                        <div class="relative">
+                            <div
+                                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+                                <img src="{{ asset('assets/icons/search2.svg') }}" class="w-5 h-5" alt="">
+                            </div>
+                            <input type="email"
+                                class="peer py-3 px-4 ps-11 block w-full bg-lightBlue border rounded-lg text-sm focus:border-opacity-50 disabled:opacity-50 disabled:pointer-events-none placeholder:font-semibold placeholder:text-grey"
+                                placeholder="Enter name">
+                        </div>
+                        <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/doc.svg') }}" class="w-4 ml-0.5" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-4.5 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Oliver Liam</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-6" alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 ml-1 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">J&T</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                    </div>                                    
+                                    <div class="flex flex-col">
+                                        <div class="flex gap-2 ml-1">
+                                            <div class="flex flex-col gap-3">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/doc.svg') }}" class="w-4 ml-0.5 alt="">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                            </div>
+                                            <div class="mb-2 text-sm flex flex-col gap-4.5 leading-tight">
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Oliver Liam</span>
+                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
