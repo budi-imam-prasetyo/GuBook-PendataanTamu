@@ -7,12 +7,14 @@
     "require": {
         "php": "^8.2",
         "akaunting/laravel-apexcharts": "^3.1",
+        "barryvdh/laravel-dompdf": "*",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.5",
         "livewire/volt": "^1.6",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "robsontenorio/mary": "^1.35"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

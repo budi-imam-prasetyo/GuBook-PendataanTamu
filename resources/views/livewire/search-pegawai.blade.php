@@ -6,13 +6,12 @@
         </form>
         <div wire:loading>Searching users...</div>
         <div wire:loading.remove>        
-        @if ($term == "")
-        
+        @empty($term)
             <div class="text-gray-500 text-sm">
                 Enter a term to search for users.
             </div>
         @else
-            @if($users->isEmpty())
+            @if($users)
                 <div class="text-gray-500 text-sm">
                     No matching result was found.
                 </div>
@@ -29,6 +28,9 @@
         </div>
     </div>
     <div class="px-4 mt-4">
+        @isset($users)
+            
         {{$users->links()}}
+        @endisset
     </div>
 </div>

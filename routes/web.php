@@ -27,15 +27,16 @@ Route::get('/tentang', [UserController::class, 'about']);
 //? ROUTE USER
 
 //! ROUTE ADMIN
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['checkRole:superadmin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
         // Route::get('/chart-data', [ChartController::class, 'index']);
-        Route::get('/pegawai', [AdminController::class, 'pegawai'])->name('admin.pegawai');
+        Route::get('/pegawai', [AdminController::class, 'pagination'])->name('admin.pegawai');
         Route::post('/store/pegawai', [AdminController::class, 'storePegawai'])->name('admin.store.pegawai');
         Route::delete('/pegawai/{id}', [AdminController::class, 'deletePegawai'])->name('admin.pegawai.delete');
         Route::get('/pegawai/{id}/edit', [AdminController::class, 'editPegawai'])->name('admin.pegawai.edit');
         Route::post('/pegawai/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.pegawai.update');
+        Route::get('/pegawai/search', [AdminController::class, 'search'])->name('pegawai.search');
         Route::get('pegawai/export/', [AdminController::class, 'export'])->name('pegawai.export');
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         Route::get('/kunjungan', [AdminController::class, 'kunjungan']);
@@ -45,7 +46,7 @@ Route::middleware(['admin'])->group(function () {
 //! ROUTE ADMIN
 
 //* ROUTE PEGAWAI
-Route::middleware(['pegawai'])->group(function () {
+Route::middleware(['role:pegawai'])->group(function () {
     Route::prefix('pegawai')->group(function () {
         Route::get('/', [PegawaiController::class, 'index']);
     });

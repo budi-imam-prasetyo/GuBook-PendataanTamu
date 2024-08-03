@@ -13,7 +13,6 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
-    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -27,7 +26,7 @@
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         <!-- Navbar -->
-        <x-admin.navbar></x-admin.navbar>
+        <x-admin.navbar>Dashboard</x-admin.navbar>
 
         <!-- cards -->
         <div class="mx-auto w-full p-6">
@@ -130,36 +129,6 @@
                     <div
                         class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
-                            <div x-data="{ open: false, html5QrCode: null, photoTaken: false, imageData: '' }" x-init="html5QrCode = new Html5Qrcode('reader');">
-                                <!-- Button to trigger modal -->
-                                <button @click="open = true; startScanner()"
-                                    class="inline-block px-8 py-2 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer active:opacity-85 leading-pro tracking-tight-rem bg-150 bg-x-25 hover:scale-102 active:shadow-xs hover:text-blue-500 hover:opacity-75 hover:shadow-none active:scale-100 active:border-blue-500 active:bg-blue-500 active:text-white hover:active:border-blue-500 hover:active:bg-transparent hover:active:text-blue-500 hover:active:opacity-75">
-                                    Import
-                                </button>
-                            
-                                <!-- Modal content -->
-                                <div x-show="open" @click.away="open = false"
-                                    class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
-                                        <div class="flex items-center justify-between p-4 border-b">
-                                            <h5 class="text-lg font-bold">Scan QR Code</h5>
-                                            <button @click="open = false" class="text-gray-500 hover:text-gray-700">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </div>
-                                        <div class="p-4">
-                                            <div x-show="!photoTaken" id="reader" style="width:100%;"></div>
-                                            <img x-show="photoTaken" :src="imageData" alt="Captured Photo" style="width: 100%;" />
-                                        </div>
-                                        <div class="flex justify-end p-4 border-t">
-                                            <button x-show="!photoTaken" @click="takePicture"
-                                                class="px-4 py-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Shutter</button>
-                                            <button @click="open = false"
-                                                class="px-4 py-2 mr-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
@@ -309,50 +278,7 @@
     <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
     <script src="{{ asset('js/sidenav-burger.js') }}" async></script>
     <!-- Initialize QR Code Scanner -->
-    <script>
-        function startScanner() {
-            const html5QrCode = new Html5Qrcode('reader');
-            html5QrCode.start({ facingMode: 'environment' }, {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            }, qrCodeMessage => {
-                console.log(`QR Code detected: ${qrCodeMessage}`);
-                alert(`QR Code detected: ${qrCodeMessage}`);
-                html5QrCode.stop().then(() => {
-                    console.log('QR Code scanning stopped.');
-                }).catch(err => {
-                    console.error('Unable to stop scanning.', err);
-                });
-            }, errorMessage => {
-                console.log('QR Code no longer in front of camera.');
-            }).catch(err => {
-                console.error('Unable to start scanning, error:', err);
-            });
-        }
-    
-        function takePicture() {
-            // Mengambil gambar dari video stream
-            const videoElement = document.querySelector('#reader video');
-            if (videoElement) {
-                const canvas = document.createElement('canvas');
-                canvas.width = videoElement.videoWidth;
-                canvas.height = videoElement.videoHeight;
-                const context = canvas.getContext('2d');
-                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                const imageData = canvas.toDataURL('image/png');
-    
-                // Menampilkan gambar di console log atau melakukan tindakan lain
-                console.log(imageData);
-                alert('Picture taken! Check console for image data.');
-    
-                // Menyembunyikan video dan menampilkan gambar
-                document.querySelector('[x-data]').__x.$data.photoTaken = true;
-                document.querySelector('[x-data]').__x.$data.imageData = imageData;
-            } else {
-                console.error('No video element found.');
-            }
-        }
-    </script>
+
 
 </body>
 

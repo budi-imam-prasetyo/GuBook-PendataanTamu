@@ -24,29 +24,36 @@ class AdminController extends Controller
 
         return view('admin.dashboard', compact('chart'));
     }
+    public function pagination()
+    {
+        $listpegawai = Pegawai::paginate(10); // mengambil 10 data per halaman
+        $listpegawai->withPath('/admin/pegawai');
+        return view('admin.pegawai', compact('listpegawai'));
+    }
+
     public function pegawai()
     {
         $listpegawai = Pegawai::all();
         return view('admin.pegawai', compact('listpegawai'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $listpegawai = Pegawai::whereHas('user', function ($q) use ($query) {
+            $q->where('nama', 'like', "%{$query}%");
+        })->orWhere('no_telpon', 'like', "%{$query}%")
+            ->orWhere('NIP', 'like', "%{$query}%")
+            ->orWhere('PTK', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($listpegawai);
+    }
+
+
     public function storePegawai(Request $request)
     {
-        // Debugging: Lihat semua data yang diterima dari form
-        // \Log::info('Data yang diterima:', $request->all());
-
-        // Validasi input
-        // $request->validate([
-        //     'nama' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'password' => 'required|string|min:8',
-        //     'nip' => 'required|string|max:255',
-        //     'no_telpon' => 'required|string|max:255',
-        //     'ptk' => 'required|string|max:255',
-        // ]);
-
-        // dd($request->all());
-        // Buat user baru
         $user = User::create([
             'nama' => $request->nama,
             'email' => $request->email,
@@ -82,23 +89,28 @@ class AdminController extends Controller
     }
 
     public function updateGuru(Request $request, $id)
-{
-    $pegawai = User::find($id);
-    if ($pegawai) {
-        $pegawai->nama = $request->newName;
-        $pegawai->email = $request->newEmail;
-        if (!empty($request->newPassword)) {
-            $pegawai->password = Hash::make($request->newPassword);
+    {
+        // Temukan user berdasarkan ID
+        $pegawai = Pegawai::where('id', $request->id)->first();
+
+        if ($pegawai) {
+            // Perbarui data pegawai
+            $pegawai->no_telpon = $request->newNo_telpon;
+            $pegawai->NIP = $request->newNIP;
+            $pegawai->PTK = $request->newPTK;
+            $pegawai->save();
+            // dd($pegawai);
+            // $user = User::where('id', $request->id)->first();
+            if ($pegawai->user) {
+                $pegawai->user->nama = $request->newName;
+                $pegawai->user->email = $request->newEmail;
+                $pegawai->user->password = Hash::make($request->newPassword);
+                $pegawai->user->save();
+            }
+            return redirect()->route('admin.pegawai')->with('success', 'Pegawai berhasil diupdate');
         }
-        $pegawai->save();
-        
-        return redirect()->route('admin.pegawai')->with('success', 'Pegawai berhasil diupdate');
+        return redirect()->route('admin.pegawai')->with('error', 'Gagal mengupdate pegawai');
     }
-
-    return redirect()->route('admin.pegawai')->with('error', 'Gagal mengupdate pegawai');
-}
-
-
 
     public function deletePegawai($id)
     {
@@ -124,7 +136,7 @@ class AdminController extends Controller
             'file' => 'required|mimes:xls,xlsx'
         ]);
 
-        
+
         try {
             Excel::import(new PegawaiImport, $request->file('file'));
             // dd($request->all());

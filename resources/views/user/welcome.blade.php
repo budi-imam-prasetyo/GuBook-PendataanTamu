@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="text-light bg-cover" style="background-image: url('{{ asset('assets/background.svg') }}');">
+<body class="text-light h-screen bg-cover" style="background-image: url('{{ asset('assets/background.svg') }}');">
     {{-- Navigation --}}
     <x-user.navbar></x-user.navbar>
 

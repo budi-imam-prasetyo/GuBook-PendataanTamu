@@ -17,8 +17,8 @@
                 </li>
                 <li class="mt-0.5 w-full">
                     <a class="hover:bg-primaryBlue/5 rounded-lg mx-2 my-0 flex items-center whitespace-nowrap px-4 py-2.7 text-base transition-colors" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <img class="relative h-4 top-0" src="{{ asset('assets/icons/open-door.svg') }}"></img>
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <img class="relative h-5 top-0" src="{{ asset('assets/icons/open-door.svg') }}"></img>
                         </div>
                         <span class="capitalize ease pointer-events-none ml-1 opacity-100 duration-300">{{ __('Logout') }}</span>
                     </a>

@@ -16,6 +16,7 @@
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
 
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -33,7 +34,7 @@
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-admin.navbar></x-admin.navbar>
+        <x-admin.navbar>Kunjungan</x-admin.navbar>
 
         <div class="w-full flex flex-col gap-7 p-6">
             {{-- Rows 1 --}}
