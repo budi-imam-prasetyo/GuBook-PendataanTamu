@@ -9,12 +9,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    use Search;
-
-    protected $searchable = [
-        'nama',
-        'email',
-    ];
 
     protected $fillable = [
         'nama',

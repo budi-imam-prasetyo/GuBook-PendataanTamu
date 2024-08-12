@@ -61,21 +61,14 @@
 
                     <div>
                         <label class="text-sm text-light block mb-1 font-medium">Pegawai</label>
-                        <div x-data="select" class="relative w-full" @click.outside="open = false">
-                            <button
-                                @click.prevent="toggle":class="{'text-grey': !selectedPegawai, 'text-dark': selectedPegawai, 'ring-blue-600': open}"
-                                class="flex w-full items-center justify-between rounded-lg bg-white text-dark h-12 p-2 ring-1 ring-gray-300">
-                                <span x-text="selectedPegawai ? selectedPegawai : 'Pilih Pegawai'"></span>
-                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-grey" alt="^">
-                            </button>
-
-                            <ul class="z-10 absolute mt-1 w-full rounded text-dark bg-gray-50 ring-1 ring-gray-300 max-h-40 overflow-y-auto"
-                                x-show="open">
+                        <div class="relative w-full">
+                            <select name="pegawai" id="pegawai" class="select select-bordered w-full text-dark">
+                                <option disabled selected class="text-dark">Pilih Pegawai</option>
                                 @foreach ($listpegawai as $pegawai)
-                                    <li class="cursor-pointer select-none p-2 hover:bg-gray-200"
-                                        @click="setPegawai('{{ $pegawai->name }}')">{{ $pegawai->name }}</li>
+                                    <option value="{{ $pegawai->NIP }}" class="text-dark">
+                                        {{ $pegawai->user->nama }}</option>
                                 @endforeach
-                            </ul>
+                            </select>
                         </div>
                     </div>
 
@@ -106,29 +99,6 @@
             </form>
         </div>
     </main>
-
-    <script>
-        //select pegawai
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('select', () => ({
-                open: false,
-                selectedPegawai: '',
-                toggle() {
-                    this.open = !this.open;
-                },
-                setPegawai(name) {
-                    this.selectedPegawai = name;
-                    this.open = false;
-                }
-            }))
-        })
-
-        // tanggal
-        document.getElementById('date').addEventListener('change', function() {
-            this.classList.remove('bg-gray-100', 'text-grey', 'placeholder:text-grey');
-            this.classList.add('bg-black', 'text-dark', 'placeholder:text-dark');
-        });
-    </script>
 </body>
 
 </html>

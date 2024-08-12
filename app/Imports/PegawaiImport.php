@@ -30,9 +30,9 @@ class PegawaiImport implements ToModel, WithHeadingRow
         }
 
         return new Pegawai([
+            'NIP'       => $row['nip'],
             'id_user'   => $user->id,
             'no_telpon' => $row['no_telpon'],
-            'NIP'       => $row['nip'],
             'PTK'       => $row['ptk'],
         ]);
     }

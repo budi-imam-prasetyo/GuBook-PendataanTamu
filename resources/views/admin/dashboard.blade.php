@@ -7,12 +7,12 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
-    <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    {{-- <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " /> --}}
+    {{-- <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script> --}}
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css"> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -68,7 +68,7 @@
                             <div class="-mx-3 flex flex-row items-center justify-center">
                                 <div class="flex-none w-1/3 max-w-full px-3">
                                     <p
-                                        class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
+                                        class="mb-0 font-sans text-lg font-semibold leading-normal">
                                         Kunjungan Minggu Ini
                                     </p>
                                     <h5 class="mb-2 font-bold dark:text-white">
@@ -132,7 +132,7 @@
 
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
-                                <i class="fa fa-arrow-up text-emerald-500"></i>
+                                {{-- <i class="fa fa-arrow-up text-emerald-500"></i> --}}
                                 <span class="font-semibold">4% lebih banyak</span> dari
                                 Januari
                             </p>
@@ -157,7 +157,8 @@
                         </div>
                         <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
                             <h6 class="mb-0 dark:text-white">
-                                Lihat Semua <i class="fa fa-arrow-right"></i>
+                                Lihat Semua 
+                                {{-- <i class="fa fa-arrow-right"></i> --}}
                             </h6>
                         </div>
                     </div>
@@ -175,9 +176,9 @@
                                         </h5>
                                         <div class="flex gap-2 ml-1">
                                             <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5" alt="arrow">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="mail">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5" alt="time">
                                             </div>
                                             <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
                                                 <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
@@ -204,9 +205,9 @@
                                         </h5>
                                         <div class="flex gap-2 ml-1">
                                             <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5" alt="arrow">
+                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-5" alt="truck">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5" alt="time">
                                             </div>
                                             <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
                                                 <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
@@ -233,9 +234,9 @@
                                         </h5>
                                         <div class="flex gap-2 ml-1">
                                             <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
+                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5" alt="arrow">
+                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="mail">
+                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5" alt="time">
                                             </div>
                                             <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
                                                 <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
@@ -263,19 +264,22 @@
                     &copy; <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang lebih baik.
+                    <span class="text-primaryBlue">GuBook</span>, dibuat dengan 
+                    {{-- <i class="fa fa-heart"></i> --}}
+                     untuk web yang lebih baik.
                 </p>
             </footer>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
 
     {{ $chart->script() }}
     <!-- plugin for scrollbar  -->
     {{-- <script src="{{ asset('js/perfect-scrollbar.min.js') }}" async></script> --}}
     <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
+    <script src="{{ asset('js/html5-qrcode.min.js') }}" async></script>
     <script src="{{ asset('js/sidenav-burger.js') }}" async></script>
     <!-- Initialize QR Code Scanner -->
 

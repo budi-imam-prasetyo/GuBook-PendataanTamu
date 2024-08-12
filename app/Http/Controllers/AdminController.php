@@ -37,20 +37,6 @@ class AdminController extends Controller
         return view('admin.pegawai', compact('listpegawai'));
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        $listpegawai = Pegawai::whereHas('user', function ($q) use ($query) {
-            $q->where('nama', 'like', "%{$query}%");
-        })->orWhere('no_telpon', 'like', "%{$query}%")
-            ->orWhere('NIP', 'like', "%{$query}%")
-            ->orWhere('PTK', 'like', "%{$query}%")
-            ->get();
-
-        return response()->json($listpegawai);
-    }
-
 
     public function storePegawai(Request $request)
     {
@@ -77,9 +63,9 @@ class AdminController extends Controller
         return redirect()->route('admin.pegawai')->with('error', 'Gagal menambahkan pegawai');
     }
 
-    public function editPegawai($id)
+    public function editPegawai($NIP)
     {
-        $pegawai = Pegawai::find($id);
+        $pegawai = Pegawai::find($NIP);
 
         if ($pegawai) {
             return view('admin.edit-pegawai', compact('pegawai'));
@@ -90,8 +76,10 @@ class AdminController extends Controller
 
     public function updateGuru(Request $request, $id)
     {
-        // Temukan user berdasarkan ID
-        $pegawai = Pegawai::where('id', $request->id)->first();
+        // Debug data request
+        // dd($request->all());
+
+        $pegawai = Pegawai::where('NIP', $request->NIP)->first();
 
         if ($pegawai) {
             // Perbarui data pegawai
@@ -99,8 +87,7 @@ class AdminController extends Controller
             $pegawai->NIP = $request->newNIP;
             $pegawai->PTK = $request->newPTK;
             $pegawai->save();
-            // dd($pegawai);
-            // $user = User::where('id', $request->id)->first();
+
             if ($pegawai->user) {
                 $pegawai->user->nama = $request->newName;
                 $pegawai->user->email = $request->newEmail;
@@ -111,6 +98,7 @@ class AdminController extends Controller
         }
         return redirect()->route('admin.pegawai')->with('error', 'Gagal mengupdate pegawai');
     }
+
 
     public function deletePegawai($id)
     {

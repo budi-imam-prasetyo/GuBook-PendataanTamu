@@ -28,6 +28,7 @@
                 <p class="text-light font-medium">Datanglah dengan <span class="font-semibold">Senang Hati,</span> Kami
                     Layani <span class="font-semibold">Sepenuh Hati</span></p>
             </div>
+            {{-- {{$qrcode}} --}}
             <div class="mt-6">
                 <a class="flex gap-2 group bg-secondaryBlue rounded-2xl py-5 px-14" href="/form-tamu">
                     <div class="h-6 w-6 overflow-hidden">

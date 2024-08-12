@@ -44,7 +44,7 @@ return [
         'subtitle' => [
             'text' => '',
             'align' => 'left',
-        ], 
+        ],
 
         'xaxis' => [
             'categories' => [],

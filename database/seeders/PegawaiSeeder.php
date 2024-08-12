@@ -18,8 +18,8 @@ class PegawaiSeeder extends Seeder
 
         $subjects = [
             'Matematika', 'Bahasa Inggris', 'Bahasa Indonesia', 
-            'Fisika', 'Bahasa Sunda', 'Biologi', 'Ekonomi', 'Geografi', 
-            'Sejarah', 'Sosiologi', 'Pendidikan Jasmani', 'TKJ', 
+            'IPAS', 'Bahasa Sunda', 'Pendidikan Pancasila', 'Pemasaran', 'MLOG', 
+            'Sejarah', 'BK', 'Pendidikan Jasmani', 'TKJ', 
             'AKL', 'RPL', 'DKV'
         ];
 

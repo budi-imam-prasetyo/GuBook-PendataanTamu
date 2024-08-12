@@ -14,10 +14,11 @@
         "livewire/livewire": "^3.5",
         "livewire/volt": "^1.6",
         "maatwebsite/excel": "^3.1",
-        "robsontenorio/mary": "^1.35"
+        "milon/barcode": "^11.0",
+        "robsontenorio/mary": "^1.35",
+        "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.13",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",

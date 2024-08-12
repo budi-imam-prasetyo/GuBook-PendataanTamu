@@ -10,12 +10,19 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 
+    @vite('resources/css/app.css', 'resources/js/app.js')
 
-    @vite('resources/css/app.css')
-
+    <style>
+        /* Custom styles for modal */
+        .modal-content {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body class="text-light bg-gradient-to-b from-secondaryBlue to-primaryBlue relative h-screen">
@@ -35,19 +42,23 @@
                 <ul class="flex flex-wrap -mb-px font-medium text-3xl">
                     <li class="mr-2">
                         <a href="/form-tamu"
-                            class="inline-block text-light hover:text-lightBlue2 hover:border-lightBlue2 rounded-t-lg py-4 px-4 text-center border-light border-b-2 dark:text-gray-400 dark:hover:text-lightBlue2">Tamu</a>
+                            class="inline-block text-light hover:text-lightBlue2 hover:border-lightBlue2 rounded-t-lg py-4 px-4 text-center border-light border-b-2 dark:hover:text-lightBlue2">Tamu</a>
                     </li>
                     <li class="mr-2">
                         <a href="/form-kurir"
-                            class="inline-block text-light hover:text-lightBlue2 hover:border-lightBlue2 rounded-t-lg py-4 px-4 text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300">Kurir</a>
+                            class="inline-block text-light hover:text-lightBlue2 hover:border-lightBlue2 rounded-t-lg py-4 px-4 text-center border-transparent border-b-2 dark:hover:text-gray-300">Kurir</a>
                     </li>
                 </ul>
             </div>
-            <form>
+            <form id="tamuForm" action="{{ route('tamu.store') }}" method="POST">
+                @csrf
+                {{-- <input type="hidden" name="id_user" value="{{ $listpegawai->user->id }}" id="updateId"> --}}
+
                 <div class="w-100 md:w-240 mt-8 grid lg:grid-cols-2 gap-4">
+                    <!-- Form Fields -->
                     <div>
-                        <label for="name" class="text-sm text-light block mb-1 font-medium">Nama</label>
-                        <input type="text" name="name" id="name"
+                        <label for="nama" class="text-sm text-light block mb-1 font-medium">Nama</label>
+                        <input type="text" name="nama" id="nama"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-grey w-full h-12"
                             placeholder="Masukan Nama" />
                     </div>
@@ -60,98 +71,142 @@
                     </div>
 
                     <div>
-                        <label for="job" class="text-sm text-light block mb-1 font-medium">Alamat</label>
-                        <input type="text" name="job" id="job"
+                        <label for="alamat" class="text-sm text-light block mb-1 font-medium">Alamat</label>
+                        <input type="text" name="alamat" id="alamat"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-grey w-full h-12"
                             placeholder="Masukan Alamat" />
                     </div>
 
                     <div>
                         <label class="text-sm text-light block mb-1 font-medium">No Telpon</label>
-                        <input type="number" name="brithday" id="brithday"
+                        <input type="number" name="no_telpon" id="no_telpon"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-grey w-full h-12"
                             placeholder="Masukan Nomor" />
                     </div>
                     <div>
                         <label class="text-sm text-light block mb-1 font-medium">Pegawai</label>
-                        <div x-data="select" class="relative w-full" @click.outside="open = false">
-                            <button
-                                @click.prevent="toggle":class="{'text-grey': !selectedPegawai, 'text-dark': selectedPegawai, 'ring-blue-600': open}"
-                                class="flex w-full items-center justify-between rounded-lg bg-white text-dark h-12 p-2 ring-1 ring-gray-300">
-                                <span x-text="selectedPegawai ? selectedPegawai : 'Pilih Pegawai'"></span>
-                                <img src="{{ asset('assets/icons/caret.svg') }}" class="h-3 text-grey" alt="^">
-                            </button>
-
-                            <ul class="z-2 absolute mt-1 w-full rounded text-dark bg-gray-50 ring-1 ring-gray-300 max-h-40 overflow-y-auto"
-                                x-show="open">
+                        <div class="relative w-full">
+                            <select name="pegawai" id="pegawai" class="select select-bordered w-full text-dark">
+                                <option disabled selected class="text-dark">Pilih Pegawai</option>
                                 @foreach ($listpegawai as $pegawai)
-                                    <li class="cursor-pointer select-none p-2 hover:bg-gray-200"
-                                        @click="setPegawai('{{ $pegawai->name }}')">{{ $pegawai->name }}</li>
+                                    <option value="{{ $pegawai->NIP }}" class="text-dark">
+                                        {{ $pegawai->user->nama }}</option>
                                 @endforeach
-                            </ul>
+                            </select>
                         </div>
                     </div>
                     <div class="">
-
-                        <label class="text-sm text-light block mb-1 font-medium">Tanggal
-                            Pertemuan</label>
-                        <input type="date" id="date"
+                        <label class="text-sm text-light block mb-1 font-medium">Tanggal Pertemuan</label>
+                        <input type="datetime-local" id="tanggal" name="waktu_perjanjian"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-grey placeholder:text-grey w-full h-12"
                             placeholder="DD/MM/YYYY" />
                     </div>
                     <div class="">
-
                         <label class="text-sm text-light block mb-1 font-medium">Tujuan</label>
-                        <input type="textarea" id="date"
+                        <input type="textarea" id="tujuan" name="tujuan"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-grey placeholder:text-grey w-full h-12"
                             placeholder="Masukan Tujuan" />
                     </div>
                     <div class="">
-
                         <label class="text-sm text-light block mb-1 font-medium">Instansi</label>
-                        <input type="text" id="date"
+                        <input type="text" id="instansi" name="instansi"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-grey placeholder:text-grey w-full h-12"
                             placeholder="Masukan Instansi" />
                     </div>
+                    <input type="hidden" name="qrData" id="qrcodeField">
                 </div>
-
                 <div class="md:w-1/2 float-right w-full">
                     <div class="gap-4 mt-8 flex flex-row">
-                        <button
+                        <button type="reset"
                             class="py-1 px-4 bg-white text-gray-600 h-12 w-24 flex items-center justify-center rounded-lg hover:bg-gray-100">
                             <img src="{{ asset('assets/icons/reset.svg') }}" class="h-6" alt="reset icon">
                         </button>
-                        <button type="submit"
-                            class="py-2 bg-secondaryBlue text-white w-full text-base rounded-lg h-12 hover:text-lightBlue2">Save</button>
-                    
+                        <input type="submit" value="Submit"
+                            class="py-2 bg-secondaryBlue text-white w-full text-base rounded-lg h-12 hover:text-lightBlue2">
                     </div>
                 </div>
             </form>
-        </div>
-    </main>
 
-    <script>
-        //select pegawai
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('select', () => ({
-                open: false,
-                selectedPegawai: '',
-                toggle() {
-                    this.open = !this.open;
-                },
-                setPegawai(name) {
-                    this.selectedPegawai = name;
-                    this.open = false;
-                }
-            }))
-        })
+            <!-- Modal HTML -->
+            <div id="qrCodeModal"
+                class="fixed inset-0 flex items-center justify-center z-50 hidden backdrop-blur-sm backdrop-brightness-75"
+                role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+                <div class="bg-white shadow-lg rounded-lg max-w-lg w-full mx-4 relative">
+                    <div class="border-b p-4">
+                        <h5 id="qrCodeModalLabel" class="text-lg font-semibold">QR Code</h5>
+                    </div>
+                    <div>
+                        <div class="p-4 text-center w-64 mx-auto" id="qrCodeContent">
+                            <!-- QR Code will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="border-t p-4 flex justify-center">
+                        <a id="downloadBtn" href="#" class="btn btn-primary">Download QR Code</a>
+                    </div>
+                </div>
+            </div>
 
-        // tanggal
-        document.getElementById('date').addEventListener('change', function() {
-            this.classList.remove('bg-gray-100', 'text-grey', 'placeholder:text-grey');
-            this.classList.add('bg-black', 'text-dark', 'placeholder:text-dark');
-        });
-    </script>
+            <!-- DaisyUI and Tailwind CSS -->
+            {{-- <script src="https://cdn.tailwindcss.com"></script>
+            <script src="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.js"></script> --}}
+
+            <script>
+                document.getElementById('tamuForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    fetch(this.action, {
+                            method: this.method,
+                            body: new FormData(this),
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                                'Accept': 'application/json',
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Update QR code modal
+                                const qrCodeImg = document.createElement('img');
+                                qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
+                                qrCodeImg.alt = 'QR Code';
+                                qrCodeImg.style.width = '100%'; // Adjust size as needed
+
+                                const qrCodeContent = document.getElementById('qrCodeContent');
+                                qrCodeContent.innerHTML = ''; // Clear previous content
+                                qrCodeContent.appendChild(qrCodeImg);
+
+                                // Set download link
+                                const downloadBtn = document.getElementById('downloadBtn');
+                                downloadBtn.href = qrCodeImg.src;
+                                downloadBtn.download = 'qr_code.png';
+
+                                // Show the modal
+                                document.getElementById('qrCodeModal').classList.remove('hidden');
+                            } else {
+                                // Tampilkan pesan error yang dikirim dari server
+                                let errorMessage = 'Gagal menambahkan kedatangan tamu.';
+                                if (data.errors) {
+                                    errorMessage += '\n' + Object.values(data.errors).join('\n');
+                                }
+                                alert(errorMessage);
+                            }
+                        })
+                        .catch(error => {
+                            // Tampilkan pesan error jika terjadi kesalahan dalam proses fetch
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
+                        });
+                });
+
+                // Close modal when clicking outside of the modal content
+                document.getElementById('qrCodeModal').addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        this.classList.add('hidden');
+                        document.getElementById('tamuForm').reset();
+                    }
+                });
+            </script>
+
 </body>
 
 </html>

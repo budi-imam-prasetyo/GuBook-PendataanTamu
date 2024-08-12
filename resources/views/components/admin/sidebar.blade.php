@@ -3,8 +3,8 @@
     <div class="h-full">
         <div class="flex h-20 justify-center">
             <i id="close-sidebar" class="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 dark:text-white xl:hidden"></i>
-            <a class="m-0 block whitespace-nowrap px-8 py-6 text-sm text-slate-700" href="/welcome">
-                <img src="{{ asset('GuBook.png') }}" class="ease-nav-brand inline h-full max-h-full w-30 max-w-full transition-all duration-200" alt="main_logo" />
+            <a class="m-0 block whitespace-nowrap p-5 text-sm text-slate-700" href="/welcome">
+                <img src="{{ asset('GuBook.png') }}" class="ease-nav-brand inline h-full max-h-full w-full max-w-full transition-all duration-200" alt="main_logo" />
             </a>
         </div>
         <div class="block w-auto grow basis-full items-center overflow-auto">
@@ -18,7 +18,7 @@
                 <li class="mt-0.5 w-full">
                     <a class="hover:bg-primaryBlue/5 rounded-lg mx-2 my-0 flex items-center whitespace-nowrap px-4 py-2.7 text-base transition-colors" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <img class="relative h-5 top-0" src="{{ asset('assets/icons/open-door.svg') }}"></img>
+                            <img class="relative h-5 top-0" src="{{ asset('assets/icons/open-door.svg') }}" alt="logout"></img>
                         </div>
                         <span class="capitalize ease pointer-events-none ml-1 opacity-100 duration-300">{{ __('Logout') }}</span>
                     </a>

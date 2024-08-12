@@ -15,10 +15,10 @@
         <div class="mt-2 flex  items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto">
             <div class="flex items-center justify-end ml-auto pr-4">
                 <div onclick="openModalAndScan()" class="group flex w-full items-center justify-center rounded-lg bg-white transition duration-300 ease-in-out">
-                    <span class="flex items-center justify-center rounded-lg border border-transparent bg-transparent p-2.5 pb-2 text-center text-xl font-bold leading-normal text-slate-800 transition duration-300 ease-in-out">
-                        <i class="fa fa-qrcode "></i>
+                    <span class="flex items-center justify-center rounded-lg border border-transparent bg-transparent p-2.5 pr-1 text-center text-xl font-bold leading-normal text-slate-800 transition duration-300 ease-in-out">
+                        <img src="{{ asset('assets/icons/qrcode.svg') }}" class="h-4.5" alt="qrcode">
                     </span>
-                    <button class="m-0 flex items-center justify-center rounded-lg font-medium text-sm text-gray-700 group-hover:font-semibold transition duration-300 ease-in-out dark:bg-slate-850 dark:text-white pr-2.5">
+                    <button class="mt-0 flex items-center justify-center rounded-lg font-medium text-sm text-gray-700 group-hover:font-semibold transition duration-300 ease-in-out pr-2.5">
                         <span class="md:hidden">Scan</span>
                         <span class="hidden md:block">QR Code</span>
                     </button>
@@ -41,8 +41,8 @@
             <ul class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full">
                 <li class="flex items-center">
                     <a href="../pages/sign-in.html"
-                        class="ease-nav-brand block px-0 py-2 text-lg font-semibold text-white transition-all">
-                        <i class="fa fa-user sm:mr-1"></i>
+                        class="ease-nav-brand px-0 py-2 gap-1.5 text-lg flex font-semibold text-white transition-all">
+                        <img src="{{ asset('assets/icons/user.svg') }}" class="h-4 mt-1 " alt="user">
                         <span class="hidden sm:inline">{{ Auth::user()->nama }}</span>
                     </a>
                 </li>
