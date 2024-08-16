@@ -25,10 +25,13 @@ Route::get('/register', function () {
 Route::get('/custom-qrcode', function () {
     return QrCode::size(300)->color(255, 0, 0)->generate('https://example.com');
 });
+// ROUTE FORM TAMU
 Route::get('/form-tamu', [UserController::class, 'formTamu'])->name('tamu');
 Route::post('/store/tamu', [UserController::class, 'storeTamu'])->name('tamu.store');
+// ROUTE FORM KURIR
 Route::get('/form-kurir', [UserController::class, 'formKurir'])->name('kurir');
 Route::post('/store/kurir', [UserController::class, 'storeKurir'])->name('kurir.store');
+// ROUTE LIST PEGAWAI DAN TENTANG
 Route::get('/list-pegawai', [UserController::class, 'listPegawai']);
 Route::get('/tentang', [UserController::class, 'about']);
 //? ROUTE USER
@@ -55,7 +58,7 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
 //! ROUTE ADMIN
 
 //* ROUTE PEGAWAI
-Route::middleware(['role:pegawai'])->group(function () {
+Route::middleware(['chechRole:pegawai'])->group(function () {
     Route::prefix('pegawai')->group(function () {
         Route::get('/', [PegawaiController::class, 'index']);
     });

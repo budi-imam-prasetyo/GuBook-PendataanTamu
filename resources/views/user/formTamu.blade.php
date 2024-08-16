@@ -133,7 +133,7 @@
                 role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                 <div class="bg-white shadow-lg rounded-lg max-w-lg w-full mx-4 relative">
                     <div class="border-b p-4">
-                        <h5 id="qrCodeModalLabel" class="text-lg font-semibold">QR Code</h5>
+                        <h5 id="qrCodeModalLabel" class="text-lg text-dark font-semibold">QR Code</h5>
                     </div>
                     <div>
                         <div class="p-4 text-center w-64 mx-auto" id="qrCodeContent">
@@ -145,68 +145,60 @@
                     </div>
                 </div>
             </div>
+    </main>
 
-            <!-- DaisyUI and Tailwind CSS -->
-            {{-- <script src="https://cdn.tailwindcss.com"></script>
-            <script src="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.js"></script> --}}
+    <!-- DaisyUI and Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.js"></script>
 
-            <script>
-                document.getElementById('tamuForm').addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    fetch(this.action, {
-                            method: this.method,
-                            body: new FormData(this),
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                                'Accept': 'application/json',
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Update QR code modal
-                                const qrCodeImg = document.createElement('img');
-                                qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
-                                qrCodeImg.alt = 'QR Code';
-                                qrCodeImg.style.width = '100%'; // Adjust size as needed
-
-                                const qrCodeContent = document.getElementById('qrCodeContent');
-                                qrCodeContent.innerHTML = ''; // Clear previous content
-                                qrCodeContent.appendChild(qrCodeImg);
-
-                                // Set download link
-                                const downloadBtn = document.getElementById('downloadBtn');
-                                downloadBtn.href = qrCodeImg.src;
-                                downloadBtn.download = 'qr_code.png';
-
-                                // Show the modal
-                                document.getElementById('qrCodeModal').classList.remove('hidden');
-                            } else {
-                                // Tampilkan pesan error yang dikirim dari server
-                                let errorMessage = 'Gagal menambahkan kedatangan tamu.';
-                                if (data.errors) {
-                                    errorMessage += '\n' + Object.values(data.errors).join('\n');
-                                }
-                                alert(errorMessage);
-                            }
-                        })
-                        .catch(error => {
-                            // Tampilkan pesan error jika terjadi kesalahan dalam proses fetch
-                            console.error('Error:', error);
-                            alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
-                        });
-                });
-
-                // Close modal when clicking outside of the modal content
-                document.getElementById('qrCodeModal').addEventListener('click', function(event) {
-                    if (event.target === this) {
-                        this.classList.add('hidden');
-                        document.getElementById('tamuForm').reset();
+    <script>
+        document.getElementById('tamuForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch(this.action, {
+                    method: this.method,
+                    body: new FormData(this),
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json',
                     }
-                });
-            </script>
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const qrCodeImg = document.createElement('img');
+                        qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
+                        qrCodeImg.alt = 'QR Code';
+                        qrCodeImg.style.width = '100%'; // Adjust size as needed
 
+                        const qrCodeContent = document.getElementById('qrCodeContent');
+                        qrCodeContent.innerHTML = ''; // Clear previous content
+                        qrCodeContent.appendChild(qrCodeImg);
+                        
+                        const downloadBtn = document.getElementById('downloadBtn');
+                        downloadBtn.href = qrCodeImg.src;
+                        downloadBtn.download = 'qr_code.png';
+                        
+                        document.getElementById('qrCodeModal').classList.remove('hidden');
+                    } else {
+                        let errorMessage = 'Gagal menambahkan kedatangan tamu.';
+                        if (data.errors) {
+                            errorMessage += '\n' + Object.values(data.errors).join('\n');
+                        }
+                        alert(errorMessage);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
+                });
+        });
+        document.getElementById('qrCodeModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.classList.add('hidden');
+                document.getElementById('tamuForm').reset();
+            }
+        });
+    </script>
 </body>
 
 </html>

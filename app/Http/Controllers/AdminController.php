@@ -26,7 +26,7 @@ class AdminController extends Controller
     }
     public function pagination()
     {
-        $listpegawai = Pegawai::paginate(10); // mengambil 10 data per halaman
+        $listpegawai = Pegawai::paginate(10);
         $listpegawai->withPath('/admin/pegawai');
         return view('admin.pegawai', compact('listpegawai'));
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ekspedisi;
+use App\Models\KedatanganEkspedisi;
 use App\Models\KedatanganTamu;
 use Illuminate\Http\Request;
 use App\Models\Pegawai;
@@ -9,9 +11,10 @@ use App\Models\Tamu;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 use DNS2D;
-// use Milon\Barcode\DNS2D;
 
 class UserController extends Controller
 {
@@ -24,7 +27,8 @@ class UserController extends Controller
     public function formKurir()
     {
         $listpegawai = Pegawai::all();
-        return view('user.formKurir', compact('listpegawai'));
+        $kedatanganEkspedisi = KedatanganEkspedisi::all();
+        return view('user.formKurir', compact('listpegawai', 'kedatanganEkspedisi'));
     }
     public function listPegawai()
     {
@@ -50,9 +54,9 @@ class UserController extends Controller
             'waktu_perjanjian' => 'required|date',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
         $tamu = new Tamu();
         $tamu->nama = $request->nama;
@@ -70,41 +74,113 @@ class UserController extends Controller
         $kedatanganTamu = new KedatanganTamu();
         $kedatanganTamu->id_tamu = $tamu->id;
         $kedatanganTamu->NIP = $request->pegawai;
-        // dd($kedatanganTamu->id_user);
         $kedatanganTamu->id_user = $id_user;
         $kedatanganTamu->instansi = $request->instansi;
         $kedatanganTamu->tujuan = $request->tujuan;
         $kedatanganTamu->waktu_perjanjian = $request->waktu_perjanjian;
         $kedatanganTamu->waktu_kedatangan = null;
+        $kedatanganTamu->qr_code = null;
+        $kedatanganTamu->save();
 
-
-        $requestData = [
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'alamat' => $request->alamat,
-            'no_telpon' => $request->no_telpon,
-            'pegawai' => $request->pegawai,
-            'instansi' => $request->instansi,
-            'tujuan' => $request->tujuan,
-            'waktu_perjanjian' => $request->waktu_perjanjian
-        ];
-        $qrCodeContent = json_encode($requestData);
+        $qrCodeContent = "$kedatanganTamu->id";
         $qrCodeHtml = DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
         $kedatanganTamu->qr_code = $qrCodeHtml;
-
         $kedatanganTamu->save();
 
         return response()->json([
             'success' => true,
-            'qr_code' => $qrCodeHtml
+            'qr_code' => $qrCodeHtml,
         ]);
+    }
 
+    public function storeKurir2(Request $request)
+    {
+        $ekspedisi = new Ekspedisi();
+        $ekspedisi->id_ekspedisi = Str::uuid()->toString();
+        $ekspedisi->nama_kurir = $request->nama_kurir;
+        $ekspedisi->ekspedisi = $request->ekspedisi;
+        $ekspedisi->save();
+
+        $pegawai = Pegawai::all()->first();
+        $id_user = $pegawai->user->id;
+        // Decode base64 image
+        $imageData = base64_decode($request->foto);
+        $fileName = uniqid() . '.jpeg';
+        dd($fileName);
+        $filePath = 'uploads' . $fileName;
+        Storage::put($filePath, $imageData);
+
+        // Save file path to the database
+        $kedatanganEkspedisi = new KedatanganEkspedisi();
+        $kedatanganEkspedisi->id_kedatanganEkspedisi = Str::uuid()->toString();
+        $kedatanganEkspedisi->id_ekspedisi = $ekspedisi->id_ekspedisi;
+        $kedatanganEkspedisi->NIP = $request->pegawai;
+        $kedatanganEkspedisi->id_user = $id_user;
+        $kedatanganEkspedisi->foto = $filePath;
+        $kedatanganEkspedisi->waktu_kedatangan = now();
+        $kedatanganEkspedisi->save();
+        return redirect()->back()->with('success', 'Ekspedisi berhasil ditambahkan');
     }
 
     public function storeKurir(Request $request)
     {
-        
+        // Debugging request data
+        // dd($request->all()); // Ini akan menunjukkan semua data yang diterima
+
+        // Simpan data ekspedisi
+        $ekspedisi = new Ekspedisi();
+        $ekspedisi->id_ekspedisi = Str::uuid()->toString();
+        $ekspedisi->nama_kurir = $request->nama_kurir;
+        $ekspedisi->ekspedisi = $request->ekspedisi;
+        $ekspedisi->no_telpon = $request->no_telpon;
+        $ekspedisi->save();
+
+        // Temukan pegawai berdasarkan ID
+        $pegawai = Pegawai::all()->first();
+
+
+        // Ambil data URL foto
+        $fotoData = $request->input('foto');
+
+        // Cek apakah data foto ada dan memiliki format yang benar
+        if ($fotoData && strpos($fotoData, ',') !== false) {
+            $fotoParts = explode(',', $fotoData);
+
+            // Pastikan ada setidaknya dua elemen (header dan data)
+            if (count($fotoParts) === 2) {
+                $fotoData = $fotoParts[1];
+                $fotoData = base64_decode($fotoData);
+
+                // Tentukan nama file dan path penyimpanan
+                $fileName = 'kurir_' . time() . '.png';
+                $filePath = 'public/img-kurir/' . $fileName;
+
+                // Simpan file gambar ke storage
+                Storage::put($filePath, $fotoData);
+
+                // Simpan data kedatangan ekspedisi
+                $id_user = $pegawai->user->id;
+                $kedatanganEkspedisi = new KedatanganEkspedisi();
+                $kedatanganEkspedisi->id_kedatanganEkspedisi = Str::uuid()->toString();
+                $kedatanganEkspedisi->id_ekspedisi = $ekspedisi->id_ekspedisi;
+                $kedatanganEkspedisi->NIP = $request->pegawai;
+                $kedatanganEkspedisi->id_user = $id_user;
+                $kedatanganEkspedisi->foto = $filePath;
+                $kedatanganEkspedisi->waktu_kedatangan = now();
+                $kedatanganEkspedisi->save();
+
+                // Berhasil menyimpan
+                return response()->json(['message' => 'Data berhasil disimpan.'], 200);
+            } else {
+                // Format data URL tidak valid
+                return response()->json(['error' => 'Format data foto tidak valid.'], 400);
+            }
+        } else {
+            // Data foto tidak ada
+            return response()->json(['error' => 'Data foto tidak ditemukan.'], 400);
+        }
     }
+
 
 
     public function about(){

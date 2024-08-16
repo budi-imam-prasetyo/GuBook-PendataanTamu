@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+        Schema::create('ekspedisi', function (Blueprint $table) {
+            $table->string('id_ekspedisi')->primary();
+            $table->string('nama_kurir');
+            $table->string('ekspedisi');
+            $table->string('no_telpon');
+            $table->timestamp('created_at')->useCurrent();
+        });
     }
 
     /**

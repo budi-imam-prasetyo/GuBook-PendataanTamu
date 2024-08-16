@@ -28,7 +28,7 @@ class PegawaiImport implements ToModel, WithHeadingRow
         if (empty($row['nip']) || empty($row['no_telpon']) || empty($row['ptk'])) {
             return null; // Abaikan baris yang tidak lengkap
         }
-
+        
         return new Pegawai([
             'NIP'       => $row['nip'],
             'id_user'   => $user->id,

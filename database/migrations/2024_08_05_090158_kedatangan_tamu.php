@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('NIP')->references('NIP')->on('pegawais')->onDelete('cascade');
             $table->foreignId('id_tamu')->constrained('tamu')->onDelete('cascade');
             $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
-            $table->text('qr_code');
+            $table->text('qr_code')->nullable();
             $table->string('instansi');
             $table->string('tujuan');
             $table->timestamp('waktu_perjanjian');

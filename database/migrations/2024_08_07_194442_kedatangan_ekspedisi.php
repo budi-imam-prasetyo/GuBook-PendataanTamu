@@ -11,7 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('kedatangan_ekspedisi', function (Blueprint $table) {
+            $table->string('id_kedatanganEkspedisi')->primary();
+            $table->string('id_ekspedisi');
+            $table->foreign('id_ekspedisi')->references('id_ekspedisi')->on('ekspedisi')->onDelete('cascade');
+            $table->string('NIP');
+            $table->foreign('NIP')->references('NIP')->on('pegawais')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
+            $table->string('foto');
+            $table->timestamp('waktu_kedatangan');
+        });
     }
 
     /**
