@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" /> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
@@ -117,11 +117,15 @@
                 </div>
                 <div class="md:w-1/2 float-right w-full">
                     <div class="gap-4 mt-8 flex flex-row">
-                        <button type="reset"
-                            class="py-1 px-4 bg-white text-gray-600 h-12 w-24 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                            <img src="{{ asset('assets/icons/reset.svg') }}" class="h-6" alt="reset icon">
-                        </button>
-                        <input type="submit" value="Submit"
+                        <div>
+                                <button type="reset"
+                                    class="group flex h-12 w-24 items-center justify-center rounded-lg bg-white px-4 py-1 text-gray-600 hover:bg-gray-100">
+                                    <img src="{{ asset('assets/icons/reset.svg') }}"
+                                        class="h-6 transition-all duration-150 group-hover:-rotate-45"
+                                        alt="reset icon" />
+                                </button>
+                            </div>
+                        <input type="submit" value="Kirim"
                             class="py-2 bg-secondaryBlue text-white w-full text-base rounded-lg h-12 hover:text-lightBlue2">
                     </div>
                 </div>

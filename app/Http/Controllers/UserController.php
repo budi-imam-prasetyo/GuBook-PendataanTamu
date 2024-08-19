@@ -32,10 +32,10 @@ class UserController extends Controller
     }
     public function listPegawai()
     {
-        $listpegawai = Pegawai::paginate(10);
-        $listpegawai->withPath('/list-pegawai');
-        $listmapel = Pegawai::pluck('PTK');
-        return view('user.listPegawai', compact('listpegawai', 'listmapel'));
+        $listpegawai = Pegawai::paginate(10)->withPath('/list-pegawai');
+        $startIndex = ($listpegawai->firstItem());
+        $listmapel = $listpegawai->pluck('PTK');
+        return view('user.listPegawai', compact('listpegawai', 'listmapel', 'startIndex'));
     }
 
 

@@ -1,61 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="grid grid-cols-2 h-screen">
+    <div class="grid h-screen grid-cols-2">
         {{-- <div class="relative bg-no-repeat bg-cover h-screen" style="background-image: url({{ asset('assets/bg-login2.svg') }});"> --}}
-        <div class="relative bg-primaryBlue xl:bg-transparent flex justify-start">
-            <img src="{{ asset('assets/bg-login2.svg') }}" class="w-full hidden xl:block object-cover absolute h-screen"
-                alt="">
-            <img src="{{ asset('assets/logo3.png') }}" class="absolute w-50 top-8 left-8" alt="">
-            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute top-64 left-10" alt="">
-            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute top-20 right-1/4" alt="">
-            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute bottom-40 right-15/100" alt="">
+        <div class="relative flex justify-start bg-primaryBlue xl:bg-transparent">
+            <img src="{{ asset('assets/bg-login2.svg') }}" class="absolute hidden h-screen w-full object-cover xl:block"
+                alt="" />
+            <img src="{{ asset('assets/logo3.png') }}" class="absolute left-8 top-8 w-50" alt="gubook" />
+            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute left-10 top-64" alt="star" />
+            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute right-1/4 top-20" alt="star" />
+            <img src="{{ asset('assets/icons/star.svg') }}" class="absolute bottom-40 right-15/100" alt="star" />
             <div
-                class="absolute top-1/2 left-1/2 transform lg:-translate-x-2/3 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
-                <img src="{{ asset('assets/guest.svg') }}" class="w-full max-w-sm md:max-w-lg lg:max-w-xl" alt="">
+                class="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center lg:-translate-x-2/3">
+                <img src="{{ asset('assets/guest.svg') }}" class="w-full max-w-sm md:max-w-lg lg:max-w-xl" alt="" />
             </div>
-            <div class="absolute bottom-0"><img src="{{ asset('assets/wave.svg') }}"
-                    class="mix-blend-lighten md:block hidden -translate-x-20 object-cover" alt=""></div>
+            <div class="absolute bottom-0">
+                <img src="{{ asset('assets/wave.svg') }}"
+                    class="hidden -translate-x-0 object-cover mix-blend-lighten md:block" alt="" />
+            </div>
         </div>
         <div class="flex justify-start">
             <div class="w-full max-w-2xl">
-                <div class="px-8 flex flex-col pt-6 pb-8 mb-4">
+                <div class="mb-4 flex flex-col px-8 pb-8 pt-6">
                     <div class="">
-                        <div class="mb-1 flex items-center gap-4 font-bold text-darkGray text-4xl">
+                        <div class="mb-1 flex items-center gap-4 text-4xl font-bold text-darkGray">
                             <a href="/">
-                                <img src="{{ asset('assets/icons/arrow.svg') }}" class="h-5" alt="">
+                                <img src="{{ asset('assets/icons/arrow.svg') }}" class="h-5" alt="" />
                             </a>
                             {{ __('Sign In') }}
                         </div>
-                        <div class="text-darkGray ml-10">
+                        <div class="ml-10 text-darkGray">
                             {{ __('Welcome to GuBook') }}
                         </div>
                     </div>
 
-                    <div class="m-10 flex h-full flex-col mt-80">
+                    <div class="m-10 mt-80 flex h-full flex-col">
                         <form method="POST" action="{{ route('login') }}"
-                            class="mx-auto w-full max-w-full gap-10 flex flex-col">
+                            class="mx-auto flex w-full max-w-full flex-col gap-10">
                             @csrf
 
                             <div class="mb-4 w-full items-center">
                                 <div class="relative">
                                     <input autocomplete="off" id="email" name="email" type="text"
-                                        class="peer placeholder-transparent focus:placeholder:text-grey h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-dark"
+                                        class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:border-dark focus:outline-none focus:placeholder:text-grey"
                                         placeholder="Masukan Email" />
                                     <label for="email"
-                                        class="absolute left-0 -top-3.5 text-gray-600 peer-focus:font-bold text-base peer-placeholder-shown:text-gray-440 
-                                    peer-placeholder-shown:top-2 transition-all peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-base">{{ __('Email Address') }}</label>
-                                    {{-- <script>
+                                        class="peer-placeholder-shown:text-gray-440 absolute -top-3.5 left-0 text-base text-gray-600 transition-all peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:font-bold peer-focus:text-gray-600">
+                                        {{ __('Email Address') }}
+                                    </label>
+                                    {{--
+                                        <script>
                                         document.getElementById('email').addEventListener('focus', function() {
-                                            document.querySelector('label[for="email"]').textContent = 'Masukan Email';
+                                        document.querySelector('label[for="email"]').textContent = 'Masukan Email';
                                         });
                                         document.getElementById('email').addEventListener('blur', function() {
-                                            document.querySelector('label[for="email"]').textContent = 'Email Address';
+                                        document.querySelector('label[for="email"]').textContent = 'Email Address';
                                         });
-                                    </script> --}}
+                                        </script>
+                                    --}}
                                 </div>
                                 @error('email')
-                                    <p class="text-red-500 text-xs italic mt-2">
+                                    <p class="mt-2 text-xs italic text-red-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
@@ -65,12 +70,13 @@
                                 <div class="relative">
                                     <input autocomplete="off" id="password" name="password"
                                         :type="show ? 'password' : 'text'"
-                                        class="peer placeholder-transparent focus:placeholder:text-grey h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-dark"
+                                        class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:border-dark focus:outline-none focus:placeholder:text-grey"
                                         placeholder="Masukan Password" />
                                     <label for="password"
-                                        class="absolute left-0 -top-3.5 text-gray-600 peer-focus:font-bold text-base peer-placeholder-shown:text-gray-440 
-                                        peer-placeholder-shown:top-2 transition-all peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-base">Password</label>
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                                        class="peer-placeholder-shown:text-gray-440 absolute -top-3.5 left-0 text-base text-gray-600 transition-all peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:font-bold peer-focus:text-gray-600">
+                                        Password
+                                    </label>
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5">
                                         <svg class="h-6 text-gray-700" fill="none" @click="show = !show"
                                             :class="{ 'hidden': !show, 'block': show }" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 576 512">
@@ -89,16 +95,16 @@
                                     </div>
                                 </div>
                                 @error('password')
-                                    <p class="text-red-500 text-xs italic mt-2">
+                                    <p class="mt-2 text-xs italic text-red-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
                             </div>
 
                             <div class="mb-0 flex justify-end">
-                                <div class="w-2/3 flex items-center justify-end">
+                                <div class="flex w-2/3 items-center justify-end">
                                     <button type="submit"
-                                        class="bg-primaryBlue hover:bg-secondaryBlue text-white font-semibold text-sm py-2 px-10 rounded-full focus:outline-none focus:shadow-outline">
+                                        class="focus:shadow-outline rounded-full bg-primaryBlue px-10 py-2 text-sm font-semibold text-white hover:bg-secondaryBlue focus:outline-none">
                                         {{ __('Sign In') }}
                                     </button>
                                 </div>

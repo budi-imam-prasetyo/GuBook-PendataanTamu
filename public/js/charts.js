@@ -1,6 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const labels = [
-        "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
     ];
     const alumniData = [14, 5, 10, 9, 6, 14, 15, 2, 45, 10];
     const perusahaanData = [8, 10, 15, 12, 8, 87, 9, 54, 7, 4];

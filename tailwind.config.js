@@ -1,22 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
 export default {
-    content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
-    ],
+    content: ["./resources/**/*.blade.php", "./resources/**/*.js"],
     presets: [],
     darkMode: "class",
     daisyui: {
         themes: ["light"],
-      },
+    },
     theme: {
         extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+            keyframes: {
+                boing: {
+                    '0%, 100%': { transform: 'translateY(-5%)' },
+                    '50%': { transform: 'translateY(0%)' },
+                }
             },
-          },
+            animation: {
+        boing: 'boing 3s infinite',
+      },
+            fontFamily: {
+                sans: ["Inter", "sans-serif"],
+            },
+        },
         screens: {
             sm: "576px",
             "sm-max": { max: "576px" },
@@ -47,7 +52,7 @@ export default {
             dark: "#000000",
             blueWhite: "#EAEDFC",
             hover: "#EFEFEF",
-            grey: "#A3A3A3",  //klo "gray" gk bisa :(
+            grey: "#A3A3A3", //klo "gray" gk bisa :(
             darkGray: "#505258",
             success: "#76FF46",
             warning: "#FFAC0B",
@@ -594,6 +599,8 @@ export default {
             DEFAULT: "1px",
             0: "0px",
             2: "2px",
+            2.5: "2.5px",
+            3: "3px",
             4: "4px",
             8: "8px",
         },
@@ -1388,10 +1395,10 @@ export default {
     },
     variants: {
         display: [
-		"responsive",
-		 "dropdown",
-		 "./vendor/robsontenorio/mary/src/View/Components/**/*.php"
-	],
+            "responsive",
+            "dropdown",
+            "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
+        ],
     },
     variantOrder: [
         "first",
@@ -1412,7 +1419,7 @@ export default {
         "disabled",
     ],
 
-    plugins: [
-        require('daisyui'),
-      ],
+    plugins: [require("daisyui"),
+        "prettier-plugin-tailwindcss"
+    ],
 };
