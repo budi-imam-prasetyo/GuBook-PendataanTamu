@@ -59,6 +59,7 @@ class UserController extends Controller
         // }
 
         $tamu = new Tamu();
+        $tamu->id_tamu = Str::uuid()->toString();
         $tamu->nama = $request->nama;
         $tamu->email = $request->email;
         $tamu->alamat = $request->alamat;
@@ -72,7 +73,8 @@ class UserController extends Controller
         $id_user = $pegawai->user->id;
 
         $kedatanganTamu = new KedatanganTamu();
-        $kedatanganTamu->id_tamu = $tamu->id;
+        $kedatanganTamu->id_kedatangan = Str::uuid()->toString();
+        $kedatanganTamu->id_tamu = $tamu->id_tamu;
         $kedatanganTamu->NIP = $request->pegawai;
         $kedatanganTamu->id_user = $id_user;
         $kedatanganTamu->instansi = $request->instansi;
@@ -82,7 +84,7 @@ class UserController extends Controller
         $kedatanganTamu->qr_code = null;
         $kedatanganTamu->save();
 
-        $qrCodeContent = "$kedatanganTamu->id";
+        $qrCodeContent = "$kedatanganTamu->id_kedatangan";
         $qrCodeHtml = DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
         $kedatanganTamu->qr_code = $qrCodeHtml;
         $kedatanganTamu->save();
@@ -161,7 +163,7 @@ class UserController extends Controller
                 // Simpan data kedatangan ekspedisi
                 $id_user = $pegawai->user->id;
                 $kedatanganEkspedisi = new KedatanganEkspedisi();
-                $kedatanganEkspedisi->id_kedatanganEkspedisi = Str::uuid()->toString();
+                $kedatanganEkspedisi->id_kedatangan = Str::uuid()->toString();
                 $kedatanganEkspedisi->id_ekspedisi = $ekspedisi->id_ekspedisi;
                 $kedatanganEkspedisi->NIP = $request->pegawai;
                 $kedatanganEkspedisi->id_user = $id_user;

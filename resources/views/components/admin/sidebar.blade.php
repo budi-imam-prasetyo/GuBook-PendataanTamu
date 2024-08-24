@@ -2,7 +2,7 @@
 <aside id="sidebar" class="hidden fixed inset-y-0 flex-wrap items-center justify-between w-full p-0 m-4 overflow-y-auto antialiased bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 z-990 xl:block sm:left-auto sm:right-0 left-0 rounded-2xl xl:left-0 xl:right-auto">
     <div class="h-full">
         <div class="flex h-20 justify-center">
-            <i id="close-sidebar" class="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 dark:text-white xl:hidden"></i>
+            <img id="close-sidebar" src="{{ asset('assets/icons/cross.svg') }}" class="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 dark:text-white xl:hidden"></img>
             <a class="m-0 block whitespace-nowrap p-5 text-sm text-slate-700" href="/welcome">
                 <img src="{{ asset('GuBook.png') }}" class="ease-nav-brand inline h-full max-h-full w-full max-w-full transition-all duration-200" alt="main_logo" />
             </a>

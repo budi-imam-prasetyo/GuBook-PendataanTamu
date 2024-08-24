@@ -20,7 +20,7 @@
         <div
             class="mt-2 flex items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto"
         >
-            <div class="ml-auto flex items-center justify-end pr-4">
+            {{-- <div class="ml-auto flex items-center justify-end pr-4">
                 <div
                     onclick="openModalAndScan()"
                     class="group flex w-full items-center justify-center rounded-lg bg-white transition duration-300 ease-in-out"
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </dialog>
-            </div>
+            </div> --}}
 
             <ul
                 class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full"

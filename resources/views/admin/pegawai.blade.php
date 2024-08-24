@@ -50,8 +50,9 @@
                         <select id="PTK" name="PTK"
                             class="select select-lg select-bordered w-full mb-3 dark:text-white" required>
                             <option value="" disabled selected>Pilih Mapel</option>
-                            @foreach ($listpegawai as $mapel)
-                                <option value="{{ $mapel->PTK }}">{{ $mapel->PTK }}</option>
+                            @foreach ($mapel as $item)
+                                {{-- {{ dd($item); }} --}}
+                                <option value="{{ $item->PTK }}">{{ $item->PTK }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -128,13 +129,13 @@
                             class="select select-lg select-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white"
                             required>
                             <option value="" selected>Pilih Mapel</option>
-                            @foreach ($listpegawai as $mapel)
-                                <option value="{{ $mapel->PTK }}">{{ $mapel->PTK }}</option>
+                            @foreach ($mapel as $item)
+                                {{-- {{ dd($item); }} --}}
+                                <option value="{{ $item->PTK }}">{{ $item->PTK }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="newEmail"
@@ -142,7 +143,6 @@
                         <input type="text" name="newEmail" id="newEmail"
                             class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
-
                     <div>
                         <label for="newPassword"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Password</label>
@@ -150,7 +150,6 @@
                             class="input input-lg input-bordered w-full mb-4 dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                 </div>
-
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="newNIP"
@@ -158,7 +157,6 @@
                         <input type="text" name="newNIP" id="newNIP"
                             class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
-
                     <div>
                         <label for="newNo_telpon"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nomor
@@ -168,8 +166,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="flex space-x-4">
                     <button type="submit"
                         class="btn btn-lg btn-primary w-1/2 text-base text-light bg-primaryBlue">Update</button>
@@ -177,8 +173,6 @@
                         class="btn btn-lg text-base w-1/2">Tutup</button>
                 </div>
             </form>
-
-
 
             <!-- table 1 -->
 
@@ -191,8 +185,19 @@
                         </div> -->
                         <div class="flex-auto p-5">
                             <div class="overflow-x-auto p-4">
-                                <h1 class="mb-4 text-2xl font-bold text-center select-none dark:text-white">Tabel
-                                    Pegawai</h1>
+                                <div class="flex gap-2 justify-center">
+                                    <h1 class="mb-4 text-2xl font-bold text-center select-none dark:text-white">Tabel
+                                        Pegawai
+                                    </h1>
+                                    @if (session()->has('add') || session()->has('update') || session()->has('delete'))
+                                        <div role="alert"
+                                            class="text-xl 
+        {{ session()->has('add') ? 'text-green-500' : (session()->has('update') ? 'text-primaryBlue' : 'text-primaryRed') }}">
+                                            {{ session('add') ?? (session('update') ?? session('delete')) }}
+                                        </div>
+                                    @endif
+
+                                </div>
                                 <div class="w-full mb-2 flex">
                                     <div class=" join flex m-2">
                                         <label
@@ -326,6 +331,7 @@
                                     </thead>
                                     <tbody id="pegawai-list" class="bg-white border">
                                         @foreach ($listpegawai as $pegawai)
+                                        
                                             <tr class="hover:bg-gray-100 dark:hover:bg-slate-700 border-b">
                                                 <td class="px-4 text-base text-center">{{ $pegawai->user->nama }}</td>
                                                 <td class="px-4 text-base text-center">{{ $pegawai->no_telpon }}</td>
@@ -337,7 +343,7 @@
                                                             class="btn btn-primary join-item bg-primaryBlue text-light font-semibold leading-tight edit-pegawai"
                                                             data-pegawai='@json($pegawai)'>Edit</button>
                                                         <form
-                                                            action="{{ route('admin.pegawai.delete', $pegawai->user->id) }}"
+                                                            action="{{ route('admin.pegawai.delete', $pegawai->NIP) }}"
                                                             method="POST" style="display:inline-block;">
                                                             @csrf
                                                             @method('DELETE')
@@ -360,13 +366,7 @@
 
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div id="success-notification"
-                            class="p-4 mb-4 text-sm text-green-700 absolute bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-                            role="alert">
-                            <span class="font-medium">{{ session('success') }}</span>
-                        </div>
-                    @endif
+
 
 
                 </div>
@@ -504,7 +504,7 @@
                 document.getElementById('newNIP').value = pegawai.NIP;
                 document.getElementById('newPTK').value = pegawai.PTK;
                 document.getElementById('updateForm').action =
-                    `/admin/pegawai/update/${pegawai.id}`;
+                    `/admin/pegawai/update/${pegawai.NIP}`;
                 // console.log(pegawai);
                 document.getElementById('updateForm').style.display = 'block';
                 document.getElementById('pegawaiForm').style.display = 'none';

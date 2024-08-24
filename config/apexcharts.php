@@ -57,6 +57,7 @@ return [
             'title' => [
                 'text' => '',
             ],
+            'tickAmount' => 5,
         ],
 
         'grid' => [

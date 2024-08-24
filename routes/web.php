@@ -45,12 +45,13 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::get('/pegawai', [AdminController::class, 'pagination'])->name('admin.pegawai');
         Route::post('/store/pegawai', [AdminController::class, 'storePegawai'])->name('admin.store.pegawai');
         Route::delete('/pegawai/{NIP}', [AdminController::class, 'deletePegawai'])->name('admin.pegawai.delete');
-        Route::get('/pegawai/{id}/edit', [AdminController::class, 'editPegawai'])->name('admin.pegawai.edit');
+        Route::get('/pegawai/{NIP}/edit', [AdminController::class, 'editPegawai'])->name('admin.pegawai.edit');
         Route::post('/pegawai/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.pegawai.update');
         Route::get('/pegawai/search', [AdminController::class, 'search'])->name('pegawai.search');
         Route::get('pegawai/export/', [AdminController::class, 'export'])->name('pegawai.export');
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         Route::get('/kunjungan', [AdminController::class, 'kunjungan']);
+        Route::get('/kunjungan/{id_kedatangan}', [AdminController::class, 'getDetail']);
     Route::post('/scan-result', [AdminController::class, 'store']);
 });
         

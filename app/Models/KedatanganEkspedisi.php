@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class KedatanganEkspedisi extends Model
 {
     protected $table = 'kedatangan_ekspedisi';
-    protected $primaryKey = 'id_kedatanganEkspedisi';
+    protected $primaryKey = 'id_kedatangan';
     public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'id_kedatanganEkspedisi',
+        'id_kedatangan',
         'id_ekspedisi',
         'NIP',
         'id_user',

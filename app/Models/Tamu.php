@@ -12,7 +12,11 @@ class Tamu extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     protected $table = 'tamu';
+    protected $primaryKey = 'id_tamu';
+    public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
+        'id_tamu',
         'nama',
         'email',
         'alamat',
@@ -31,6 +35,6 @@ class Tamu extends Authenticatable implements MustVerifyEmail
 
     public function kedatanganTamu()
     {
-        return $this->hasMany(KedatanganTamu::class, 'id_tamu');
+        return $this->hasMany(KedatanganTamu::class, 'id_tamu', 'id_tamu');
     }
 }

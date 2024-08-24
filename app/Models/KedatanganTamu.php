@@ -10,8 +10,11 @@ class KedatanganTamu extends Model
     use HasFactory;
 
     protected $table = 'kedatangan_tamu';
+    protected $primaryKey = 'id_kedatangan';
+    public $incrementing = false;
 
     protected $fillable = [
+        'id_kedatangan',
         'NIP',
         'id_tamu',
         'id_user',
@@ -25,7 +28,7 @@ class KedatanganTamu extends Model
 
     public function tamu()
     {
-        return $this->belongsTo(Tamu::class, 'id_tamu');
+        return $this->belongsTo(Tamu::class, 'id_tamu', 'id_tamu');
     }
 
     public function pegawai()
@@ -35,6 +38,6 @@ class KedatanganTamu extends Model
 
     public function user()
     {
-        return $this->belongsTo(Tamu::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }
