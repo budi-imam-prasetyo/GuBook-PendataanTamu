@@ -29,8 +29,10 @@ class LoginController extends Controller
     {
         if (auth()->user()->role == 'pegawai') {
             return '/pegawai';
-        } else if (auth()->user()->role == 'admin') {
+        } else if (auth()->user()->role == 'superadmin') {
             return '/admin';
+        } else if (auth()->user()->role == 'FO') {
+            return '/FO';
         }
     }
 

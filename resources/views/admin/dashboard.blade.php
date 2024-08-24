@@ -12,8 +12,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
-    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.6/dist/alpine.min.js" defer></script> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css"> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -27,7 +26,7 @@
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         <!-- Navbar -->
-        <x-admin.navbar></x-admin.navbar>
+        <x-admin.navbar>Dashboard</x-admin.navbar>
 
         <!-- cards -->
         <div class="mx-auto w-full p-6">
@@ -43,9 +42,10 @@
                                     <div>
                                         <p
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
-                                            Kunjungan Tamu
+                                            Kunjungan Tamu Hari Ini
                                         </p>
-                                        <h5 class="mb-2 font-bold dark:text-white">12</h5>
+                                        <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
+                                        </h5>
                                     </div>
                                 </div>
                                 <div class="px-3 text-right">
@@ -72,11 +72,10 @@
                                         class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                         Kunjungan Minggu Ini
                                     </p>
-                                    <h5 class="mb-2 font-bold dark:text-white">
-                                        112
+                                    <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
                                     </h5>
                                 </div>
-                                <div class="basis-1/3 px-3 text-center  ">
+                                <div class="basis-1/3 px-3 text-center">
                                     <div
                                         class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
@@ -88,9 +87,8 @@
                                         class="mb-0 font-sans text-lg text-right font-semibold leading-normal dark:text-white dark:opacity-60">
                                         Kunjungan Bulan Ini
                                     </p>
-                                    <h5 class="mb-2 font-bold text-right dark:text-white">
-                                        541
-                                    </h5>
+                                    <h5 class="mb-2 font-bold text-right text-lg dark:text-white">
+                                        {{ $totalPerBulan }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -113,9 +111,10 @@
                                     <div class="text-right">
                                         <p
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
-                                            Kunjungan Kurir
+                                            Kunjungan Kurir Hari Ini
                                         </p>
-                                        <h5 class="mb-2 font-bold dark:text-white">24</h5>
+                                        <h5 class="mb-2 font-bold text-lg dark:text-white">
+                                            {{ $totalKurirPerHariMinggu }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -124,49 +123,27 @@
                 </div>
             </div>
 
+
             <!-- cards row 1 -->
             <div class="-mx-3 mt-6 flex flex-wrap">
                 <div class="mt-0 w-full max-w-full px-3 lg:flex-none">
                     <div
                         class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
-                            <div x-data="{ open: false, html5QrCode: null, photoTaken: false, imageData: '' }" x-init="html5QrCode = new Html5Qrcode('reader');">
-                                <!-- Button to trigger modal -->
-                                <button @click="open = true; startScanner()"
-                                    class="inline-block px-8 py-2 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer active:opacity-85 leading-pro tracking-tight-rem bg-150 bg-x-25 hover:scale-102 active:shadow-xs hover:text-blue-500 hover:opacity-75 hover:shadow-none active:scale-100 active:border-blue-500 active:bg-blue-500 active:text-white hover:active:border-blue-500 hover:active:bg-transparent hover:active:text-blue-500 hover:active:opacity-75">
-                                    Import
-                                </button>
-                            
-                                <!-- Modal content -->
-                                <div x-show="open" @click.away="open = false"
-                                    class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
-                                        <div class="flex items-center justify-between p-4 border-b">
-                                            <h5 class="text-lg font-bold">Scan QR Code</h5>
-                                            <button @click="open = false" class="text-gray-500 hover:text-gray-700">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </div>
-                                        <div class="p-4">
-                                            <div x-show="!photoTaken" id="reader" style="width:100%;"></div>
-                                            <img x-show="photoTaken" :src="imageData" alt="Captured Photo" style="width: 100%;" />
-                                        </div>
-                                        <div class="flex justify-end p-4 border-t">
-                                            <button x-show="!photoTaken" @click="takePicture"
-                                                class="px-4 py-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Shutter</button>
-                                            <button @click="open = false"
-                                                class="px-4 py-2 mr-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
                                 <i class="fa fa-arrow-up text-emerald-500"></i>
-                                <span class="font-semibold">4% lebih banyak</span> dari
-                                Januari
+                                <span class="font-semibold">
+                                    {{ round($persentaseKenaikan, 2) }}%
+                                    @if ($persentaseKenaikan >= 0)
+                                        lebih banyak
+                                    @else
+                                        lebih sedikit
+                                    @endif
+                                </span>
+                                dari Bulan Sebelumnya
                             </p>
+
                             <div class="">
                                 {!! $chart->container() !!}
                             </div>
@@ -180,107 +157,76 @@
             <div class="mt-6 w-full max-w-full  md:flex-none">
                 <div
                     class="relative flex min-w-0 flex-col break-words rounded-2xl border-0 bg-white bg-clip-border shadow">
-                    <div class="flex justify-between">
+                    <div class="flex justify-between px-4">
                         <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
                             <h6 class="mb-0 text-lg font-bold dark:text-white">
                                 Daftar Kunjungan
                             </h6>
                         </div>
-                        <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
-                            <h6 class="mb-0 dark:text-white">
-                                Lihat Semua <i class="fa fa-arrow-right"></i>
-                            </h6>
-                        </div>
+                        @if ($kedatangan->isNotEmpty())
+                            <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                                <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
+                                    Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
+                                        alt="">
+                                </h6>
+                            </div>
+                        @endif
                     </div>
                     <div class="flex-auto p-4 pt-6">
                         <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
-                            <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                <div class="flex gap-7 ml-4">
-                                    <div class="flex items-center justify-center h-full">
-                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                    </div>                                    
-                                    <div class="flex flex-col">
-                                        <h5 class="text-lg">
-                                            Oliver Liam
-                                        </h5>
-                                        <div class="flex gap-2 ml-1">
-                                            <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
-                                            </div>
-                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
+                            @forelse ($kedatangan->take(3) as $item)
+                                <li
+                                    class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                    <div class="flex gap-7 ml-4">
+                                        <div class="flex items-center justify-center h-full">
+                                            @if ($item->type == 'tamu')
+                                                <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                            @else
+                                                <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                            @endif
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <h5 class="text-lg font-semibold">
+                                                {{ $item->user->nama }}
+                                            </h5>
+                                            <div class="flex gap-2">
+                                                <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                    @if ($item->type == 'tamu')
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Nama :
+                                                            </span>{{ $item->tamu->nama }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Email :
+                                                            </span>{{ $item->tamu->email }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Perjanjian : </span>
+                                                            {{ $item->waktu_perjanjian }}</p>
+                                                    @else
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Nama Kurir :
+                                                            </span>{{ $item->ekspedisi->nama_kurir }}
+                                                        </p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Ekspedisi :
+                                                            </span>{{ $item->ekspedisi->ekspedisi }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Kedatangan : </span>
+                                                            {{ $item->waktu_kedatangan }}</p>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
-                            <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                <div class="flex gap-7 ml-4">
-                                    <div class="flex items-center justify-center h-full">
-                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                    </div>                                    
-                                    <div class="flex flex-col">
-                                        <h5 class="text-lg">
-                                            Oliver Liam
-                                        </h5>
-                                        <div class="flex gap-2 ml-1">
-                                            <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/truck2.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
-                                            </div>
-                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">J&T</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
-                                            </div>
-                                        </div>
+                                    <div class="ml-auto text-right flex items-center">
+                                        <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                            href="javascript:;">Detail</a>
                                     </div>
+                                </li>
+                            @empty
+                                <div class="w-full my-2">
+                                    <p class="text-center text-darkGray">Belum ada kunjungan</p>
                                 </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
-                            <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                <div class="flex gap-7 ml-4">
-                                    <div class="flex items-center justify-center h-full">
-                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                    </div>                                    
-                                    <div class="flex flex-col">
-                                        <h5 class="text-lg">
-                                            Oliver Liam
-                                        </h5>
-                                        <div class="flex gap-2 ml-1">
-                                            <div class="flex flex-col gap-3">
-                                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 alt="">
-                                                <img src="{{ asset('assets/icons/mail.svg') }}" class="w-5" alt="">
-                                                <img src="{{ asset('assets/icons/time.svg') }}" class="w-5 alt="">
-                                            </div>
-                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">Corey George</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">oliver@burrito.com</span>
-                                                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">13 Juni 2024, 12.41</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
@@ -289,19 +235,21 @@
         <!-- end cards -->
         <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
             white-style-btn navbarFixed dark-toggle />
-            <footer class="text-center py-4 dark:bg-gray-800">
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                    &copy; <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang lebih baik.
-                </p>
-            </footer>
+        <footer class="text-center py-4 dark:bg-gray-800">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang
+                lebih baik.
+            </p>
+        </footer>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
 
     {{ $chart->script() }}
     <!-- plugin for scrollbar  -->
@@ -309,50 +257,7 @@
     <script src="{{ asset('js/argon-dashboard-tailwind.js') }}" async></script>
     <script src="{{ asset('js/sidenav-burger.js') }}" async></script>
     <!-- Initialize QR Code Scanner -->
-    <script>
-        function startScanner() {
-            const html5QrCode = new Html5Qrcode('reader');
-            html5QrCode.start({ facingMode: 'environment' }, {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            }, qrCodeMessage => {
-                console.log(`QR Code detected: ${qrCodeMessage}`);
-                alert(`QR Code detected: ${qrCodeMessage}`);
-                html5QrCode.stop().then(() => {
-                    console.log('QR Code scanning stopped.');
-                }).catch(err => {
-                    console.error('Unable to stop scanning.', err);
-                });
-            }, errorMessage => {
-                console.log('QR Code no longer in front of camera.');
-            }).catch(err => {
-                console.error('Unable to start scanning, error:', err);
-            });
-        }
-    
-        function takePicture() {
-            // Mengambil gambar dari video stream
-            const videoElement = document.querySelector('#reader video');
-            if (videoElement) {
-                const canvas = document.createElement('canvas');
-                canvas.width = videoElement.videoWidth;
-                canvas.height = videoElement.videoHeight;
-                const context = canvas.getContext('2d');
-                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                const imageData = canvas.toDataURL('image/png');
-    
-                // Menampilkan gambar di console log atau melakukan tindakan lain
-                console.log(imageData);
-                alert('Picture taken! Check console for image data.');
-    
-                // Menyembunyikan video dan menampilkan gambar
-                document.querySelector('[x-data]').__x.$data.photoTaken = true;
-                document.querySelector('[x-data]').__x.$data.imageData = imageData;
-            } else {
-                console.error('No video element found.');
-            }
-        }
-    </script>
+
 
 </body>
 

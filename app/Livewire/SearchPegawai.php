@@ -11,6 +11,7 @@ class SearchPegawai extends Component
     use WithPagination;
 
     public $term = "";
+    public $users = "";
 
     public function updatingTerm()
     {
@@ -20,9 +21,10 @@ class SearchPegawai extends Component
     public function render()
     {
         sleep(1);
-        $users = User::where('name', 'like', '%' . $this->term . '%')
+        $term = $this->term;
+        $this->users = User::where('nama', 'like', '%' . $this->term . '%')
         ->orWhere('email', 'like', '%' . $this->term . '%')
         ->paginate(10);
-        return view('livewire.search-pegawai', ['users' => $users]);
+        return view('livewire.search-pegawai', ['users' => $this->users, 'term' => $term]);
     }
 }

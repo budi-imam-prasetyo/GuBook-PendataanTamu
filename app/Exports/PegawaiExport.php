@@ -16,7 +16,7 @@ class PegawaiExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'ID', 'Nama', 'Email', 'No Telpon', 'NIP', 'PTK', 'Created At', 'Updated At'
+            'NIP', 'Nama', 'Email', 'No Telpon', '', 'PTK', 'Created At', 'Updated At'
         ];
     }
 

@@ -13,17 +13,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pegawais', function (Blueprint $table) {
-            $table->id();
+            $table->string('NIP')->primary();
+            // $table->string('id_pegawai');
             $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->string('no_telpon');
-            $table->string('NIP');
             $table->string('PTK');
             $table->timestamps();
         });
-        DB::statement(
-            'ALTER TABLE pegawais ADD FULLTEXT fulltext_index(no_telpon, NIP, PTK)'
-        );
-        
     }
 
     /**

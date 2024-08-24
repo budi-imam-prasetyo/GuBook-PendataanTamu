@@ -8,13 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     use HasFactory;
-    use Search;
-
-    protected $searchable = [
-        'no_telpon',
-        'NIP',
-        'PTK',
-    ];
 
     protected $fillable = [
         'id_user',
