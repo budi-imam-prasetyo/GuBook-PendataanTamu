@@ -58,6 +58,7 @@ return [
                 'text' => '',
             ],
             'tickAmount' => 5,
+            
         ],
 
         'grid' => [

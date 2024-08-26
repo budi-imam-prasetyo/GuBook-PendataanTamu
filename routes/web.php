@@ -52,6 +52,7 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         Route::get('/kunjungan', [AdminController::class, 'kunjungan']);
         Route::get('/kunjungan/{id_kedatangan}', [AdminController::class, 'getDetail']);
+        Route::post('/kunjungan/status/update', [AdminController::class, 'updateStatus'])->name('status.update');
     Route::post('/scan-result', [AdminController::class, 'store']);
 });
         

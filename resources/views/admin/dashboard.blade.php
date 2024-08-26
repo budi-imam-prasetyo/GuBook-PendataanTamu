@@ -20,7 +20,7 @@
 <body
     class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
-    <div class="absolute min-h-80 w-full bg-primaryBlue dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -44,7 +44,7 @@
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                             Kunjungan Tamu Hari Ini
                                         </p>
-                                        <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
+                                        <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $tamuHariIni }}
                                         </h5>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                                         class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                         Kunjungan Minggu Ini
                                     </p>
-                                    <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
+                                    <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalMingguIni }}
                                     </h5>
                                 </div>
                                 <div class="basis-1/3 px-3 text-center">
@@ -88,7 +88,7 @@
                                         Kunjungan Bulan Ini
                                     </p>
                                     <h5 class="mb-2 font-bold text-right text-lg dark:text-white">
-                                        {{ $totalPerBulan }}</h5>
+                                        {{ $totalBulanIni }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                             Kunjungan Kurir Hari Ini
                                         </p>
                                         <h5 class="mb-2 font-bold text-lg dark:text-white">
-                                            {{ $totalKurirPerHariMinggu }}</h5>
+                                            {{ $kurirHariIni }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
                                 <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">
-                                    {{ round($persentaseKenaikan, 2) }}%
+                                    {{ abs(round($persentaseKenaikan, 2)) }}%
                                     @if ($persentaseKenaikan >= 0)
                                         lebih banyak
                                     @else
@@ -235,16 +235,7 @@
         <!-- end cards -->
         <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
             white-style-btn navbarFixed dark-toggle />
-        <footer class="text-center py-4 dark:bg-gray-800">
-            <p class="text-sm text-gray-600 dark:text-gray-400">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
-                <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang
-                lebih baik.
-            </p>
-        </footer>
+        <x-admin.footer />
     </main>
 
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}

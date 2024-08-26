@@ -17,7 +17,7 @@
 
 <body
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
-    <div class="absolute min-h-80 w-full bg-blue-500 dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-blue-500"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -25,7 +25,7 @@
         <!-- Navbar -->
         <x-admin.navbar>Pegawai</x-admin.navbar>
 
-        <div class="mx-auto w-full p-6 ">
+        <div class="mx-auto w-full p-6 pb-0 ">
             <form id="pegawaiForm" action="{{ route('admin.store.pegawai') }}" method="POST"
                 class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border rounded-2xl shadow-lg dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
                 @csrf
@@ -318,20 +318,23 @@
 
 
 
-                                <table id="pegawaiTable" class="table w-full">
+                                <table id="pegawaiTable" class="table w-full ">
                                     <thead class="bg-primaryBlue border text-white tracking-widest">
                                         <tr>
-                                            <th class="p-4 select-none text-base text-center">Nama</th>
-                                            <th class="p-4 select-none text-base text-center">No Telepon</th>
-                                            <th class="p-4 select-none text-base text-center">NIP</th>
-                                            <th class="p-4 select-none text-base text-center">PTK</th>
+                                            <th class="p-4 select-none text-base text-center cursor-pointer"
+                                                onclick="sortTable(0)">Nama</th>
+                                            <th class="p-4 select-none text-base text-center cursor-pointer"
+                                                onclick="sortTable(1)">No Telepon</th>
+                                            <th class="p-4 select-none text-base text-center cursor-pointer"
+                                                onclick="sortTable(2)">NIP</th>
+                                            <th class="p-4 select-none text-base text-center cursor-pointer"
+                                                onclick="sortTable(3)">PTK</th>
                                             <th class="p-4 select-none text-base text-center" style="width: 100px;">
                                                 Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="pegawai-list" class="bg-white border">
                                         @foreach ($listpegawai as $pegawai)
-                                        
                                             <tr class="hover:bg-gray-100 dark:hover:bg-slate-700 border-b">
                                                 <td class="px-4 text-base text-center">{{ $pegawai->user->nama }}</td>
                                                 <td class="px-4 text-base text-center">{{ $pegawai->no_telpon }}</td>
@@ -348,7 +351,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-outline hover:border-primaryBlue border-primaryBlue  hover:bg-secondaryBlue join-item font-semibold leading-tight text-primaryBlue"
+                                                                class="btn btn-outline hover:border-primaryBlue border-primaryBlue hover:bg-secondaryBlue join-item font-semibold leading-tight text-primaryBlue"
                                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
                                                         </form>
                                                     </div>
@@ -357,6 +360,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
 
 
@@ -375,50 +379,8 @@
 
         <!-- card 2 -->
 
-        <footer class="pt-4">
-            <div class="mx-auto w-full px-6">
-                <div class="-mx-3 flex flex-wrap items-center lg:justify-between">
-                    <div class="mb-6 mt-0 w-full max-w-full shrink-0 px-3 lg:mb-0 lg:w-1/2 lg:flex-none">
-                        <div class="text-center text-sm leading-normal text-slate-500 lg:text-left">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear() + ",");
-                            </script>
-                            made with <i class="fa fa-heart"></i> by
-                            <a href="https://www.creative-tim.com"
-                                class="font-semibold text-slate-700 dark:text-white" target="_blank">Creative
-                                Tim</a>
-                            for a better web.
-                        </div>
-                    </div>
-                    <div class="mt-0 w-full max-w-full shrink-0 px-3 lg:w-1/2 lg:flex-none">
-                        <ul class="mb-0 flex list-none flex-wrap justify-center pl-0 lg:justify-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://creative-tim.com/blog"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license"
-                                    class="block px-4 pb-1 pr-0 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
         </div>
+        <x-admin.footer />
     </main>
     <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
         white-style-btn navbarFixed dark-toggle />
@@ -437,6 +399,28 @@
     document.getElementById('filterPTK').addEventListener('change', function() {
         filterTable();
     });
+
+    function sortTable(columnIndex) {
+        var table = document.getElementById("pegawaiTable");
+        var tbody = table.tBodies[0];
+        var rows = Array.from(tbody.rows);
+        var ascending = tbody.getAttribute("data-sort-order") !== "asc";
+        rows.sort(function(rowA, rowB) {
+            var cellA = rowA.cells[columnIndex].innerText.trim().toLowerCase();
+            var cellB = rowB.cells[columnIndex].innerText.trim().toLowerCase();
+
+            if (cellA < cellB) {
+                return ascending ? -1 : 1;
+            }
+            if (cellA > cellB) {
+                return ascending ? 1 : -1;
+            }
+            return 0;
+        });
+
+        tbody.setAttribute("data-sort-order", ascending ? "asc" : "desc");
+        tbody.append(...rows);
+    }
 
     function filterTable() {
         var input, filter, ptkFilter, table, tr, td, i, j, txtValue;

@@ -11,13 +11,13 @@ export default {
         extend: {
             keyframes: {
                 boing: {
-                    '0%, 100%': { transform: 'translateY(-5%)' },
-                    '50%': { transform: 'translateY(0%)' },
-                }
+                    "0%, 100%": { transform: "translateY(-5%)" },
+                    "50%": { transform: "translateY(0%)" },
+                },
             },
             animation: {
-        boing: 'boing 3s infinite',
-      },
+                boing: "boing 3s infinite",
+            },
             fontFamily: {
                 sans: ["Inter", "sans-serif"],
             },
@@ -1419,7 +1419,5 @@ export default {
         "disabled",
     ],
 
-    plugins: [require("daisyui"),
-        "prettier-plugin-tailwindcss"
-    ],
+    plugins: [require("daisyui"), "prettier-plugin-tailwindcss"],
 };
