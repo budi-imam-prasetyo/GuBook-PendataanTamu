@@ -9,11 +9,7 @@
     <div class="w-full flex items-center justify-center avatar">
         <div
             class="rounded-full flex items-center justify-center w-25 h-25 outline outline-4 {{ $statusColors[$item->status] ?? 'outline-green-400' }}">
-            @if ($item->fotoUrl == null)
-                <img src="{{ $item->fotoUrl }}" class="h-full rounded-full" alt="">
-            @else
-                <img src="{{ $nullFoto }}" class="h-full rounded-full" alt="">
-            @endif
+            <img src="{{ asset('assets/user.jpg') }}" class="h-full rounded-full" alt="">
         </div>
     </div>
     <div class="w-full flex gap-2 justify-around">
@@ -38,7 +34,7 @@
     </div>
     <div class="w-full px-4">
         <h2 class="text-lg font-semibold mb-2 px-2 leading-4">Detail Lainnya</h2>
-        <div class="bg-lightBlue p-4 rounded-4.5 ">
+        <div class="bg-lightRed p-4 rounded-4.5 ">
             {{-- @if ($item->ekspedisi)
                 <div class="flex mb-2">
                     <span class="font-semibold w-1/6">Waktu Kedatangan</span>
@@ -68,11 +64,42 @@
                 </div>
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Tujuan</span>
-                    <div class="w-full py-2 px-3 bg-lightBlue2 rounded-lg h-24 overflow-auto">
+                    <div class="w-full py-2 px-3 bg-lightRed2 rounded-lg h-24 overflow-auto">
                         {{ $item->tujuan ?? 'N/A' }}
                     </div>
                 </div>
             @endif
         </div>
+        <div class="w-full flex gap-4 my-4">
+            <!-- Tombol Diterima -->
+                @if ($item->tamu)
+                    @if ($item->status == 'menunggu')
+                        <div class="w-1/2">
+                            <form action="{{ route('status.update') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id_kedatangan" value="{{ $item->id_kedatangan }}">
+                                <input type="hidden" name="status" value="ditolak">
+                                <button type="submit"
+                                    class="btn hover:text-light border-2 border-primaryRed hover:border-primaryRed hover:bg-secondaryRed text-primaryRed btn-lg w-full">
+                                    Ditolak
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="w-1/2">
+                            <form action="{{ route('status.update') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id_kedatangan" value="{{ $item->id_kedatangan }}">
+                                <input type="hidden" name="status" value="diterima">
+                                <button type="submit"
+                                    class="btn bg-primaryRed hover:bg-secondaryRed text-light btn-lg w-full">
+                                    Diterima
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                @endif
+        </div>
+
     </div>
 </div>

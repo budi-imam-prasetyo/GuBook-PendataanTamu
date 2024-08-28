@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PegawaiExport;
 use App\Imports\PegawaiImport;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -103,12 +104,12 @@ class AdminController extends Controller
         // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
 
         //! Chart
-        $chart = (new Chart)->setType('line')
+        $chart = (new Chart)->setType('area')
             ->setWidth('100%')
             ->setHeight(300)
             ->setLabels($labels)
-            ->setDataset('Tamu', 'line', $datasetTamu)
-            ->setDataset('Kurir', 'line', $datasetKurir)
+            ->setDataset('Tamu', 'area', $datasetTamu)
+            ->setDataset('Kurir', 'area', $datasetKurir)
             ->setOptions(
                 [
                     'yaxis' => [
@@ -128,7 +129,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function pagination()
+    public function pegawai()
     {
         // dd($mapel);
         $mapel = Pegawai::select('PTK')->distinct()->get();
@@ -136,11 +137,6 @@ class AdminController extends Controller
         $listpegawai = Pegawai::paginate(10);
         $listpegawai->withPath('/admin/pegawai');
         return view('admin.pegawai', compact('listpegawai', 'mapel'));
-    }
-
-    public function pegawai()
-    {
-        return view('admin.pegawai', compact('listpegawai'));
     }
 
 
@@ -258,7 +254,10 @@ class AdminController extends Controller
             ->setOptions([
                 'legend' => [
                     'position' => 'bottom'
-                ]
+                ],
+            'yaxis' => [
+                'stepSize' => 1
+            ],
             ]);
 
         $kedatanganTamu = KedatanganTamu::all()->map(function ($item) {
@@ -284,20 +283,12 @@ class AdminController extends Controller
         if ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian ?? $item->waktu_kedatangan)->translatedFormat('H:i l, d-m-Y');
             $item->type = ['tamu', 'kurir'];
+            $item->fotoUrl = Storage::url($item->foto);
         }
+        $nullFoto = asset('assets/user.jpg');
 
-        return view('components.admin.card_detail', compact('item'))->render();
+        return view('components.admin.card_detail', compact('item', 'nullFoto'))->render();
     }
-    public function updateStatus(Request $request)
-    {
-        $kunjungan = KedatanganTamu::findOrFail($request->id_kedatangan);
-        $kunjungan->status = $request->status;
-        $kunjungan->save();
-
-        return redirect()->back()->with('success', 'Status berhasil diupdate!');
-    }
-
-
     public function store(Request $request)
     {
         $qrCodeData = $request->input('qr_code_data');

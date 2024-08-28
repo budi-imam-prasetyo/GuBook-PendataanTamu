@@ -16,13 +16,13 @@
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-blue-500 "></div>
+    <div class="absolute min-h-80 w-full bg-primaryRed "></div>
 
-    <x-admin.sidebar></x-admin.sidebar>
+    <x-pegawai.sidebar></x-pegawai.sidebar>
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-admin.navbar>Kunjungan</x-admin.navbar>
+        <x-pegawai.navbar>Kunjungan</x-pegawai.navbar>
 
         <div class="w-full flex flex-col gap-7 p-6 pt-3">
             {{-- Rows 1 --}}
@@ -36,7 +36,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-full">
                             {{-- Card 1 --}}
                             <div
-                                class="-mx-1 flex flex-row justify-between bg-lightBlue rounded-3 h-full shadow-md p-5">
+                                class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
                                 <div class="max-w-full flex-none">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
@@ -48,14 +48,14 @@
                                 </div>
                                 <div class="text-right flex items-center justify-center">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-b from-green-500 to-green-400 flex items-center justify-center">
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-t from-primaryRed to-secondaryRed flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
                             </div>
                             {{-- Card 2 --}}
                             <div
-                                class="-mx-1 flex flex-row justify-between bg-lightBlue rounded-3 h-full shadow-md p-5">
+                                class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
                                 <div class="max-w-full flex-none">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
@@ -67,14 +67,14 @@
                                 </div>
                                 <div class="text-right flex items-center justify-center">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-b from-yellow-500 to-yellow-400 flex items-center justify-center">
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-primaryRed to-secondaryRed flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
                             </div>
                             {{-- Card 3 --}}
                             <div
-                                class="-mx-1 flex flex-row justify-between bg-lightBlue rounded-3 h-full shadow-md p-5">
+                                class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
                                 <div class="max-w-full flex-none">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="text-right flex items-center justify-center">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-b from-red-500 to-red-400 flex items-center justify-center">
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-b from-primaryRed to-secondaryRed flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
@@ -119,14 +119,14 @@
                                 <img src="{{ asset('assets/icons/search2.svg') }}" class="w-5 h-5" alt="">
                             </div>
                             <input id="searchInput" type="text"
-                                class="peer py-3 px-4 ps-11 block w-full bg-lightBlue border-lightBlue2 border rounded-lg text-sm focus:border-opacity-50 disabled:opacity-50 disabled:pointer-events-none placeholder:font-semibold placeholder:text-grey"
+                                class="peer py-3 px-4 ps-11 block w-full bg-lightRed border-lightRed2 border rounded-lg text-sm focus:border-opacity-50 disabled:opacity-50 disabled:pointer-events-none placeholder:font-semibold placeholder:text-grey"
                                 placeholder="Enter name">
                         </div>
 
                         <div class="relative">
                             <ul id="visitList" class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-125 overflow-y-auto">
                                 @forelse ($kedatangan as $item)
-                                <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightRed2 bg-lightRed px-6 py-4 dark:bg-slate-850">
                                     <div class="flex gap-7 ml-4">
                                         <div class="flex items-center justify-center h-full">
                                             @if ($item->type == 'tamu')
@@ -164,15 +164,17 @@
                                 </div>
                                 @endforelse
                             </ul>
-                            <button id="scrollDown" class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightBlue2 p-3 mt-2 shadow-md shadow-grey">
-                                    <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5" alt="arrow">
+                            @if ($kedatangan->count() > 3)
+                            <button id="scrollDown" class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightRed2 p-3 mt-2 shadow-md shadow-grey">
+                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5" alt="arrow">
                             </button>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <x-admin.footer />
+        <x-pegawai.footer />
     </main>
 
     <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
@@ -205,9 +207,9 @@
         });
     });
 
-    function loadDetail(id, type) {
+    function loadDetail(id_kedatangan, type) {
         $.ajax({
-            url: '/admin/kunjungan/' + id, // Pastikan URL ini sesuai dengan route Anda
+            url: '/pegawai/kunjungan/' + id_kedatangan, // Pastikan URL ini sesuai dengan route Anda
             method: 'GET',
             success: function(data) {
                 // Update container dengan partial view yang diterima dari server

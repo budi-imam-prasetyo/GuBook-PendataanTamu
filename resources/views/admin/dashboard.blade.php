@@ -3,13 +3,11 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
+    <title>GuBook | Dashboard</title>
+    <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css"> --}}
@@ -77,7 +75,7 @@
                                 </div>
                                 <div class="basis-1/3 px-3 text-center">
                                     <div
-                                        class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
+                                        class="h-20 w-20 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 mx-auto flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
                                             alt="">
                                     </div>
@@ -88,7 +86,8 @@
                                         Kunjungan Bulan Ini
                                     </p>
                                     <h5 class="mb-2 font-bold text-right text-lg dark:text-white">
-                                        {{ $totalBulanIni }}</h5>
+                                        {{ $totalBulanIni }}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +102,7 @@
                             <div class="-mx-3 justify-between flex flex-row">
                                 <div class="pl-6 text-left">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 flex items-center justify-center">
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/box.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
@@ -114,7 +113,8 @@
                                             Kunjungan Kurir Hari Ini
                                         </p>
                                         <h5 class="mb-2 font-bold text-lg dark:text-white">
-                                            {{ $kurirHariIni }}</h5>
+                                            {{ $kurirHariIni }}
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -136,9 +136,9 @@
                                 <span class="font-semibold">
                                     {{ abs(round($persentaseKenaikan, 2)) }}%
                                     @if ($persentaseKenaikan >= 0)
-                                        lebih banyak
+                                    lebih banyak
                                     @else
-                                        lebih sedikit
+                                    lebih sedikit
                                     @endif
                                 </span>
                                 dari Bulan Sebelumnya
@@ -164,68 +164,70 @@
                             </h6>
                         </div>
                         @if ($kedatangan->isNotEmpty())
-                            <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
-                                <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
-                                    Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
-                                        alt="">
-                                </h6>
-                            </div>
+                        <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                            <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
+                                Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
+                                    alt="">
+                            </h6>
+                        </div>
                         @endif
                     </div>
                     <div class="flex-auto p-4 pt-6">
                         <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
                             @forelse ($kedatangan->take(3) as $item)
-                                <li
-                                    class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                    <div class="flex gap-7 ml-4">
-                                        <div class="flex items-center justify-center h-full">
-                                            @if ($item->type == 'tamu')
-                                                <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                            @else
-                                                <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                            @endif
-                                        </div>
-                                        <div class="flex flex-col gap-2">
-                                            <h5 class="text-lg font-semibold">
-                                                {{ $item->user->nama }}
-                                            </h5>
-                                            <div class="flex gap-2">
-                                                <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                    @if ($item->type == 'tamu')
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Nama :
-                                                            </span>{{ $item->tamu->nama }}</p>
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Email :
-                                                            </span>{{ $item->tamu->email }}</p>
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Tanggal Perjanjian : </span>
-                                                            {{ $item->waktu_perjanjian }}</p>
-                                                    @else
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Nama Kurir :
-                                                            </span>{{ $item->ekspedisi->nama_kurir }}
-                                                        </p>
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Ekspedisi :
-                                                            </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                                        <p class="font-semibold capitalize"><span
-                                                                class="font-normal">Tanggal Kedatangan : </span>
-                                                            {{ $item->waktu_kedatangan }}</p>
-                                                    @endif
-                                                </div>
+                            <li
+                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                <div class="flex gap-7 ml-4">
+                                    <div class="flex items-center justify-center h-full">
+                                        @if ($item->type == 'tamu')
+                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                        @else
+                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                        @endif
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <h5 class="text-lg font-semibold">
+                                            {{ $item->user->nama }}
+                                        </h5>
+                                        <div class="flex gap-2">
+                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                @if ($item->type == 'tamu')
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Nama :
+                                                    </span>{{ $item->tamu->nama }}</p>
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Email :
+                                                    </span>{{ $item->tamu->email }}</p>
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Tanggal Perjanjian : </span>
+                                                    {{ $item->waktu_perjanjian }}
+                                                </p>
+                                                @else
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Nama Kurir :
+                                                    </span>{{ $item->ekspedisi->nama_kurir }}
+                                                </p>
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Ekspedisi :
+                                                    </span>{{ $item->ekspedisi->ekspedisi }}</p>
+                                                <p class="font-semibold capitalize"><span
+                                                        class="font-normal">Tanggal Kedatangan : </span>
+                                                    {{ $item->waktu_kedatangan }}
+                                                </p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="ml-auto text-right flex items-center">
-                                        <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                            href="javascript:;">Detail</a>
-                                    </div>
-                                </li>
-                            @empty
-                                <div class="w-full my-2">
-                                    <p class="text-center text-darkGray">Belum ada kunjungan</p>
                                 </div>
+                                <div class="ml-auto text-right flex items-center">
+                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                        href="javascript:;">Detail</a>
+                                </div>
+                            </li>
+                            @empty
+                            <div class="w-full my-2">
+                                <p class="text-center text-darkGray">Belum ada kunjungan</p>
+                            </div>
                             @endforelse
                         </ul>
                     </div>
@@ -233,10 +235,10 @@
             </div>
         </div>
         <!-- end cards -->
-        <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
-            white-style-btn navbarFixed dark-toggle />
         <x-admin.footer />
     </main>
+    <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
+        white-style-btn navbarFixed dark-toggle />
 
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 

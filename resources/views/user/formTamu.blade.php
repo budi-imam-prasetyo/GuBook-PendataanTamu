@@ -89,8 +89,9 @@
                             <select name="pegawai" id="pegawai" class="select select-bordered w-full text-dark">
                                 <option disabled selected class="text-dark">Pilih Pegawai</option>
                                 @foreach ($listpegawai as $pegawai)
-                                    <option value="{{ $pegawai->NIP }}" class="text-dark">
-                                        {{ $pegawai->user->nama }}</option>
+                                    <option value="{{ $pegawai->NIP }},{{ $pegawai->user->id }}" class="text-dark">
+                                        {{ $pegawai->user->nama }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -118,15 +119,14 @@
                 <div class="md:w-1/2 float-right w-full">
                     <div class="gap-4 mt-8 flex flex-row">
                         <div>
-                                <button type="reset"
-                                    class="group flex h-12 w-24 items-center justify-center rounded-lg bg-white px-4 py-1 text-gray-600 hover:bg-gray-100">
-                                    <img src="{{ asset('assets/icons/reset.svg') }}"
-                                        class="h-6 transition-all duration-150 group-hover:-rotate-45"
-                                        alt="reset icon" />
-                                </button>
-                            </div>
+                            <button type="reset"
+                                class="group flex h-12 w-24 items-center justify-center rounded-lg bg-white px-4 py-1 text-gray-600 hover:bg-gray-100">
+                                <img src="{{ asset('assets/icons/reset.svg') }}"
+                                    class="h-6 transition-all duration-150 group-hover:-rotate-45" alt="reset icon" />
+                            </button>
+                        </div>
                         <input type="submit" value="Kirim"
-                            class="py-2 bg-secondaryBlue text-white w-full text-base rounded-lg h-12 hover:text-lightBlue2">
+                            class="py-2 bg-secondaryBlue cursor-pointer text-white w-full text-base rounded-lg h-12 hover:text-lightBlue2">
                     </div>
                 </div>
             </form>
@@ -177,11 +177,11 @@
                         const qrCodeContent = document.getElementById('qrCodeContent');
                         qrCodeContent.innerHTML = ''; // Clear previous content
                         qrCodeContent.appendChild(qrCodeImg);
-                        
+
                         const downloadBtn = document.getElementById('downloadBtn');
                         downloadBtn.href = qrCodeImg.src;
                         downloadBtn.download = 'qr_code.png';
-                        
+
                         document.getElementById('qrCodeModal').classList.remove('hidden');
                     } else {
                         let errorMessage = 'Gagal menambahkan kedatangan tamu.';

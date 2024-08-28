@@ -27,18 +27,19 @@
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
                 <p class="text-sm text-gray-700">
-                    Showing
+                    Menampilkan
                     <span class="font-medium">
                         {{ $paginator->firstItem() }}
                     </span>
-                    to
+                    -
                     <span class="font-medium">
                         {{ $paginator->lastItem() }}
                     </span>
-                    of
+                    dari
                     <span class="font-medium">{{ $paginator->total() }}</span>
-                    results
+                    Pegawai
                 </p>
+
             </div>
             <div>
                 <ul class="inline-flex items-center space-x-1.5">

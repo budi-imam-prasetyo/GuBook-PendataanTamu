@@ -1,11 +1,6 @@
-<nav
-    class="relative mx-6 flex flex-wrap items-center justify-between rounded-2xl px-0 py-2 shadow-none transition-all duration-250 ease-in lg:flex-nowrap lg:justify-start"
-    navbar-main
-    navbar-scroll="false"
->
-    <div
-        class="flex-wrap-inherit mx-auto flex w-full items-center justify-between py-1 pl-4 pr-2"
-    >
+<nav class="relative mx-6 flex flex-wrap items-center justify-between rounded-2xl  p-2 shadow-none transition-all duration-250 ease-in lg:flex-nowrap lg:justify-start"
+    navbar-main navbar-scroll="false">
+    <div class="flex-wrap-inherit mx-auto flex w-full items-center justify-between py-1 pr-2">
         <nav>
             <!-- breadcrumb -->
             <div class="breadcrumbs text-base text-light">
@@ -16,10 +11,7 @@
             </div>
             <h6 class="mb-0 font-bold capitalize text-white">{{ $slot }}</h6>
         </nav>
-
-        <div
-            class="mt-2 flex items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto"
-        >
+        <div class="mt-2 flex items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto">
             {{-- <div class="ml-auto flex items-center justify-end pr-4">
                 <div
                     onclick="openModalAndScan()"
@@ -60,42 +52,22 @@
                 </dialog>
             </div> --}}
 
-            <ul
-                class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full"
-            >
+            <ul class="mb-0 flex list-none flex-row justify-end pl-0 md-max:w-full">
                 <li class="flex items-center">
-                    <a
-                        href="../pages/sign-in.html"
-                        class="ease-nav-brand flex gap-1.5 px-0 py-2 text-lg font-semibold text-white transition-all"
-                    >
-                        <img
-                            src="{{ asset("assets/icons/user.svg") }}"
-                            class="mt-1 h-4"
-                            alt="user"
-                        />
+                    <a href="../pages/sign-in.html"
+                        class="ease-nav-brand flex gap-1.5 px-0 py-2 text-lg font-semibold text-white transition-all">
+                        <img src="{{ asset('assets/icons/user.svg') }}" class="mt-1 h-4" alt="user" />
                         <span class="hidden sm:inline">
                             {{ Auth::user()->nama }}
                         </span>
                     </a>
                 </li>
-                <li
-                    id="hamburger-menu"
-                    class="flex items-center pl-4 xl:hidden"
-                >
-                    <a
-                        href="javascript:;"
-                        class="ease-nav-brand block p-0 text-sm text-white transition-all"
-                    >
+                <li id="hamburger-menu" class="flex items-center pl-4 xl:hidden">
+                    <a href="javascript:;" class="ease-nav-brand block p-0 text-sm text-white transition-all">
                         <div class="w-4.5 overflow-hidden">
-                            <i
-                                class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"
-                            ></i>
-                            <i
-                                class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"
-                            ></i>
-                            <i
-                                class="ease relative block h-0.5 rounded-sm bg-white transition-all"
-                            ></i>
+                            <i class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"></i>
+                            <i class="ease relative mb-0.75 block h-0.5 rounded-sm bg-white transition-all"></i>
+                            <i class="ease relative block h-0.5 rounded-sm bg-white transition-all"></i>
                         </div>
                     </a>
                 </li>
@@ -103,7 +75,7 @@
         </div>
     </div>
 </nav>
-<script>
+{{-- <script>
     let html5QrCode;
     const modal = document.getElementById('my_modal_1');
     const resultElement = document.getElementById('qr-result');
@@ -112,12 +84,16 @@
         modal.showModal();
         html5QrCode = new Html5Qrcode('qr-reader');
         html5QrCode
-            .start(
-                { facingMode: 'environment' }, // menggunakan kamera belakang
+            .start({
+                    facingMode: 'environment'
+                }, // menggunakan kamera belakang
                 {
                     fps: 10, // frame per second
                     disableFlip: true,
-                    qrbox: { width: 250, height: 250 }, // ukuran area scan QR code
+                    qrbox: {
+                        width: 250,
+                        height: 250
+                    }, // ukuran area scan QR code
                 },
                 (qrCodeMessage) => {
                     resultElement.textContent = `QR Code detected: ${qrCodeMessage}`;
@@ -147,4 +123,4 @@
     }
 
     modal.addEventListener('close', stopScan);
-</script>
+</script> --}}

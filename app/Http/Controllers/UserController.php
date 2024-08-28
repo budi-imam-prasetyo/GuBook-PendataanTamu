@@ -70,13 +70,14 @@ class UserController extends Controller
         // if (!$pegawai) {
         //     return redirect()->back()->withErrors(['message' => 'Pegawai tidak ditemukan'])->withInput();
         // }
-        $id_user = $pegawai->user->id;
+        $pegawaiData = explode(',', $request->pegawai);
+        
 
         $kedatanganTamu = new KedatanganTamu();
         $kedatanganTamu->id_kedatangan = Str::uuid()->toString();
         $kedatanganTamu->id_tamu = $tamu->id_tamu;
-        $kedatanganTamu->NIP = $request->pegawai;
-        $kedatanganTamu->id_user = $id_user;
+        $kedatanganTamu->NIP = $pegawaiData[0];
+        $kedatanganTamu->id_user = $pegawaiData[1];
         $kedatanganTamu->instansi = $request->instansi;
         $kedatanganTamu->tujuan = $request->tujuan;
         $kedatanganTamu->waktu_perjanjian = $request->waktu_perjanjian;
@@ -161,12 +162,12 @@ class UserController extends Controller
                 Storage::put($filePath, $fotoData);
 
                 // Simpan data kedatangan ekspedisi
-                $id_user = $pegawai->user->id;
+                $pegawaiData = explode(',', $request->pegawai);
                 $kedatanganEkspedisi = new KedatanganEkspedisi();
                 $kedatanganEkspedisi->id_kedatangan = Str::uuid()->toString();
                 $kedatanganEkspedisi->id_ekspedisi = $ekspedisi->id_ekspedisi;
-                $kedatanganEkspedisi->NIP = $request->pegawai;
-                $kedatanganEkspedisi->id_user = $id_user;
+                $kedatanganEkspedisi->NIP = $pegawaiData[0];
+                $kedatanganEkspedisi->id_user = $pegawaiData[1];
                 $kedatanganEkspedisi->foto = $filePath;
                 $kedatanganEkspedisi->waktu_kedatangan = now();
                 $kedatanganEkspedisi->save();

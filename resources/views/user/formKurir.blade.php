@@ -81,7 +81,7 @@
                                     Pilih Pegawai
                                 </option>
                                 @foreach ($listpegawai as $pegawai)
-                                    <option value="{{ $pegawai->NIP }}" class="text-dark">
+                                    <option value="{{ $pegawai->NIP }},{{ $pegawai->user->id }}" class="text-dark">
                                         {{ $pegawai->user->nama }}
                                     </option>
                                 @endforeach

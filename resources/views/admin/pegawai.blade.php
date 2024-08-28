@@ -5,12 +5,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" /> -->
-    <!-- <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " /> -->
-    <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
+    <title>GuBook | Pegawai</title>
+    <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -335,11 +331,11 @@
                                     </thead>
                                     <tbody id="pegawai-list" class="bg-white border">
                                         @foreach ($listpegawai as $pegawai)
-                                            <tr class="hover:bg-gray-100 dark:hover:bg-slate-700 border-b">
-                                                <td class="px-4 text-base text-center">{{ $pegawai->user->nama }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->no_telpon }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->NIP }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->PTK }}</td>
+                                            <tr class="hover:bg-gray-100 group dark:hover:bg-slate-700 border-b">
+                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->user->nama }}</td>
+                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->no_telpon }}</td>
+                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->NIP }}</td>
+                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->PTK }}</td>
                                                 <td class="px-4 text-center">
                                                     <div class="flex justify-center join">
                                                         <button
