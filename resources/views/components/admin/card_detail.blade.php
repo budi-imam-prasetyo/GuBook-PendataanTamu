@@ -39,12 +39,12 @@
     <div class="w-full px-4">
         <h2 class="text-lg font-semibold mb-2 px-2 leading-4">Detail Lainnya</h2>
         <div class="bg-lightBlue p-4 rounded-4.5 ">
-            {{-- @if ($item->ekspedisi)
+            @if ($item->ekspedisi)
                 <div class="flex mb-2">
-                    <span class="font-semibold w-1/6">Waktu Kedatangan</span>
+                    <span class="font-semibold w-1/6">Waktu</span>
                     <span class="w-5/6">: {{ $item->formatWaktu }}</span>
                 </div>
-            @endif --}}
+            @endif
             <div class="flex mb-2">
                 @if ($item->tamu)
                     <span class="font-semibold w-1/6">Email</span>

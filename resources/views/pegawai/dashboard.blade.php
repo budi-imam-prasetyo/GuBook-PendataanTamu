@@ -163,12 +163,14 @@
                             </h6>
                         </div>
                         @if ($kedatangan->isNotEmpty())
-                            <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
-                                <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
-                                    Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
-                                        alt="">
-                                </h6>
-                            </div>
+                            <a href="{{ route('pegawai.kunjungan') }}">
+                                <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                                    <p class="mb-0 dark:text-white flex gap-2 font-semibold">
+                                        Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}"
+                                            class="rotate-180 w-3" alt="">
+                                    </p>
+                                </div>
+                            </a>
                         @endif
                     </div>
                     <div class="flex-auto p-4 pt-6">

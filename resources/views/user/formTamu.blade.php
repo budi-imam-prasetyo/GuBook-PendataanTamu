@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" /> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 
     @vite('resources/css/app.css', 'resources/js/app.js')
@@ -81,7 +81,7 @@
                         <label class="text-sm text-light block mb-1 font-medium">No Telpon</label>
                         <input type="number" name="no_telpon" id="no_telpon"
                             class="bg-gray-100 border border-gray-200 rounded-lg py-1 px-3 block text-dark placeholder:text-grey w-full h-12"
-                            placeholder="Masukan Nomor" />
+                            placeholder="Masukan Nomor"/>
                     </div>
                     <div>
                         <label class="text-sm text-light block mb-1 font-medium">Pegawai</label>
@@ -132,7 +132,7 @@
             </form>
 
             <!-- Modal HTML -->
-            <div id="qrCodeModal"
+            {{-- <div id="qrCodeModal"
                 class="fixed inset-0 flex items-center justify-center z-50 hidden backdrop-blur-sm backdrop-brightness-75"
                 role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                 <div class="bg-white shadow-lg rounded-lg max-w-lg w-full mx-4 relative">
@@ -148,59 +148,93 @@
                         <a id="downloadBtn" href="#" class="btn btn-primary">Download QR Code</a>
                     </div>
                 </div>
+            </div> --}}
+            <div id="warningModal"
+                class="fixed inset-0 flex items-center justify-center z-50 hidden backdrop-blur-sm backdrop-brightness-75"
+                role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
+                <div class="bg-white shadow-lg rounded-lg max-w-lg w-full mx-4 relative">
+                    <div class="p-4">
+                        <h5 id="warningModalLabel" class="text-lg text-dark font-semibold">Peringatan</h5>
+                    </div>
+                    <div class="p-4 text-center text-dark">
+                        <p>Waktu Pertemuan</p>
+                        <p class="text-sm text-dark">Senin - Jumat <span class="font-semibold">(07.00 - 17.00)</span></p>
+                        <p class="text-sm text-dark">Sabtu - Minggu <span class="font-semibold">Tutup</span></p>
+                    </div>
+                    <div class="p-4 flex justify-center">
+                        <button id="closeWarningBtn" class="btn btn-primary">Tutup</button>
+                    </div>
+                </div>
             </div>
+        </div>
     </main>
-
-    <!-- DaisyUI and Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.js"></script>
 
     <script>
         document.getElementById('tamuForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            fetch(this.action, {
-                    method: this.method,
-                    body: new FormData(this),
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                        'Accept': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const qrCodeImg = document.createElement('img');
-                        qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
-                        qrCodeImg.alt = 'QR Code';
-                        qrCodeImg.style.width = '100%'; // Adjust size as needed
+            const waktuPerjanjian = new Date(document.getElementById('tanggal').value);
+            const hari = waktuPerjanjian.getDay();
+            const startHour = 7; // 07:00
+            const endHour = 17; // 17:00
 
-                        const qrCodeContent = document.getElementById('qrCodeContent');
-                        qrCodeContent.innerHTML = ''; // Clear previous content
-                        qrCodeContent.appendChild(qrCodeImg);
+            const hours = waktuPerjanjian.getHours();
+            if (hari < 1 || hari > 5 || hours < startHour || hours >= endHour) {
+                event.preventDefault();
+                document.getElementById('warningModal').classList.remove('hidden');
+                return;
 
-                        const downloadBtn = document.getElementById('downloadBtn');
-                        downloadBtn.href = qrCodeImg.src;
-                        downloadBtn.download = 'qr_code.png';
+                // Cek apakah jam pertemuan berada di luar rentang 07:00 hingga 17:00
+                // if (hours < startHour || hours >= endHour) {
+                //     event.preventDefault();
+                //     document.getElementById('warningModal').classList.remove('hidden');
+                //     document.querySelector('#warningModal .text-gray-700').innerText =
+                //         'Waktu pertemuan harus antara pukul 07:00 hingga 17:00. Silakan pilih waktu yang sesuai.';
+                //     return;
 
-                        document.getElementById('qrCodeModal').classList.remove('hidden');
-                    } else {
-                        let errorMessage = 'Gagal menambahkan kedatangan tamu.';
-                        if (data.errors) {
-                            errorMessage += '\n' + Object.values(data.errors).join('\n');
+                // Lanjutkan dengan pengiriman form jika semua kondisi terpenuhi
+                fetch(this.action, {
+                        method: this.method,
+                        body: new FormData(this),
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                            'Accept': 'application/json',
                         }
-                        alert(errorMessage);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
-                });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const qrCodeImg = document.createElement('img');
+                            qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
+                            qrCodeImg.alt = 'QR Code';
+                            qrCodeImg.style.width = '100%'; // Adjust size as needed
+
+                            const qrCodeContent = document.getElementById('qrCodeContent');
+                            qrCodeContent.innerHTML = ''; // Clear previous content
+                            qrCodeContent.appendChild(qrCodeImg);
+
+                            const downloadBtn = document.getElementById('downloadBtn');
+                            downloadBtn.href = qrCodeImg.src;
+                            downloadBtn.download = 'qr_code.png';
+
+                            document.getElementById('qrCodeModal').classList.remove('hidden');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
+                    });
+                // }
+            }
         });
+
         document.getElementById('qrCodeModal').addEventListener('click', function(event) {
             if (event.target === this) {
                 this.classList.add('hidden');
                 document.getElementById('tamuForm').reset();
             }
+        });
+
+        document.getElementById('closeWarningBtn').addEventListener('click', function() {
+            document.getElementById('warningModal').classList.add('hidden');
         });
     </script>
 </body>

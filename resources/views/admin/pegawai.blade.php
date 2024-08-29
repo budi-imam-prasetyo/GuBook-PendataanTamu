@@ -13,7 +13,7 @@
 
 <body
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
-    <div class="absolute min-h-80 w-full bg-blue-500"></div>
+    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -332,10 +332,10 @@
                                     <tbody id="pegawai-list" class="bg-white border">
                                         @foreach ($listpegawai as $pegawai)
                                             <tr class="hover:bg-gray-100 group dark:hover:bg-slate-700 border-b">
-                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->user->nama }}</td>
-                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->no_telpon }}</td>
-                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->NIP }}</td>
-                                                <td class="px-4 text-base text-center group-hover:font-semibold group-hover:text-indigo-950">{{ $pegawai->PTK }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->user->nama }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->no_telpon }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->NIP }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->PTK }}</td>
                                                 <td class="px-4 text-center">
                                                     <div class="flex justify-center join">
                                                         <button

@@ -52,7 +52,7 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::get('pegawai/export/', [AdminController::class, 'export'])->name('pegawai.export');
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         //? KUNJUNGAN
-        Route::get('/kunjungan', [AdminController::class, 'kunjungan']);
+        Route::get('/kunjungan', [AdminController::class, 'kunjungan'])->name('admin.kunjungan');
         Route::get('/kunjungan/{id_kedatangan}', [AdminController::class, 'getDetail']);
         Route::post('/scan-result', [AdminController::class, 'store']);
     });
@@ -63,7 +63,7 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
     Route::middleware(['checkRole:pegawai'])->group(function () {
         Route::prefix('pegawai')->group(function () {
             Route::get('/', [PegawaiController::class, 'index']);
-            Route::get('/kunjungan', [PegawaiController::class, 'kunjungan']);
+            Route::get('/kunjungan', [PegawaiController::class, 'kunjungan'])->name('pegawai.kunjungan');
             Route::get('/kunjungan/{id_kedatangan}', [PegawaiController::class, 'getDetail']);
             Route::post('/kunjungan/status/update', [PegawaiController::class, 'updateStatus'])->name('status.update');
         });

@@ -16,7 +16,7 @@
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-blue-500 "></div>
+    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -123,8 +123,23 @@
                                 placeholder="Enter name">
                         </div>
 
+                        <div class="mb-4 flex gap-4">
+                            <button id="filter-all"
+                                class="filter-btn border-2 border-primaryRed bg-primaryRed text-white font-semibold py-2 px-4 rounded-lg active"
+                                onclick="filterStatus('semua', this)">Semua</button>
+                            <button id="filter-accepted"
+                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                onclick="filterStatus('diterima', this)">Diterima</button>
+                            <button id="filter-rejected"
+                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                onclick="filterStatus('ditolak', this)">Ditolak</button>
+                            <button id="filter-pending"
+                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                onclick="filterStatus('menunggu', this)">Menunggu</button>
+                        </div>
+
                         <div class="relative">
-                            <ul id="visitList" class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-125 overflow-y-auto">
+                            <ul id="visitList" class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kedatangan as $item)
                                 <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850">
                                     <div class="flex gap-7 ml-4">
@@ -143,7 +158,7 @@
                                                 <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
                                                     @if ($item->type == 'tamu')
                                                     <p class="font-semibold capitalize"><span class="font-normal">Nama: </span>{{ $item->tamu->nama }}</p>
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Email: </span>{{ $item->tamu->email }}</p>
+                                                    <p class="font-semibold"><span class="font-normal">Email: </span>{{ $item->tamu->email }}</p>
                                                     <p class="font-semibold capitalize"><span class="font-normal">Tanggal Perjanjian: </span>{{ $item->formatWaktu }}</p>
                                                     @else
                                                     <p class="font-semibold capitalize"><span class="font-normal">Nama Kurir: </span>{{ $item->ekspedisi->nama_kurir }}</p>
@@ -195,6 +210,30 @@
 
 
 <script>
+    function filterStatus(status, element) {
+        const items = document.querySelectorAll('.search-item');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Filter the list items based on the status
+        items.forEach(item => {
+            if (status === 'semua' || item.getAttribute('data-status') === status) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Reset all button colors to default
+        buttons.forEach(button => {
+            button.classList.remove('border-primaryRed', 'bg-primaryRed', 'text-white', 'active');
+            button.classList.add('bg-lightRed', 'text-primaryRed');
+        });
+
+        // Set the clicked button as active
+        element.classList.remove('bg-lightRed', 'text-primaryRed');
+        element.classList.add('border-primaryRed', 'bg-primaryRed', 'text-white', 'active');
+    }
+    
     document.getElementById('searchInput').addEventListener('input', function() {
         let filter = this.value.toLowerCase();
         let items = document.querySelectorAll('.search-item');

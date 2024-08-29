@@ -29,7 +29,7 @@
         <!-- cards -->
         <div class="mx-auto w-full p-6">
             <!-- row 1 -->
-            <div class="-mx-3 flex flex-wrap">
+            <div class="-mx-3 flex flex-wrap transition-all">
                 <!-- card1 -->
                 <div class="order-2 mb-6 w-full px-3 sm:w-1/2 sm:flex-none xl:order-1 xl:mb-0 xl:w-1/4">
                     <div
@@ -136,9 +136,9 @@
                                 <span class="font-semibold">
                                     {{ abs(round($persentaseKenaikan, 2)) }}%
                                     @if ($persentaseKenaikan >= 0)
-                                    lebih banyak
+                                        lebih banyak
                                     @else
-                                    lebih sedikit
+                                        lebih sedikit
                                     @endif
                                 </span>
                                 dari Bulan Sebelumnya
@@ -164,70 +164,72 @@
                             </h6>
                         </div>
                         @if ($kedatangan->isNotEmpty())
-                        <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
-                            <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
-                                Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
-                                    alt="">
-                            </h6>
-                        </div>
+                            <a href="{{ route('admin.kunjungan') }}">
+                                <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                                    <p class="mb-0 dark:text-white flex gap-2 font-semibold">
+                                        Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}"
+                                            class="rotate-180 w-3" alt="">
+                                    </p>
+                                </div>
+                            </a>
                         @endif
                     </div>
                     <div class="flex-auto p-4 pt-6">
                         <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
                             @forelse ($kedatangan->take(3) as $item)
-                            <li
-                                class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                <div class="flex gap-7 ml-4">
-                                    <div class="flex items-center justify-center h-full">
-                                        @if ($item->type == 'tamu')
-                                        <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                        @else
-                                        <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                        @endif
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <h5 class="text-lg font-semibold">
-                                            {{ $item->user->nama }}
-                                        </h5>
-                                        <div class="flex gap-2">
-                                            <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                @if ($item->type == 'tamu')
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Nama :
-                                                    </span>{{ $item->tamu->nama }}</p>
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Email :
-                                                    </span>{{ $item->tamu->email }}</p>
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Tanggal Perjanjian : </span>
-                                                    {{ $item->waktu_perjanjian }}
-                                                </p>
-                                                @else
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Nama Kurir :
-                                                    </span>{{ $item->ekspedisi->nama_kurir }}
-                                                </p>
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Ekspedisi :
-                                                    </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                                <p class="font-semibold capitalize"><span
-                                                        class="font-normal">Tanggal Kedatangan : </span>
-                                                    {{ $item->waktu_kedatangan }}
-                                                </p>
-                                                @endif
+                                <li
+                                    class="relative mb-2 flex rounded-xl rounded-t-inherit border-0 bg-lightBlue px-6 py-4 dark:bg-slate-850">
+                                    <div class="flex gap-7 ml-4">
+                                        <div class="flex items-center justify-center h-full">
+                                            @if ($item->type == 'tamu')
+                                                <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                            @else
+                                                <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                            @endif
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <h5 class="text-lg font-semibold">
+                                                {{ $item->user->nama }}
+                                            </h5>
+                                            <div class="flex gap-2">
+                                                <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                    @if ($item->type == 'tamu')
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Nama :
+                                                            </span>{{ $item->tamu->nama }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Email :
+                                                            </span>{{ $item->tamu->email }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Perjanjian : </span>
+                                                            {{ $item->waktu_perjanjian }}
+                                                        </p>
+                                                    @else
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Nama Kurir :
+                                                            </span>{{ $item->ekspedisi->nama_kurir }}
+                                                        </p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Ekspedisi :
+                                                            </span>{{ $item->ekspedisi->ekspedisi }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Kedatangan : </span>
+                                                            {{ $item->waktu_kedatangan }}
+                                                        </p>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="ml-auto text-right flex items-center">
-                                    <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
-                                        href="javascript:;">Detail</a>
-                                </div>
-                            </li>
+                                    <div class="ml-auto text-right flex items-center">
+                                        <a class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white"
+                                            href="javascript:;">Detail</a>
+                                    </div>
+                                </li>
                             @empty
-                            <div class="w-full my-2">
-                                <p class="text-center text-darkGray">Belum ada kunjungan</p>
-                            </div>
+                                <div class="w-full my-2">
+                                    <p class="text-center text-darkGray">Belum ada kunjungan</p>
+                                </div>
                             @endforelse
                         </ul>
                     </div>

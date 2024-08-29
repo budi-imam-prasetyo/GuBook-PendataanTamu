@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use DNS2D;
 
 class UserController extends Controller
@@ -44,14 +45,14 @@ class UserController extends Controller
         // dd($request->all());
 
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string',
-            'alamat' => 'required|string',
-            'no_telpon' => 'required|string',
-            'email' => 'required|email',
-            'instansi' => 'required|string',
-            'NIP' => 'required|exists:pegawai,NIP',
-            'tujuan' => 'required|string',
-            'waktu_perjanjian' => 'required|date',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_telpon' => 'required|string|max:15',
+            'pegawai' => 'required|string',
+            'instansi' => 'nullable|string|max:255',
+            'tujuan' => 'required|string|max:255',
+            'waktu_perjanjian' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         // if ($validator->fails()) {
@@ -66,10 +67,6 @@ class UserController extends Controller
         $tamu->no_telpon = $request->no_telpon;
         $tamu->save();
 
-        $pegawai = Pegawai::all()->first();
-        // if (!$pegawai) {
-        //     return redirect()->back()->withErrors(['message' => 'Pegawai tidak ditemukan'])->withInput();
-        // }
         $pegawaiData = explode(',', $request->pegawai);
         
 
@@ -90,39 +87,7 @@ class UserController extends Controller
         $kedatanganTamu->qr_code = $qrCodeHtml;
         $kedatanganTamu->save();
 
-        return response()->json([
-            'success' => true,
-            'qr_code' => $qrCodeHtml,
-        ]);
-    }
-
-    public function storeKurir2(Request $request)
-    {
-        $ekspedisi = new Ekspedisi();
-        $ekspedisi->id_ekspedisi = Str::uuid()->toString();
-        $ekspedisi->nama_kurir = $request->nama_kurir;
-        $ekspedisi->ekspedisi = $request->ekspedisi;
-        $ekspedisi->save();
-
-        $pegawai = Pegawai::all()->first();
-        $id_user = $pegawai->user->id;
-        // Decode base64 image
-        $imageData = base64_decode($request->foto);
-        $fileName = uniqid() . '.jpeg';
-        dd($fileName);
-        $filePath = 'uploads' . $fileName;
-        Storage::put($filePath, $imageData);
-
-        // Save file path to the database
-        $kedatanganEkspedisi = new KedatanganEkspedisi();
-        $kedatanganEkspedisi->id_kedatanganEkspedisi = Str::uuid()->toString();
-        $kedatanganEkspedisi->id_ekspedisi = $ekspedisi->id_ekspedisi;
-        $kedatanganEkspedisi->NIP = $request->pegawai;
-        $kedatanganEkspedisi->id_user = $id_user;
-        $kedatanganEkspedisi->foto = $filePath;
-        $kedatanganEkspedisi->waktu_kedatangan = now();
-        $kedatanganEkspedisi->save();
-        return redirect()->back()->with('success', 'Ekspedisi berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Pertemuan berhasil ditambahkan!');
     }
 
     public function storeKurir(Request $request)
