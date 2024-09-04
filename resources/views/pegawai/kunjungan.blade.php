@@ -13,30 +13,30 @@
 </head>
 
 <body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    class="m-0 font-sans text-base antialiased font-medium bg-gray-50 leading-default text-slate-500 dark:bg-slate-900">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-primaryRed "></div>
+    <div class="absolute w-full min-h-80 bg-primaryRed "></div>
 
     <x-pegawai.sidebar></x-pegawai.sidebar>
 
-    <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
+    <main class="relative h-full transition-all duration-200 ease-in-out rounded-xl xl:ml-68">
         {{-- Navbar --}}
         <x-pegawai.navbar>Kunjungan</x-pegawai.navbar>
 
-        <div class="w-full flex flex-col gap-7 p-6 pt-3">
+        <div class="flex flex-col w-full p-6 pt-3 gap-7">
             {{-- Rows 1 --}}
-            <div class="w-full flex">
-                <div class=" w-full h-full grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="flex w-full">
+                <div class="grid w-full h-full grid-cols-1 gap-6 md:grid-cols-4">
                     <div
                         class="flex flex-col order-last md:order-first bg-light shadow-sm rounded-4.5 md:col-span-3 p-5">
                         <div class="w-full">
-                            <h1 class="text-dark text-xl">Kedatangan Tamu</h1>
+                            <h1 class="text-xl text-dark">Kedatangan Tamu</h1>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-full">
+                        <div class="grid h-full grid-cols-1 gap-6 md:grid-cols-3">
                             {{-- Card 1 --}}
-                            <div class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
-                                <div class="max-w-full flex-none">
+                            <div class="flex flex-row justify-between h-full p-5 -mx-1 shadow-md bg-lightRed rounded-3">
+                                <div class="flex-none max-w-full">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
                                             Selesai
@@ -45,17 +45,17 @@
                                         <p class="mb-2 text-xs">> 50% dari kemarin</p>
                                     </div>
                                 </div>
-                                <div class="text-right flex items-center justify-center">
+                                <div class="flex items-center justify-center text-right">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-t from-primaryRed to-secondaryRed flex items-center justify-center">
+                                        class="flex items-center justify-center w-16 h-16 rounded-circle bg-gradient-to-t from-primaryRed to-secondaryRed">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
                                             alt="">
                                     </div>
                                 </div>
                             </div>
                             {{-- Card 2 --}}
-                            <div class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
-                                <div class="max-w-full flex-none">
+                            <div class="flex flex-row justify-between h-full p-5 -mx-1 shadow-md bg-lightRed rounded-3">
+                                <div class="flex-none max-w-full">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
                                             Belum Datang
@@ -64,17 +64,17 @@
                                         <p class="mb-2 text-xs">> 25% dari kemarin</p>
                                     </div>
                                 </div>
-                                <div class="text-right flex items-center justify-center">
+                                <div class="flex items-center justify-center text-right">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-primaryRed to-secondaryRed flex items-center justify-center">
+                                        class="flex items-center justify-center w-16 h-16 rounded-circle bg-gradient-to-tl from-primaryRed to-secondaryRed">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
                                             alt="">
                                     </div>
                                 </div>
                             </div>
                             {{-- Card 3 --}}
-                            <div class="-mx-1 flex flex-row justify-between bg-lightRed rounded-3 h-full shadow-md p-5">
-                                <div class="max-w-full flex-none">
+                            <div class="flex flex-row justify-between h-full p-5 -mx-1 shadow-md bg-lightRed rounded-3">
+                                <div class="flex-none max-w-full">
                                     <div>
                                         <p class="mb-0 font-sans text-lg font-semibold leading-normal">
                                             Tidak Hadir
@@ -83,9 +83,9 @@
                                         <p class="mb-2 text-xs">> 75% dari kemarin</p>
                                     </div>
                                 </div>
-                                <div class="text-right flex items-center justify-center">
+                                <div class="flex items-center justify-center text-right">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-b from-primaryRed to-secondaryRed flex items-center justify-center">
+                                        class="flex items-center justify-center w-16 h-16 rounded-circle bg-gradient-to-b from-primaryRed to-secondaryRed">
                                         <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
                                             alt="">
                                     </div>
@@ -98,17 +98,17 @@
             </div>
 
             {{-- Rows 2 --}}
-            <div class="w-full flex mt-1">
-                <div class="w-full grid grid-cols-1 md:grid-cols-7 gap-y-6 md:gap-6">
+            <div class="flex w-full mt-1">
+                <div class="grid w-full grid-cols-1 md:grid-cols-7 gap-y-6 md:gap-6">
                     <div class="w-full flex flex-col bg-light p-5 col-span-3 rounded-4.5 shadow-md" id="cardDetail">
                         <div class="w-full h-135 flex flex-col col-span-3 gap-6 rounded-4.5 text-center">
-                            <!-- <div class="w-full flex items-center justify-center">
-                                <div class="rounded-full flex items-center justify-center w-25 h-25 outline outline-4 bg-base-200 outline-base-300">
+                            <!-- <div class="flex items-center justify-center w-full">
+                                <div class="flex items-center justify-center rounded-full w-25 h-25 outline outline-4 bg-base-200 outline-base-300">
                                     <img src="{{ asset('assets/user.jpg') }}" class="h-full rounded-full" alt="">
                                 </div>
                             </div> -->
-                            <div class="w-full mt-4 flex flex-col items-center justify-center h-full">
-                                <h5 class="text-xl font-semibold text-grey select-none">Klik detail untuk melihat</h5>
+                            <div class="flex flex-col items-center justify-center w-full h-full mt-4">
+                                <h5 class="text-xl font-semibold select-none text-grey">Klik detail untuk melihat</h5>
                             </div>
                         </div>
                     </div>
@@ -116,26 +116,26 @@
                     <div class="w-full bg-light rounded-4.5 shadow-md col-span-4 p-4.5">
                         <div class="relative mb-4">
                             <div
-                                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+                                class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
                                 <img src="{{ asset('assets/icons/search2.svg') }}" class="w-5 h-5" alt="">
                             </div>
                             <input id="searchInput" type="text"
-                                class="peer py-3 px-4 ps-11 block w-full bg-lightRed border-lightRed2 border-2 rounded-lg text-sm outline-none placeholder:font-semibold placeholder:text-grey"
+                                class="block w-full px-4 py-3 text-sm border-2 rounded-lg outline-none peer ps-11 bg-lightRed border-lightRed2 placeholder:font-semibold placeholder:text-grey"
                                 placeholder="Enter name">
                         </div>
 
-                        <div class="mb-4 flex gap-4">
+                        <div class="flex gap-4 mb-4">
                             <button id="filter-all"
-                                class="filter-btn border-2 border-primaryRed bg-primaryRed text-white font-semibold py-2 px-4 rounded-lg active"
+                                class="px-4 py-2 font-semibold text-white border-2 rounded-lg filter-btn border-primaryRed bg-primaryRed active"
                                 onclick="filterStatus('semua', this)">Semua</button>
                             <button id="filter-accepted"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="px-4 py-2 font-semibold border-2 rounded-lg filter-btn bg-lightRed border-lightRed2 text-primaryRed"
                                 onclick="filterStatus('diterima', this)">Diterima</button>
                             <button id="filter-rejected"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="px-4 py-2 font-semibold border-2 rounded-lg filter-btn bg-lightRed border-lightRed2 text-primaryRed"
                                 onclick="filterStatus('ditolak', this)">Ditolak</button>
                             <button id="filter-pending"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="px-4 py-2 font-semibold border-2 rounded-lg filter-btn bg-lightRed border-lightRed2 text-primaryRed"
                                 onclick="filterStatus('menunggu', this)">Menunggu</button>
                         </div>
 
@@ -143,9 +143,9 @@
                             <ul id="visitList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kedatangan as $item)
-                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightRed2 bg-lightRed px-6 py-4 dark:bg-slate-850"
+                                    <li class="relative flex px-6 py-4 mb-2 border-2 search-item rounded-xl rounded-t-inherit border-lightRed2 bg-lightRed dark:bg-slate-850"
                                         data-status="{{ $item->status }}">
-                                        <div class="flex gap-7 ml-4">
+                                        <div class="flex ml-4 gap-7">
                                             <div class="flex items-center justify-center h-full">
                                                 @if ($item->type == 'tamu')
                                                     <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
@@ -155,16 +155,16 @@
                                             </div>
                                             <div class="flex flex-col gap-2">
                                                 <h5 class="text-lg font-semibold">
-                                                    {{ $item->user->nama }}
+                                                    {{ $item->tamu->nama }}
                                                 </h5>
                                                 <div class="flex gap-2">
-                                                    <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
+                                                    <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
                                                         @if ($item->type == 'tamu')
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Nama:
-                                                                </span>{{ $item->tamu->nama }}</p>
                                                             <p class="font-semibold"><span class="font-normal">Email:
                                                                 </span>{{ $item->tamu->email }}</p>
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Status:
+                                                                </span>{{ $item->status }}</p>
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Tanggal Perjanjian:
                                                                 </span>{{ $item->formatWaktu }}</p>
@@ -184,7 +184,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="ml-auto text-right flex items-center">
+                                        <div class="flex items-center ml-auto text-right">
                                             <a href="javascript:;"
                                                 onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')"
                                                 class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
@@ -192,14 +192,14 @@
                                     </li>
                                 @empty
                                     <div class="flex items-center justify-center h-full">
-                                        <li class="text-center mt-4 text-grey text-lg">Tidak Ada Data Kunjungan</li>
+                                        <li class="mt-4 text-lg text-center text-grey">Tidak Ada Data Kunjungan</li>
                                     </div>
                                 @endforelse
                             </ul>
                             @if ($kedatangan->count() > 3)
                                 <button id="scrollDown"
-                                    class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightRed2 p-3 mt-2 shadow-md shadow-grey">
-                                    <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5"
+                                    class="absolute p-3 mt-2 rounded-full shadow-md bottom-3 start-1/2 outline outline-2 outline-light bg-lightRed2 shadow-grey">
+                                    <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 rotate-90"
                                         alt="arrow">
                                 </button>
                             @endif

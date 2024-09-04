@@ -1,4 +1,4 @@
-<footer class="text-center py-4 dark:bg-gray-800">
+<footer class="text-center bg-gray-50 py-4 dark:bg-gray-800">
     <p class="text-sm text-gray-600 dark:text-gray-400">
         &copy;
         <script>

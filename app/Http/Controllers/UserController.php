@@ -43,7 +43,6 @@ class UserController extends Controller
     public function storeTamu(Request $request)
     {
         // dd($request->all());
-
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -68,7 +67,6 @@ class UserController extends Controller
         $tamu->save();
 
         $pegawaiData = explode(',', $request->pegawai);
-        
 
         $kedatanganTamu = new KedatanganTamu();
         $kedatanganTamu->id_kedatangan = Str::uuid()->toString();
@@ -82,9 +80,21 @@ class UserController extends Controller
         $kedatanganTamu->qr_code = null;
         $kedatanganTamu->save();
 
+        // Generate QR code in PNG format
         $qrCodeContent = "$kedatanganTamu->id_kedatangan";
-        $qrCodeHtml = DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
-        $kedatanganTamu->qr_code = $qrCodeHtml;
+        $qrCodePng = DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
+
+        // Dekode base64 string ke data mentah (raw binary data)
+        // $qrCodeRawData = $qrCodePng;
+
+        // Simpan QR code ke storage sebagai file PNG
+        // $fileName = 'public/qrcodes/' . $kedatanganTamu->id_kedatangan . '.png';
+        // Storage::put($fileName, $qrCodeRawData);
+
+        // return base64_decode($qrCodePng);    
+
+        // Simpan nama file ke database (opsional)
+        $kedatanganTamu->qr_code = $qrCodePng;
         $kedatanganTamu->save();
 
         return redirect()->back()->with('success', 'Pertemuan berhasil ditambahkan!');

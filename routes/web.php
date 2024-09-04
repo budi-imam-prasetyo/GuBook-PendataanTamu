@@ -65,6 +65,7 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
             Route::get('/', [PegawaiController::class, 'index']);
             Route::get('/kunjungan', [PegawaiController::class, 'kunjungan'])->name('pegawai.kunjungan');
             Route::get('/kunjungan/{id_kedatangan}', [PegawaiController::class, 'getDetail']);
+            Route::get('/send-email', [PegawaiController::class, 'ship'])->name('send.email');
             Route::post('/kunjungan/status/update', [PegawaiController::class, 'updateStatus'])->name('status.update');
         });
     });

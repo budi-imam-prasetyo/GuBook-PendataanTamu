@@ -9,6 +9,12 @@ use App\Models\KedatanganEkspedisi;
 use App\Models\KedatanganTamu;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\SendEmail;
+use App\Mail\SendEmailAccept;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use DNS2D;
+
 
 class PegawaiController extends Controller
 {
@@ -195,10 +201,48 @@ class PegawaiController extends Controller
     }
     public function updateStatus(Request $request)
     {
-        // dd($request);
+        // dd($request->all());
         $kunjungan = KedatanganTamu::findOrFail($request->id_kedatangan);
         $kunjungan->status = $request->status;
         $kunjungan->save();
-        return redirect()->back()->with('success', 'Status berhasil diupdate!');
+
+        if ($request->status == 'diterima') {
+            $qrCodePath = 'qrcodes/' . $kunjungan->id_kedatangan . '.png';
+            $qrCodeData = base64_decode($kunjungan->qr_code);
+            Storage::disk('public')->put($qrCodePath, $qrCodeData);
+            $fullQrCodePath = public_path('storage/' . $qrCodePath);
+
+            // Kirim email ketika kunjungan diterima
+            Mail::send('mails.SendEmail', [
+                'subject' => 'Kunjungan Diterima',
+                'body' => 'Kunjungan Anda telah diterima. Berikut adalah QR code untuk keperluan kunjungan Anda.',
+            ], function ($message) use ($kunjungan, $fullQrCodePath) {
+                $message->to($kunjungan->tamu->email)
+                    ->subject('Kunjungan Diterima')
+                    ->attach($fullQrCodePath, [
+                        'as' => 'qrcode.png',
+                        'mime' => 'image/png',
+                    ]);
+            });
+        } elseif ($request->status == 'ditolak') {
+            // Kirim email ketika kunjungan ditolak
+            Mail::send('mails.SendEmail', [
+                'subject' => 'Kunjungan Ditolak',
+                'body' => 'Kunjungan Anda telah ditolak. Alasan: ' . $request->alasan,
+            ], function ($message) use ($kunjungan) {
+                $message->to($kunjungan->tamu->email)
+                    ->subject('Kunjungan Ditolak');
+            });
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+
+    public function ship()
+    {
+        $users = Pegawai::all();
+        Mail::to('budiimamprsty@gmail.com')->send(new SendEmail($users));
+        return 'oke';
     }
 }
