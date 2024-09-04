@@ -3,13 +3,11 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
+    <title>GuBook | Dashboard</title>
+    <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " />
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css"> --}}
@@ -20,7 +18,7 @@
 <body
     class="m-0 no-scrollbar bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
     @apexchartsScripts
-    <div class="absolute min-h-80 w-full bg-primaryBlue dark:hidden"></div>
+    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
     <!-- sidenav  -->
     <x-admin.sidebar></x-admin.sidebar>
 
@@ -31,7 +29,7 @@
         <!-- cards -->
         <div class="mx-auto w-full p-6">
             <!-- row 1 -->
-            <div class="-mx-3 flex flex-wrap">
+            <div class="-mx-3 flex flex-wrap transition-all">
                 <!-- card1 -->
                 <div class="order-2 mb-6 w-full px-3 sm:w-1/2 sm:flex-none xl:order-1 xl:mb-0 xl:w-1/4">
                     <div
@@ -44,7 +42,7 @@
                                             class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                             Kunjungan Tamu Hari Ini
                                         </p>
-                                        <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
+                                        <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $tamuHariIni }}
                                         </h5>
                                     </div>
                                 </div>
@@ -72,12 +70,12 @@
                                         class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
                                         Kunjungan Minggu Ini
                                     </p>
-                                    <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalTamuPerHariMinggu }}
+                                    <h5 class="mb-2 font-bold text-lg dark:text-white">{{ $totalMingguIni }}
                                     </h5>
                                 </div>
                                 <div class="basis-1/3 px-3 text-center">
                                     <div
-                                        class="h-20 w-20 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 mx-auto flex items-center justify-center">
+                                        class="h-20 w-20 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 mx-auto flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
                                             alt="">
                                     </div>
@@ -88,7 +86,8 @@
                                         Kunjungan Bulan Ini
                                     </p>
                                     <h5 class="mb-2 font-bold text-right text-lg dark:text-white">
-                                        {{ $totalPerBulan }}</h5>
+                                        {{ $totalBulanIni }}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +102,7 @@
                             <div class="-mx-3 justify-between flex flex-row">
                                 <div class="pl-6 text-left">
                                     <div
-                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500 flex items-center justify-center">
+                                        class="h-16 w-16 rounded-circle bg-gradient-to-tl from-red-600 to-orange-600 flex items-center justify-center">
                                         <img src="{{ asset('assets/icons/box.svg') }}" class="h-6" alt="">
                                     </div>
                                 </div>
@@ -114,7 +113,8 @@
                                             Kunjungan Kurir Hari Ini
                                         </p>
                                         <h5 class="mb-2 font-bold text-lg dark:text-white">
-                                            {{ $totalKurirPerHariMinggu }}</h5>
+                                            {{ $kurirHariIni }}
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                             <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
                                 <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">
-                                    {{ round($persentaseKenaikan, 2) }}%
+                                    {{ abs(round($persentaseKenaikan, 2)) }}%
                                     @if ($persentaseKenaikan >= 0)
                                         lebih banyak
                                     @else
@@ -164,12 +164,14 @@
                             </h6>
                         </div>
                         @if ($kedatangan->isNotEmpty())
-                            <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
-                                <h6 class="mb-0 dark:text-white flex gap-2 font-semibold">
-                                    Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}" class="rotate-180 w-3"
-                                        alt="">
-                                </h6>
-                            </div>
+                            <a href="{{ route('admin.kunjungan') }}">
+                                <div class="mb-0 rounded-t-2xl border-b-0 p-6 px-4 pb-0">
+                                    <p class="mb-0 dark:text-white flex gap-2 font-semibold">
+                                        Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}"
+                                            class="rotate-180 w-3" alt="">
+                                    </p>
+                                </div>
+                            </a>
                         @endif
                     </div>
                     <div class="flex-auto p-4 pt-6">
@@ -200,7 +202,8 @@
                                                             </span>{{ $item->tamu->email }}</p>
                                                         <p class="font-semibold capitalize"><span
                                                                 class="font-normal">Tanggal Perjanjian : </span>
-                                                            {{ $item->waktu_perjanjian }}</p>
+                                                            {{ $item->waktu_perjanjian }}
+                                                        </p>
                                                     @else
                                                         <p class="font-semibold capitalize"><span
                                                                 class="font-normal">Nama Kurir :
@@ -211,7 +214,8 @@
                                                             </span>{{ $item->ekspedisi->ekspedisi }}</p>
                                                         <p class="font-semibold capitalize"><span
                                                                 class="font-normal">Tanggal Kedatangan : </span>
-                                                            {{ $item->waktu_kedatangan }}</p>
+                                                            {{ $item->waktu_kedatangan }}
+                                                        </p>
                                                     @endif
                                                 </div>
                                             </div>
@@ -233,19 +237,10 @@
             </div>
         </div>
         <!-- end cards -->
-        <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
-            white-style-btn navbarFixed dark-toggle />
-        <footer class="text-center py-4 dark:bg-gray-800">
-            <p class="text-sm text-gray-600 dark:text-gray-400">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
-                <span class="text-primaryBlue">GuBook</span>, dibuat dengan <i class="fa fa-heart"></i> untuk web yang
-                lebih baik.
-            </p>
-        </footer>
+        <x-admin.footer />
     </main>
+    <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
+        white-style-btn navbarFixed dark-toggle />
 
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 

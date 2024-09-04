@@ -5,50 +5,46 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" /> -->
-    <!-- <link rel=" stylesheet " href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css " /> -->
-    <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
+    <title>GuBook | Pegawai</title>
+    <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
 <body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
-    <div class="absolute min-h-80 w-full bg-blue-500 dark:hidden"></div>
+    class="m-0 font-sans text-base antialiased font-medium bg-gray-50 leading-default text-slate-500 dark:bg-slate-900">
+    <div class="absolute w-full min-h-80 bg-primaryBlue"></div>
 
     <x-admin.sidebar></x-admin.sidebar>
 
-    <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
+    <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out rounded-xl xl:ml-68">
         <!-- Navbar -->
         <x-admin.navbar>Pegawai</x-admin.navbar>
 
-        <div class="mx-auto w-full p-6 ">
+        <div class="w-full p-6 pb-0 mx-auto ">
             <form id="pegawaiForm" action="{{ route('admin.store.pegawai') }}" method="POST"
-                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border rounded-2xl shadow-lg dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
+                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border shadow-lg rounded-2xl dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
                 @csrf
                 <input type="hidden" id="formMethod" name="_method" value="POST">
                 <input type="hidden" id="pegawaiId" name="NIP">
-                <p class="mb-4 text-2xl font-bold text-center dark:text-white select-none" id="formTitle">Tambah Pegawai
+                <p class="mb-4 text-2xl font-bold text-center select-none dark:text-white" id="formTitle">Tambah Pegawai
                 </p>
 
                 <!-- Nama -->
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="nama"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nama
                             Guru</label>
                         <input type="text" id="nama" name="nama"
-                            class="input input-lg input-bordered w-full mb-3 dark:text-white"
+                            class="w-full mb-3 input input-lg input-bordered dark:text-white"
                             placeholder="Masukkan Nama" required />
                     </div>
                     <div>
                         <label for="PTK"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">PTK</label>
                         <select id="PTK" name="PTK"
-                            class="select select-lg select-bordered w-full mb-3 dark:text-white" required>
+                            class="w-full mb-3 select select-lg select-bordered dark:text-white" required>
                             <option value="" disabled selected>Pilih Mapel</option>
                             @foreach ($mapel as $item)
                                 {{-- {{ dd($item); }} --}}
@@ -59,12 +55,12 @@
                 </div>
 
                 <!-- Email dan Password -->
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="email"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Email</label>
                         <input type="email" id="email" name="email"
-                            class="input input-lg input-bordered w-full mb-3 dark:text-white"
+                            class="w-full mb-3 input input-lg input-bordered dark:text-white"
                             placeholder="contoh@email.com" required />
                     </div>
                     <div>
@@ -72,18 +68,18 @@
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Kata
                             Sandi</label>
                         <input type="password" id="password" name="password"
-                            class="input input-lg input-bordered w-full mb-4 dark:text-white" placeholder="******" />
+                            class="w-full mb-4 input input-lg input-bordered dark:text-white" placeholder="******" />
                     </div>
                 </div>
 
                 <!-- Nomor Telepon, NIP, dan PTK -->
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="no_telpon"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nomor
                             Telepon</label>
                         <input type="text" id="no_telpon" name="no_telpon"
-                            class="input input-lg input-bordered w-full mb-3 dark:text-white"
+                            class="w-full mb-3 input input-lg input-bordered dark:text-white"
                             placeholder="Masukkan Nomor Telepon" required />
                     </div>
 
@@ -92,7 +88,7 @@
                             (Nomor
                             Induk Pegawai)</label>
                         <input type="text" id="NIP" name="NIP"
-                            class="input input-lg input-bordered w-full mb-3 dark:text-white" placeholder="Masukkan NIP"
+                            class="w-full mb-3 input input-lg input-bordered dark:text-white" placeholder="Masukkan NIP"
                             required />
                     </div>
                 </div>
@@ -100,7 +96,7 @@
 
 
                 <!-- Tombol Submit -->
-                <button type="submit" class="btn btn-primary btn-lg text-base bg-primaryBlue text-light w-full"
+                <button type="submit" class="w-full text-base btn btn-primary btn-lg bg-primaryBlue text-light"
                     id="formSubmitButton">Submit</button>
             </form>
 
@@ -109,24 +105,24 @@
 
             <form id="updateForm" action="{{ route('admin.pegawai.update', ['id' => ':id']) }}" method="POST"
                 style="display: none;" onsubmit="return validateUpdateForm()"
-                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border rounded-2xl shadow-md dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
+                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border shadow-md rounded-2xl dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
                 <h1 class="mb-4 text-2xl font-bold text-center dark:text-white">Edit Guru</h1>
                 @csrf
                 <input type="hidden" name="emailToUpdate" id="emailToUpdate">
                 <input type="hidden" name="NIP" id="updateId">
 
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="newName"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nama</label>
                         <input type="text" name="newName" id="newName"
-                            class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
+                            class="w-full mb-3 input input-lg input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                     <div>
                         <label for="newPTK"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">PTK</label>
                         <select id="newPTK" name="newPTK"
-                            class="select select-lg select-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white"
+                            class="w-full mb-3 select select-lg select-bordered dark:bg-slate-850 dark:border-white dark:text-white"
                             required>
                             <option value="" selected>Pilih Mapel</option>
                             @foreach ($mapel as $item)
@@ -136,56 +132,56 @@
                         </select>
                     </div>
                 </div>
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="newEmail"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Email</label>
                         <input type="text" name="newEmail" id="newEmail"
-                            class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
+                            class="w-full mb-3 input input-lg input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                     <div>
                         <label for="newPassword"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Password</label>
                         <input type="password" name="newPassword" id="newPassword"
-                            class="input input-lg input-bordered w-full mb-4 dark:bg-slate-850 dark:border-white dark:text-white">
+                            class="w-full mb-4 input input-lg input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                 </div>
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <div>
                         <label for="newNIP"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">NIP</label>
                         <input type="text" name="newNIP" id="newNIP"
-                            class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
+                            class="w-full mb-3 input input-lg input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                     <div>
                         <label for="newNo_telpon"
                             class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nomor
                             Telepon</label>
                         <input type="text" name="newNo_telpon" id="newNo_telpon"
-                            class="input input-lg input-bordered w-full mb-3 dark:bg-slate-850 dark:border-white dark:text-white">
+                            class="w-full mb-3 input input-lg input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
                     </div>
                 </div>
 
                 <div class="flex space-x-4">
                     <button type="submit"
-                        class="btn btn-lg btn-primary w-1/2 text-base text-light bg-primaryBlue">Update</button>
+                        class="w-1/2 text-base btn btn-lg btn-primary text-light bg-primaryBlue">Update</button>
                     <button type="button" onclick="closeUpdateForm()"
-                        class="btn btn-lg text-base w-1/2">Tutup</button>
+                        class="w-1/2 text-base btn btn-lg">Tutup</button>
                 </div>
             </form>
 
             <!-- table 1 -->
 
-            <div class="-mx-3 mt-5 flex flex-wrap">
-                <div class="w-full max-w-full flex-none px-3">
+            <div class="flex flex-wrap mt-5 -mx-3">
+                <div class="flex-none w-full max-w-full px-3">
                     <div
-                        class="relative mb-6 flex min-w-0 flex-col break-words rounded-2xl border border-solid border-transparent bg-white bg-clip-border shadow-lg dark:bg-slate-850 dark:shadow-dark-xl">
-                        <!-- <div class="border-b-solid mb-0 rounded-t-2xl border-b-0 border-b-transparent p-6 pb-0">
+                        class="relative flex flex-col min-w-0 mb-6 break-words bg-white border border-transparent border-solid shadow-lg rounded-2xl bg-clip-border dark:bg-slate-850 dark:shadow-dark-xl">
+                        <!-- <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                             <h6 class="uppercase dark:text-white">Tabel Guru</h6>
                         </div> -->
                         <div class="flex-auto p-5">
-                            <div class="overflow-x-auto p-4">
-                                <div class="flex gap-2 justify-center">
+                            <div class="p-4 overflow-x-auto">
+                                <div class="flex justify-center gap-2">
                                     <h1 class="mb-4 text-2xl font-bold text-center select-none dark:text-white">Tabel
                                         Pegawai
                                     </h1>
@@ -198,10 +194,10 @@
                                     @endif
 
                                 </div>
-                                <div class="w-full mb-2 flex">
-                                    <div class=" join flex m-2">
+                                <div class="flex w-full mb-2">
+                                    <div class="flex m-2  join">
                                         <label
-                                            class="input input-lg input-bordered join-item border rounded-lg w-full flex items-center">
+                                            class="flex items-center w-full border rounded-lg input input-lg input-bordered join-item">
                                             <input type="text" class="grow" id="searchInput"
                                                 placeholder="Search" />
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -218,19 +214,19 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="mx-1 m-2 w-52">
+                                    <div class="m-2 mx-1 w-52">
                                         <div
-                                            class="dropdown dropdown-bottom md:dropdown-hover md:dropdown-right w-full">
+                                            class="w-full dropdown dropdown-bottom md:dropdown-hover md:dropdown-right">
                                             <div tabindex="0" role="button"
-                                                class="btn btn-lg bg-primaryBlue w-full text-light btn-primary">Import
+                                                class="w-full btn btn-lg bg-primaryBlue text-light btn-primary">Import
                                                 / Export</div>
                                             <ul tabindex="0"
-                                                class="dropdown-content menu bg-base-100 rounded-box z-990 w-52 p-2 shadow">
+                                                class="p-2 shadow dropdown-content menu bg-base-100 rounded-box z-990 w-52">
                                                 <button
-                                                    class="btn bg-grey text-light hover:bg-primaryBlue hover:text-light my-1"
+                                                    class="my-1 btn bg-grey text-light hover:bg-primaryBlue hover:text-light"
                                                     onclick="my_modal_2.showModal()">Import</button>
                                                 <a href="{{ route('pegawai.export') }}"
-                                                    class="btn bg-grey text-light hover:btn-error hover:text-light my-1">
+                                                    class="my-1 btn bg-grey text-light hover:btn-error hover:text-light">
                                                     Export
                                                 </a>
                                             </ul>
@@ -267,7 +263,7 @@
                                                                         xlsx, xls, csv</p>
                                                                 </div>
                                                                 <p id="file-name"
-                                                                    class="hidden text-base font-bold text-green-500 dark:text-green-400 mt-2">
+                                                                    class="hidden mt-2 text-base font-bold text-green-500 dark:text-green-400">
                                                                     File uploaded successfully!</p>
                                                             </div>
                                                             <input id="dropzone-file" type="file" name="file"
@@ -276,7 +272,7 @@
                                                     </div>
 
                                                     <button type="submit"
-                                                        class="btn btn-primary bg-primaryBlue my-3 w-full text-light">Import</button>
+                                                        class="w-full my-3 btn btn-primary bg-primaryBlue text-light">Import</button>
                                                 </form>
 
                                                 <script>
@@ -307,7 +303,7 @@
                                                 <form method="dialog">
                                                     <!-- if there is a button in form, it will close the modal -->
                                                     <button
-                                                        class="btn hover:btn-error hover:text-light w-full">Close</button>
+                                                        class="w-full btn hover:btn-error hover:text-light">Close</button>
                                                 </form>
                                             </div>
 
@@ -318,29 +314,32 @@
 
 
 
-                                <table id="pegawaiTable" class="table w-full">
-                                    <thead class="bg-primaryBlue border text-white tracking-widest">
+                                <table id="pegawaiTable" class="table w-full ">
+                                    <thead class="tracking-widest text-white border bg-primaryBlue">
                                         <tr>
-                                            <th class="p-4 select-none text-base text-center">Nama</th>
-                                            <th class="p-4 select-none text-base text-center">No Telepon</th>
-                                            <th class="p-4 select-none text-base text-center">NIP</th>
-                                            <th class="p-4 select-none text-base text-center">PTK</th>
-                                            <th class="p-4 select-none text-base text-center" style="width: 100px;">
+                                            <th class="p-4 text-base text-center cursor-pointer select-none"
+                                                onclick="sortTable(0)">Nama</th>
+                                            <th class="p-4 text-base text-center cursor-pointer select-none"
+                                                onclick="sortTable(1)">No Telepon</th>
+                                            <th class="p-4 text-base text-center cursor-pointer select-none"
+                                                onclick="sortTable(2)">NIP</th>
+                                            <th class="p-4 text-base text-center cursor-pointer select-none"
+                                                onclick="sortTable(3)">PTK</th>
+                                            <th class="p-4 text-base text-center select-none" style="width: 100px;">
                                                 Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="pegawai-list" class="bg-white border">
                                         @foreach ($listpegawai as $pegawai)
-                                        
-                                            <tr class="hover:bg-gray-100 dark:hover:bg-slate-700 border-b">
-                                                <td class="px-4 text-base text-center">{{ $pegawai->user->nama }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->no_telpon }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->NIP }}</td>
-                                                <td class="px-4 text-base text-center">{{ $pegawai->PTK }}</td>
+                                            <tr class="border-b hover:bg-gray-100 group dark:hover:bg-slate-700">
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->user->nama }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->no_telpon }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->NIP }}</td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->PTK }}</td>
                                                 <td class="px-4 text-center">
                                                     <div class="flex justify-center join">
                                                         <button
-                                                            class="btn btn-primary join-item bg-primaryBlue text-light font-semibold leading-tight edit-pegawai"
+                                                            class="font-semibold leading-tight btn btn-primary join-item bg-primaryBlue text-light edit-pegawai"
                                                             data-pegawai='@json($pegawai)'>Edit</button>
                                                         <form
                                                             action="{{ route('admin.pegawai.delete', $pegawai->NIP) }}"
@@ -348,7 +347,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-outline hover:border-primaryBlue border-primaryBlue  hover:bg-secondaryBlue join-item font-semibold leading-tight text-primaryBlue"
+                                                                class="font-semibold leading-tight btn btn-outline hover:border-primaryBlue border-primaryBlue hover:bg-secondaryBlue join-item text-primaryBlue"
                                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
                                                         </form>
                                                     </div>
@@ -357,6 +356,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
 
 
@@ -375,50 +375,8 @@
 
         <!-- card 2 -->
 
-        <footer class="pt-4">
-            <div class="mx-auto w-full px-6">
-                <div class="-mx-3 flex flex-wrap items-center lg:justify-between">
-                    <div class="mb-6 mt-0 w-full max-w-full shrink-0 px-3 lg:mb-0 lg:w-1/2 lg:flex-none">
-                        <div class="text-center text-sm leading-normal text-slate-500 lg:text-left">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear() + ",");
-                            </script>
-                            made with <i class="fa fa-heart"></i> by
-                            <a href="https://www.creative-tim.com"
-                                class="font-semibold text-slate-700 dark:text-white" target="_blank">Creative
-                                Tim</a>
-                            for a better web.
-                        </div>
-                    </div>
-                    <div class="mt-0 w-full max-w-full shrink-0 px-3 lg:w-1/2 lg:flex-none">
-                        <ul class="mb-0 flex list-none flex-wrap justify-center pl-0 lg:justify-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://creative-tim.com/blog"
-                                    class="block px-4 pb-1 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license"
-                                    class="block px-4 pb-1 pr-0 pt-0 text-sm font-normal text-slate-500 transition-colors ease-in-out"
-                                    target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
         </div>
+        <x-admin.footer />
     </main>
     <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
         white-style-btn navbarFixed dark-toggle />
@@ -437,6 +395,28 @@
     document.getElementById('filterPTK').addEventListener('change', function() {
         filterTable();
     });
+
+    function sortTable(columnIndex) {
+        var table = document.getElementById("pegawaiTable");
+        var tbody = table.tBodies[0];
+        var rows = Array.from(tbody.rows);
+        var ascending = tbody.getAttribute("data-sort-order") !== "asc";
+        rows.sort(function(rowA, rowB) {
+            var cellA = rowA.cells[columnIndex].innerText.trim().toLowerCase();
+            var cellB = rowB.cells[columnIndex].innerText.trim().toLowerCase();
+
+            if (cellA < cellB) {
+                return ascending ? -1 : 1;
+            }
+            if (cellA > cellB) {
+                return ascending ? 1 : -1;
+            }
+            return 0;
+        });
+
+        tbody.setAttribute("data-sort-order", ascending ? "asc" : "desc");
+        tbody.append(...rows);
+    }
 
     function filterTable() {
         var input, filter, ptkFilter, table, tr, td, i, j, txtValue;

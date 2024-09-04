@@ -16,18 +16,17 @@ class PegawaiExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'NIP', 'Nama', 'Email', 'No Telpon', '', 'PTK', 'Created At', 'Updated At'
+            'NIP', 'Nama', 'Email', 'No Telpon', 'PTK', 'Created At', 'Updated At'
         ];
     }
 
     public function map($pegawai): array
     {
         return [
-            $pegawai->id,
+            $pegawai->NIP,
             $pegawai->user->nama,
             $pegawai->user->email,
             $pegawai->no_telpon,
-            $pegawai->NIP,
             $pegawai->PTK,
             $pegawai->created_at,
             $pegawai->updated_at,

@@ -11,7 +11,7 @@ return [
             ],
             'stacked' => false,
             'zoom' => [
-                'enabled' => false,
+                'enabled' => true,
             ],
             'fontFamily' => 'inherit',
             'foreColor' => '#373d3f',
@@ -57,7 +57,8 @@ return [
             'title' => [
                 'text' => '',
             ],
-            'tickAmount' => 5,
+            // 'tickAmount' => 5,
+            
         ],
 
         'grid' => [

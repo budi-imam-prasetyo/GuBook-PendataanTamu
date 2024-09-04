@@ -11,13 +11,13 @@ export default {
         extend: {
             keyframes: {
                 boing: {
-                    '0%, 100%': { transform: 'translateY(-5%)' },
-                    '50%': { transform: 'translateY(0%)' },
-                }
+                    "0%, 100%": { transform: "translateY(-5%)" },
+                    "50%": { transform: "translateY(0%)" },
+                },
             },
             animation: {
-        boing: 'boing 3s infinite',
-      },
+                boing: "boing 3s infinite",
+            },
             fontFamily: {
                 sans: ["Inter", "sans-serif"],
             },
@@ -138,8 +138,8 @@ export default {
                 200: "#fecaca",
                 300: "#fca5a5",
                 400: "#f87171",
-                500: "#f53939",
-                600: "#f5365c",
+                500: "#ef4444",
+                600: "#dc2626",
                 700: "#b91c1c",
                 800: "#991b1b",
                 900: "#7f1d1d",
@@ -297,6 +297,7 @@ export default {
                 700: "#4338ca",
                 800: "#3730a3",
                 900: "#312e81",
+                950: "#1e1b4b",
             },
 
             violet: {
@@ -1419,7 +1420,5 @@ export default {
         "disabled",
     ],
 
-    plugins: [require("daisyui"),
-        "prettier-plugin-tailwindcss"
-    ],
+    plugins: [require("daisyui"), "prettier-plugin-tailwindcss"],
 };
