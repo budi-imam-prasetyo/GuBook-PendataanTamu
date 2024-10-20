@@ -7,169 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GuBook | Pegawai</title>
     <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
 </head>
 
 <body
     class="m-0 font-sans text-base antialiased font-medium bg-gray-50 leading-default text-slate-500 dark:bg-slate-900">
     <div class="absolute w-full min-h-80 bg-primaryBlue"></div>
 
-    <x-admin.sidebar></x-admin.sidebar>
+    <x-FO.sidebar></x-FO.sidebar>
 
     <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out rounded-xl xl:ml-68">
         <!-- Navbar -->
-        <x-admin.navbar>Pegawai</x-admin.navbar>
+        <x-FO.navbar>Pegawai</x-FO.navbar>
 
         <div class="w-full p-6 pb-0 mx-auto ">
-            <form id="pegawaiForm" action="{{ route('admin.store.pegawai') }}" method="POST"
-                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border shadow-lg rounded-2xl dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
-                @csrf
-                <input type="hidden" id="formMethod" name="_method" value="POST">
-                <input type="hidden" id="pegawaiId" name="NIP">
-                <p class="mb-4 text-2xl font-bold text-center select-none dark:text-white" id="formTitle">Tambah Pegawai
-                </p>
-
-                <!-- Nama -->
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="nama"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nama
-                            Guru</label>
-                        <input type="text" id="nama" name="nama"
-                            class="w-full mb-3 input input-bordered dark:text-white"
-                            placeholder="Masukkan Nama" required />
-                    </div>
-                    <div>
-                        <label for="PTK"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">PTK</label>
-                        <select id="PTK" name="PTK"
-                            class="w-full mb-3 select select-bordered dark:text-white" required>
-                            <option value="" disabled selected>Pilih Mapel</option>
-                            @foreach ($mapel as $item)
-                                {{-- {{ dd($item); }} --}}
-                                <option value="{{ $item->PTK }}">{{ $item->PTK }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Email dan Password -->
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="email"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="w-full mb-3 input input-bordered dark:text-white"
-                            placeholder="contoh@email.com" required />
-                    </div>
-                    <div>
-                        <label for="password"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Kata
-                            Sandi</label>
-                        <input type="password" id="password" name="password"
-                            class="w-full mb-4 input input-bordered dark:text-white" placeholder="******" />
-                    </div>
-                </div>
-
-                <!-- Nomor Telepon, NIP, dan PTK -->
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="no_telpon"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nomor
-                            Telepon</label>
-                        <input type="text" id="no_telpon" name="no_telpon"
-                            class="w-full mb-3 input input-bordered dark:text-white"
-                            placeholder="Masukkan Nomor Telepon" required />
-                    </div>
-
-                    <div>
-                        <label for="NIP" class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">NIP
-                            (Nomor
-                            Induk Pegawai)</label>
-                        <input type="text" id="NIP" name="NIP"
-                            class="w-full mb-3 input input-bordered dark:text-white" placeholder="Masukkan NIP"
-                            required />
-                    </div>
-                </div>
-
-
-
-                <!-- Tombol Submit -->
-                <button type="submit" class="w-full text-base btn btn-primary bg-primaryBlue text-light"
-                    id="formSubmitButton">Submit</button>
-            </form>
-
-
-
-
-            <form id="updateForm" action="{{ route('admin.pegawai.update', ['id' => ':id']) }}" method="POST"
-                style="display: none;" onsubmit="return validateUpdateForm()"
-                class="flex flex-col w-full p-6 mx-auto mt-10 bg-white border shadow-md rounded-2xl dark:bg-slate-850 dark:border-transparent dark:shadow-dark-xl">
-                <h1 class="mb-4 text-2xl font-bold text-center dark:text-white">Edit Guru</h1>
-                @csrf
-                <input type="hidden" name="emailToUpdate" id="emailToUpdate">
-                <input type="hidden" name="NIP" id="updateId">
-
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="newName"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nama</label>
-                        <input type="text" name="newName" id="newName"
-                            class="w-full mb-3 input input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
-                    </div>
-                    <div>
-                        <label for="newPTK"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">PTK</label>
-                        <select id="newPTK" name="newPTK"
-                            class="w-full mb-3 select select-bordered dark:bg-slate-850 dark:border-white dark:text-white"
-                            required>
-                            <option value="" selected>Pilih Mapel</option>
-                            @foreach ($mapel as $item)
-                                {{-- {{ dd($item); }} --}}
-                                <option value="{{ $item->PTK }}">{{ $item->PTK }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="newEmail"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Email</label>
-                        <input type="text" name="newEmail" id="newEmail"
-                            class="w-full mb-3 input input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
-                    </div>
-                    <div>
-                        <label for="newPassword"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Password</label>
-                        <input type="password" name="newPassword" id="newPassword"
-                            class="w-full mb-4 input input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
-                    </div>
-                </div>
-                <div class="grid w-full grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <div>
-                        <label for="newNIP"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">NIP</label>
-                        <input type="text" name="newNIP" id="newNIP"
-                            class="w-full mb-3 input input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
-                    </div>
-                    <div>
-                        <label for="newNo_telpon"
-                            class="block mb-2 text-sm font-semibold text-gray-600 dark:text-white">Nomor
-                            Telepon</label>
-                        <input type="text" name="newNo_telpon" id="newNo_telpon"
-                            class="w-full mb-3 input input-bordered dark:bg-slate-850 dark:border-white dark:text-white">
-                    </div>
-                </div>
-
-                <div class="flex space-x-4">
-                    <button type="submit"
-                        class="w-1/2 text-base btn btn-primary text-light bg-primaryBlue">Update</button>
-                    <button type="button" onclick="closeUpdateForm()"
-                        class="w-1/2 text-base btn ">Tutup</button>
-                </div>
-            </form>
-
             <!-- table 1 -->
 
             <div class="flex flex-wrap mt-5 -mx-3">
@@ -180,26 +33,25 @@
                             <h6 class="uppercase dark:text-white">Tabel Guru</h6>
                         </div> -->
                         <div class="flex-auto p-5">
-                            <div class="p-4 overflow-x-auto">
+                            <div class="p-4">
                                 <div class="flex justify-center gap-2">
                                     <h1 class="mb-4 text-2xl font-bold text-center select-none dark:text-white">Tabel
                                         Pegawai
                                     </h1>
                                     @if (session()->has('add') || session()->has('update') || session()->has('delete'))
-                                        <div role="alert"
-                                            class="text-xl 
+                                    <div role="alert"
+                                        class="text-xl 
         {{ session()->has('add') ? 'text-green-500' : (session()->has('update') ? 'text-primaryBlue' : 'text-primaryRed') }}">
-                                            {{ session('add') ?? (session('update') ?? session('delete')) }}
-                                        </div>
+                                        {{ session('add') ?? (session('update') ?? session('delete')) }}
+                                    </div>
                                     @endif
 
                                 </div>
-                                <div class="flex w-full mb-2">
-                                    <div class="flex m-2 join">
-                                        <label
-                                            class="flex items-center w-full border rounded-lg input input-lg input-bordered join-item">
-                                            <input type="text" class="grow" id="searchInput"
-                                                placeholder="Search" />
+                                <div class="flex flex-col md:flex-row w-full mb-2">
+                                    <div class="flex m-2 ml-0 join flex-col md:flex-row gap-3 md:gap-0">
+                                        <label class="flex items-center w-full border rounded-lg input input-lg input-bordered md:join-item">
+                                            <input type="text" class="grow" id="searchInput1" value="{{ request('search') }}"
+                                                placeholder="Cari Pegawai..." />
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-7 w-7 opacity-70">
                                                 <path fill-rule="evenodd"
@@ -207,14 +59,14 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </label>
-                                        <select id="filterPTK" class="select select-bordered join-item select-lg">
+                                        <select id="filterPTK" class="select select-bordered md:join-item select-lg">
                                             <option value="">Filter</option>
                                             @foreach ($listpegawai->pluck('PTK')->unique() as $ptk)
-                                                <option value="{{ $ptk }}">{{ $ptk }}</option>
+                                            <option value="{{ $ptk }}">{{ $ptk }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="m-2 mx-1 w-52">
+                                    <div class="md:m-2 w-full md:w-52">
                                         <div
                                             class="w-full dropdown dropdown-bottom md:dropdown-hover md:dropdown-right">
                                             <div tabindex="0" role="button"
@@ -313,79 +165,76 @@
                                 </div>
 
 
-
-                                <table id="pegawaiTable" class="table w-full ">
-                                    <thead class="tracking-widest text-white border bg-primaryBlue">
-                                        <tr>
-                                            <th class="p-4 text-base text-center cursor-pointer select-none"
-                                                onclick="sortTable(0)">Nama</th>
-                                            <th class="p-4 text-base text-center cursor-pointer select-none"
-                                                onclick="sortTable(1)">No Telepon</th>
-                                            <th class="p-4 text-base text-center cursor-pointer select-none"
-                                                onclick="sortTable(2)">NIP</th>
-                                            <th class="p-4 text-base text-center cursor-pointer select-none"
-                                                onclick="sortTable(3)">PTK</th>
-                                            <th class="p-4 text-base text-center select-none" style="width: 100px;">
-                                                Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="pegawai-list" class="bg-white border">
-                                        @foreach ($listpegawai as $pegawai)
+                                <div class="overflow-x-auto">
+                                    <table id="pegawaiTable" class="table w-full min-w-full">
+                                        <thead class="tracking-widest text-white bg-primaryBlue">
+                                            <tr>
+                                                <th class="p-4 text-base text-center cursor-pointer select-none rounded-tl-lg whitespace-nowrap"
+                                                    onclick="sortTable(0)">Nama</th>
+                                                <th class="p-4 text-base text-center cursor-pointer select-none whitespace-nowrap"
+                                                    onclick="sortTable(1)">No Telepon</th>
+                                                <th class="p-4 text-base text-center cursor-pointer select-none whitespace-nowrap"
+                                                    onclick="sortTable(2)">NIP</th>
+                                                <th class="p-4 text-base text-center cursor-pointer select-none rounded-tr-lg whitespace-nowrap"
+                                                    onclick="sortTable(3)">PTK</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pegawai-list" class="bg-white border">
+                                            @foreach ($listpegawai as $pegawai)
                                             <tr class="border-b hover:bg-gray-100 group dark:hover:bg-slate-700">
-                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->user->nama }}</td>
-                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->no_telpon }}</td>
-                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->NIP }}</td>
-                                                <td class="px-4 text-base text-center group-hover:text-indigo-950">{{ $pegawai->PTK }}</td>
-                                                <td class="px-4 text-center">
-                                                    <div class="flex justify-center join">
-                                                        <button
-                                                            class="font-semibold leading-tight btn btn-primary join-item bg-primaryBlue text-light edit-pegawai"
-                                                            data-pegawai='@json($pegawai)'>Edit</button>
-                                                        <form
-                                                            action="{{ route('admin.pegawai.delete', $pegawai->NIP) }}"
-                                                            method="POST" style="display:inline-block;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="font-semibold leading-tight btn btn-outline hover:border-primaryBlue border-primaryBlue hover:bg-secondaryBlue join-item text-primaryBlue"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
-                                                        </form>
-                                                    </div>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950 whitespace-nowrap">
+                                                    {{ $pegawai->user->nama }}
+                                                </td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950 whitespace-nowrap">
+                                                    {{ $pegawai->no_telpon }}
+                                                </td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950 whitespace-nowrap">
+                                                    {{ $pegawai->NIP }}
+                                                </td>
+                                                <td class="px-4 text-base text-center group-hover:text-indigo-950 whitespace-nowrap">
+                                                    {{ $pegawai->PTK }}
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
 
                             </div>
-
-
                             <div class="mt-4">
                                 {{ $listpegawai->links('components.pagination') }}
                             </div>
-
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
 
         <!-- card 2 -->
 
-        </div>
-        <x-admin.footer />
+        </d iv>
+        <x-FO.footer />
     </main>
     <div fixed-plugin fixed-plugin-button fixed-plugin-card fixed-plugin-close-button transparent-style-btn
         white-style-btn navbarFixed dark-toggle />
-    @livewireScripts
 </body>
 <script src="{{ asset('js/html5-qrcode.min.js') }}" async></script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 {{-- <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> --}}
+
+<script>
+    document.getElementById('searchInput1').addEventListener('input', function() {
+        let search = this.value;
+        fetch(`/FO/pegawai?search=${search}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('pegawai-list').innerHTML = new DOMParser()
+                    .parseFromString(data, 'text/html')
+                    .querySelector('#pegawai-list').innerHTML;
+            });
+    });
+</script>
 
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function() {
@@ -527,4 +376,8 @@
         }
     });
 </script>
+
+
+
+
 </html>

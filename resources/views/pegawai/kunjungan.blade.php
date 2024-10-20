@@ -154,12 +154,12 @@
                                                 @endif
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                <h5 class="text-lg font-semibold">
-                                                    {{ $item->tamu->nama }}
-                                                </h5>
-                                                <div class="flex gap-2">
-                                                    <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
-                                                        @if ($item->type == 'tamu')
+                                                @if ($item->type == 'tamu')
+                                                    <h5 class="text-lg font-semibold">
+                                                        {{ $item->tamu->nama }}
+                                                    </h5>
+                                                    <div class="flex gap-2">
+                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
                                                             <p class="font-semibold"><span class="font-normal">Email:
                                                                 </span>{{ $item->tamu->email }}</p>
                                                             <p class="font-semibold capitalize"><span
@@ -168,7 +168,14 @@
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Tanggal Perjanjian:
                                                                 </span>{{ $item->formatWaktu }}</p>
-                                                        @else
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <h5 class="text-lg font-semibold">
+                                                        {{ $item->ekspedisi->nama_kurir }}
+                                                    </h5>
+                                                    <div class="flex gap-2">
+                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Nama
                                                                     Kurir:
@@ -179,9 +186,9 @@
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Tanggal Kedatangan:
                                                                 </span>{{ $item->formatWaktu }}</p>
-                                                        @endif
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="flex items-center ml-auto text-right">
@@ -197,17 +204,17 @@
                                 @endforelse
                             </ul>
                             @if ($kedatangan->count() > 3)
-                                <button id="scrollDown"
-                                    class="absolute p-3 mt-2 rounded-full shadow-md bottom-3 start-1/2 outline outline-2 outline-light bg-lightRed2 shadow-grey">
-                                    <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 rotate-90"
-                                        alt="arrow">
-                                </button>
-                            @endif
-                        </div>
+                            <button id="scrollDown"
+                            class="absolute p-3 mt-2 rounded-full shadow-md bottom-3 start-1/2 outline outline-2 outline-light bg-lightRed2 shadow-grey">
+                            <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 rotate-90"
+                            alt="arrow">
+                        </button>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+    </div>
         <x-pegawai.footer />
     </main>
 

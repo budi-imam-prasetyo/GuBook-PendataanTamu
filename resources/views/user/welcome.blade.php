@@ -19,13 +19,13 @@
 
     {{-- Main --}}
     <main>
-        <div class="mt-32 flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center justify-center mt-32">
             <div class="">
                 <img src="{{ asset('assets/logo2.png') }}" class="h-48" alt="Logo GuBook" />
             </div>
             <div class="flex flex-col text-center">
-                <h1 class="text-light text-xl">Selamat Datang di GuBook</h1>
-                <p class="font-medium text-lg text-light">
+                <h1 class="text-xl text-light">Selamat Datang di GuBook</h1>
+                <p class="text-lg font-medium text-light">
                     Datanglah dengan
                     <span class="font-semibold">Senang Hati,</span>
                     Kami Layani
@@ -34,13 +34,13 @@
             </div>
             {{-- {{$qrcode}} --}}
             <div class="mt-6">
-                <a class="group flex gap-2 rounded-2xl bg-secondaryBlue px-14 py-5" href="/form-tamu">
-                    <div class="h-6 w-6 overflow-hidden">
+                <a class="flex gap-2 py-5 group rounded-2xl bg-secondaryBlue px-14" href="/form-tamu">
+                    <div class="w-6 h-6 overflow-hidden">
                         <img src="{{ asset('assets/icons/plus.svg') }}"
                             class="h-0 transition-all duration-200 group-hover:block group-hover:h-6" alt="" />
                     </div>
                     <span
-                        class="-translate-x-4 text-lg font-semibold transition-all duration-200 group-hover:translate-x-2">
+                        class="text-lg font-semibold transition-all duration-200 -translate-x-4 group-hover:translate-x-2">
                         Buat Pertemuan
                     </span>
                 </a>

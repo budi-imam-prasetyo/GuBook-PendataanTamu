@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Livewire::component('search-pegawai', SearchPegawai::class);
-        Paginator::defaultView('vendor.pagination.custom');
+        Paginator::defaultView('components.pagination');
 
     }
 }

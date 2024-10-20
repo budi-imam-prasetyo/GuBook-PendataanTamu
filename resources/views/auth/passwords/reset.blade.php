@@ -26,7 +26,7 @@
                                     class="col-md-4 col-form-label text-md-end"
                                 >
                                     {{ __("Email Address") }}
-                                </label>
+                                 </label>
 
                                 <div class="col-md-6">
                                     <input

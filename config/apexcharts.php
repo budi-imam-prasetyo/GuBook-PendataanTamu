@@ -11,7 +11,7 @@ return [
             ],
             'stacked' => false,
             'zoom' => [
-                'enabled' => true,
+                'enabled' => false,
             ],
             'fontFamily' => 'inherit',
             'foreColor' => '#373d3f',
