@@ -23,9 +23,6 @@ Route::get('/register', function () {
     return redirect('/login'); //* redirect to login
 });
 
-Route::get('/custom-qrcode', function () {
-    return QrCode::size(300)->color(255, 0, 0)->generate('https://example.com');
-});
 //? FORM TAMU
 Route::get('/form-tamu', [UserController::class, 'formTamu'])->name('tamu');
 Route::post('/store/tamu', [UserController::class, 'storeTamu'])->name('tamu.store');
@@ -35,6 +32,7 @@ Route::post('/store/kurir', [UserController::class, 'storeKurir'])->name('kurir.
 //? LIST PEGAWAI DAN TENTANG
 Route::get('/list-pegawai', [UserController::class, 'listPegawai']);
 Route::get('/tentang', [UserController::class, 'about']);
+Route::post('/check-appointments', [UserController::class, 'checkAppointments']);
 //* ROUTE USER
 
 
@@ -74,11 +72,21 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
 //* ROUTE FO
 Route::middleware(['checkRole:FO'])->group(function () {
     Route::prefix('FO')->group(function () {
-        Route::get('/', [FOController::class, 'index']);
+        Route::match(['get', 'post'], '/', [FOController::class, 'index']);
+        Route::get('/pegawai', [FOController::class, 'pegawai'])->name('FO.pegawai');
+        Route::post('/pegawai/post', [FOController::class, 'pegawaiPost'])->name('FO.pegawai.post');
+        Route::get('/tamu-detail/{id_kedatangan}', [FOController::class, 'getTamuDetail'])->name('tamu.Detail');
+        Route::post('/update-kunjungan', [FOController::class, 'updateKedatangan'])->name('update-kedatangan');
+        Route::get('/laporan-tamu', [FOController::class, 'laporanTamu'])->name('FO.laporanTamu');
+        Route::get('/laporan-kurir', [FOController::class, 'laporanKurir'])->name('FO.laporanKurir');
+        Route::get('/search-tamu', [FOController::class, 'searchTamu'])->name('search.tamu');
+        Route::get('/search-kurir', [FOController::class, 'searchKurir'])->name('search.kurir');
+        Route::get('/filter-tamu', [FOController::class, 'filterTamu'])->name('filter.tamu');
+        Route::get('/kunjungan', [FOController::class, 'kunjungan'])->name('FO.kunjungan');
+        Route::get('/kunjungan/{id_kedatangan}', [FOController::class, 'getDetail']);
     });
 });
 //* ROUTE FO
-
 
 Auth::routes();
 

@@ -32,7 +32,7 @@
             </div>
         @endif
     </div>
-    <div class="w-full px-4">
+    <div class="w-full">
         <h2 class="px-2 mb-2 text-lg font-semibold leading-4">Detail Lainnya</h2>
         <div class="bg-lightRed p-4 rounded-4.5 ">
             {{-- @if ($item->ekspedisi)
@@ -116,7 +116,7 @@
                 <textarea name="alasan" class="w-full p-2 mb-4 border"></textarea>
                 <button type="submit" class="btn bg-primaryRed text-light">Kirim</button>
             </form>
-        </div>
+        </div>  
     </div>
 </div>
 

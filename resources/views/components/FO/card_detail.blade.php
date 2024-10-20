@@ -36,7 +36,7 @@
             </div>
         @endif
     </div>
-    <div class="w-full">
+    <div class="w-full px-4">
         <h2 class="text-lg font-semibold mb-2 px-2 leading-4">Detail Lainnya</h2>
         <div class="bg-lightBlue p-4 rounded-4.5 ">
             @if ($item->ekspedisi)

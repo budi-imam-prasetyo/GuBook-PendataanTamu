@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    @vite('resources/css/app.css', 'resources/js/app.js')
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         /* Custom styles for modal */
@@ -25,7 +28,7 @@
     </style>
 </head>
 
-<body class="relative h-screen text-light bg-gradient-to-b from-secondaryBlue to-primaryBlue">
+<body class="relative text-light bg-gradient-to-b from-secondaryBlue to-primaryBlue">
     {{-- Navigation --}}
     <x-user.navbar></x-user.navbar>
 
@@ -36,7 +39,7 @@
     <main>
         <div class="flex flex-col items-center justify-center">
             <div class="mt-10">
-                <img src="{{ asset('assets/icons/user.svg') }}" class="z-0 h-36" alt="user icon">
+                <img src="{{ asset('assets/icons/user.svg') }}" class="z-0 h-30" alt="user icon">
             </div>
             <div class="mb-4">
                 <ul class="flex flex-wrap -mb-px text-3xl font-medium">
@@ -50,7 +53,7 @@
                     </li>
                 </ul>
             </div>
-            <form id="tamuForm" action="{{ route('tamu.store') }}" method="POST">
+            <form id="tamuForm" action="{{ route('tamu.store') }}" method="POST" class="mb-10">
                 @csrf
                 {{-- <input type="hidden" name="id_user" value="{{ $listpegawai->user->id }}" id="updateId"> --}}
 
@@ -60,33 +63,34 @@
                         <label for="nama" class="block mb-1 text-sm font-medium text-light">Nama</label>
                         <input type="text" name="nama" id="nama"
                             class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
-                            placeholder="Masukan Nama" />
+                            placeholder="Masukan Nama" required />
                     </div>
 
                     <div>
                         <label for="email" class="block mb-1 text-sm font-medium text-light">Email</label>
                         <input type="text" name="email" id="email"
                             class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
-                            placeholder="Masukan Email" />
+                            placeholder="Masukan Email" required />
                     </div>
 
                     <div>
                         <label for="alamat" class="block mb-1 text-sm font-medium text-light">Alamat</label>
                         <input type="text" name="alamat" id="alamat"
                             class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
-                            placeholder="Masukan Alamat" />
+                            placeholder="Masukan Alamat" required />
                     </div>
 
                     <div>
                         <label class="block mb-1 text-sm font-medium text-light">No Telpon</label>
                         <input type="number" name="no_telpon" id="no_telpon"
                             class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
-                            placeholder="Masukan Nomor" />
+                            placeholder="Masukan Nomor" required />
                     </div>
                     <div>
                         <label class="block mb-1 text-sm font-medium text-light">Pegawai</label>
                         <div class="relative w-full">
-                            <select name="pegawai" id="pegawai" class="w-full select select-bordered text-dark">
+                            <select name="pegawai" id="pegawai" class="w-full select select-bordered text-dark"
+                                required>
                                 <option disabled selected class="text-dark">Pilih Pegawai</option>
                                 @foreach ($listpegawai as $pegawai)
                                     <option value="{{ $pegawai->NIP }},{{ $pegawai->user->id }}" class="text-dark">
@@ -99,20 +103,20 @@
                     <div class="">
                         <label class="block mb-1 text-sm font-medium text-light">Tanggal Pertemuan</label>
                         <input type="datetime-local" id="tanggal" name="waktu_perjanjian"
-                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-grey placeholder:text-grey"
-                            placeholder="DD/MM/YYYY" />
+                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
+                            placeholder="DD/MM/YYYY" required />
                     </div>
                     <div class="">
                         <label class="block mb-1 text-sm font-medium text-light">Tujuan</label>
                         <input type="textarea" id="tujuan" name="tujuan"
-                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-grey placeholder:text-grey"
-                            placeholder="Masukan Tujuan" />
+                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
+                            placeholder="Masukan Tujuan" required />
                     </div>
                     <div class="">
                         <label class="block mb-1 text-sm font-medium text-light">Instansi</label>
                         <input type="text" id="instansi" name="instansi"
-                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-grey placeholder:text-grey"
-                            placeholder="Masukan Instansi" />
+                            class="block w-full h-12 px-3 py-1 bg-gray-100 border border-gray-200 rounded-lg text-dark placeholder:text-grey"
+                            placeholder="Masukan Instansi" required />
                     </div>
                     {{-- <input type="hidden" name="qrData" id="qrcodeField"> --}}
                 </div>
@@ -149,26 +153,64 @@
                     </div>
                 </div>
             </div> --}}
-            <div id="warningModal"
-                class="fixed inset-0 z-50 flex items-center justify-center hidden backdrop-blur-sm backdrop-brightness-75"
-                role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
-                <div class="relative w-full max-w-lg mx-4 bg-white rounded-lg shadow-lg">
-                    <div class="p-4">
-                        <h5 id="warningModalLabel" class="text-lg font-semibold text-dark">Peringatan</h5>
-                    </div>
-                    <div class="p-4 text-center text-dark">
+            <dialog id="warningModal" class="modal backdrop-blur-sm">
+                <div class="w-full max-w-lg modal-box text-dark">
+                    <h3 class="text-lg font-bold">Peringatan</h3>
+                    <div class="py-2 text-center">
                         <p>Waktu Pertemuan</p>
-                        <p class="text-sm text-dark">Senin - Jumat <span class="font-semibold">(07.00 - 17.00)</span>
-                        </p>
-                        <p class="text-sm text-dark">Sabtu - Minggu <span class="font-semibold">Tutup</span></p>
+                        <p class="text-sm">Senin - Jumat <span class="font-semibold">(07.00 - 17.00)</span></p>
+                        <p class="text-sm">Sabtu - Minggu <span class="font-semibold">Tutup</span></p>
                     </div>
-                    <div class="flex justify-center p-4">
-                        <button id="closeWarningBtn" class="btn btn-primary">Tutup</button>
+                    <div class="modal-action">
+                        <button id="closeWarningBtn" class="btn">Tutup</button>
                     </div>
                 </div>
-            </div>
+            </dialog>
         </div>
+        <div id="toast" class="fixed hidden p-4 text-white bg-red-500 rounded-lg shadow-lg top-4 right-4">
+            <span id="toastMessage">Oops, ada yang salah!</span>
+        </div>
+
     </main>
+    <script>
+        $(document).ready(function() {
+            $('#pegawai').select2({
+                placeholder: "Pilih Pegawai",
+                allowClear: true
+            });
+        });
+    </script>
+
+
+    <script>
+        function setMinDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const minDate = `${year}-${month}-${day}T00:00`;
+
+            document.getElementById('tanggal').setAttribute('min', minDate);
+        }
+
+        function disableWeekends() {
+            const input = document.getElementById('tanggal');
+
+            input.addEventListener('input', function() {
+                const selectedDate = new Date(input.value);
+                const day = selectedDate.getDay();
+
+                // Cek jika hari yang dipilih adalah Sabtu (6) atau Minggu (0)
+                if (day === 0 || day === 6) {
+                    alert('Pilih tanggal yang bukan hari Sabtu atau Minggu.');
+                    input.value = ''; // Mengosongkan input jika memilih akhir pekan
+                }
+            });
+        }
+
+        setMinDate();
+        disableWeekends();
+    </script>
 
     <script>
         document.getElementById('tamuForm').addEventListener('submit', function(event) {
@@ -180,62 +222,52 @@
             const hours = waktuPerjanjian.getHours();
             if (hari < 1 || hari > 5 || hours < startHour || hours >= endHour) {
                 event.preventDefault();
-                document.getElementById('warningModal').classList.remove('hidden');
+                alert(
+                    'Jam atau hari perjanjian tidak valid. Pilih jam antara 07:00 - 17:00 dari Senin sampai Jumat.');
                 return;
-
-                // Cek apakah jam pertemuan berada di luar rentang 07:00 hingga 17:00
-                // if (hours < startHour || hours >= endHour) {
-                //     event.preventDefault();
-                //     document.getElementById('warningModal').classList.remove('hidden');
-                //     document.querySelector('#warningModal .text-gray-700').innerText =
-                //         'Waktu pertemuan harus antara pukul 07:00 hingga 17:00. Silakan pilih waktu yang sesuai.';
-                //     return;
-
-                // Lanjutkan dengan pengiriman form jika semua kondisi terpenuhi
-                fetch(this.action, {
-                        method: this.method,
-                        body: new FormData(this),
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                            'Accept': 'application/json',
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const qrCodeImg = document.createElement('img');
-                            qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
-                            qrCodeImg.alt = 'QR Code';
-                            qrCodeImg.style.width = '100%'; // Adjust size as needed
-
-                            const qrCodeContent = document.getElementById('qrCodeContent');
-                            qrCodeContent.innerHTML = ''; // Clear previous content
-                            qrCodeContent.appendChild(qrCodeImg);
-
-                            const downloadBtn = document.getElementById('downloadBtn');
-                            downloadBtn.href = qrCodeImg.src;
-                            downloadBtn.download = 'qr_code.png';
-
-                            document.getElementById('qrCodeModal').classList.remove('hidden');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan dalam mengirim data. Silakan coba lagi.', error);
-                    });
-                // }
             }
-        });
 
-        document.getElementById('qrCodeModal').addEventListener('click', function(event) {
-            if (event.target === this) {
-                this.classList.add('hidden');
-                document.getElementById('tamuForm').reset();
-            }
-        });
+            fetch(this.action, {
+                    method: this.method,
+                    body: new FormData(this),
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errors => {
+                            let errorMessages = '';
+                            for (const [key, value] of Object.entries(errors.errors)) {
+                                errorMessages += `${value.join(' ')}\n`;
+                            }
+                            throw new Error(errorMessages);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        const qrCodeImg = document.createElement('img');
+                        qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
+                        qrCodeImg.alt = 'QR Code';
+                        qrCodeImg.style.width = '100%';
 
-        document.getElementById('closeWarningBtn').addEventListener('click', function() {
-            document.getElementById('warningModal').classList.add('hidden');
+                        const qrCodeContent = document.getElementById('qrCodeContent');
+                        qrCodeContent.innerHTML = '';
+                        qrCodeContent.appendChild(qrCodeImg);
+
+                        const downloadBtn = document.getElementById('downloadBtn');
+                        downloadBtn.href = qrCodeImg.src;
+                        downloadBtn.download = 'qr_code.png';
+
+                        alert('Pertemuan berhasil ditambahkan!');
+                    }
+                })
+                .catch(error => {
+                    console.log(data.message);
+                });
         });
     </script>
 </body>

@@ -18,7 +18,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="relative h-screen bg-gradient-to-b from-secondaryBlue to-primaryBlue text-light">
+<body class="relative  bg-gradient-to-b from-secondaryBlue to-primaryBlue text-light">
     <!-- Navigation -->
     <x-user.navbar></x-user.navbar>
 
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="flex flex-col items-center justify-center gap-5">
+    <main class="flex flex-col items-center justify-center gap-5 w-screen px-10">
         <div class="w-full text-center">
             <h1 class="text-3xl text-light">List Pegawai</h1>
         </div>
@@ -36,10 +36,10 @@
         <div class="flex w-full">
             <div class="mx-auto grid w-full gap-5 px-8 md:w-[70%] ">
                 <!-- Search Input -->
-                <div class="join w-1/3">
+                <div class="join w-full lg:w-1/3 px-10">
                     <input type="text" name="searchInput" id="searchInput"
                         class="input join-item w-full border-none bg-light text-dark placeholder:text-grey"
-                        placeholder="Cari NIP, Nama, Email, PTK" autocomplete="nickname" />
+                        placeholder="Cari NIP, Nama, Email, PTK" autocomplete="nickname" />                                                      
                     <div class="btn join-item bg-light">
                         <img src="{{ asset('assets/icons/search2.svg') }}" class="h-5 text-dark" alt="search icon" />
                     </div>
@@ -60,8 +60,8 @@
         </div>
 
         <!-- Table Section -->
-        <div class="w-full md:w-2/3">
-            <div class="block w-full overflow-x-auto px-10 md:px-0">
+        <div class="w-full lg:w-2/3">
+            <div class="block w-full overflow-auto ">
                 <table class="w-full border-collapse rounded-xl bg-light" id="pegawaiTable">
                     <thead>
                         <tr class="shadow-sm">
@@ -87,7 +87,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="overflow-x-scroll">
                         @foreach (range(0, 9) as $index)
                             @if (isset($listpegawai[$index]))
                                 <tr class="group hover:bg-lightBlue2">

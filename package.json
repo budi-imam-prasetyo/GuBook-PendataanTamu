@@ -13,6 +13,7 @@
         "axios": "^1.6.4",
         "bootstrap": "^5.2.3",
         "daisyui": "^4.12.10",
+        "fluid-tailwind": "^1.0.3",
         "html5-qrcode": "^2.3.8",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.40",

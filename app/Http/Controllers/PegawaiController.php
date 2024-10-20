@@ -68,7 +68,7 @@ class PegawaiController extends Controller
             $statistik = $totalBulanIni - $totalBulanLalu;
         }
 
-        //! Dataset Grafik
+        //! Dataset Grafik  
         $tamuPerHari = KedatanganTamu::selectRaw('DATE(waktu_perjanjian) as tanggal, COUNT(*) as jumlah')
             ->where('id_user', $id_user)
             ->whereBetween('waktu_perjanjian', [$startOfMonth, $endOfMonth])
@@ -102,6 +102,7 @@ class PegawaiController extends Controller
             return $item;
         });
         $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
+        
 
         //! Chart
         $chart = (new Chart)->setType('bar')
@@ -211,7 +212,6 @@ class PegawaiController extends Controller
             $qrCodeData = base64_decode($kunjungan->qr_code);
             Storage::disk('public')->put($qrCodePath, $qrCodeData);
             $fullQrCodePath = public_path('storage/' . $qrCodePath);
-
             // Kirim email ketika kunjungan diterima
             Mail::send('mails.SendEmail', [
                 'subject' => 'Kunjungan Diterima',
@@ -234,7 +234,6 @@ class PegawaiController extends Controller
                     ->subject('Kunjungan Ditolak');
             });
         }
-
         return response()->json(['success' => true]);
     }
 

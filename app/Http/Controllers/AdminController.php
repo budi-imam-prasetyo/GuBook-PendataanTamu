@@ -113,7 +113,7 @@ class AdminController extends Controller
             ->setOptions(
                 [
                     'yaxis' => [
-                        'stepSize' => 1
+                        'stepSize' => 2
                     ]
                 ]
             );
@@ -128,6 +128,8 @@ class AdminController extends Controller
             'persentaseKenaikan'
         ));
     }
+    
+
 
     public function pegawai()
     {
@@ -147,7 +149,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'pegawai',
-        ]);
+        ]); 
 
         // Cek apakah user berhasil dibuat
         if ($user) {
@@ -226,7 +228,6 @@ class AdminController extends Controller
             'file' => 'required|mimes:xls,xlsx'
         ]);
 
-
         try {
             Excel::import(new PegawaiImport, $request->file('file'));
             // dd($request->all());
@@ -235,9 +236,6 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Gagal mengimport data: ' . $e->getMessage());
         }
     }
-
-
-
 
     public function kunjungan()
     {

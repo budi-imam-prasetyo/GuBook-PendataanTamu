@@ -1420,5 +1420,8 @@ export default {
         "disabled",
     ],
 
-    plugins: [require("daisyui"), "prettier-plugin-tailwindcss"],
+    plugins: [
+        require("daisyui", "fluid-tailwind"),
+        "prettier-plugin-tailwindcss",
+    ],
 };

@@ -8,7 +8,6 @@
     <title>GuBook | Kunjungan</title>
     <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -49,7 +48,8 @@
                                 <div class="text-right flex items-center justify-center">
                                     <div
                                         class="h-16 w-16 rounded-circle bg-gradient-to-b from-green-500 to-green-400 flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +68,8 @@
                                 <div class="text-right flex items-center justify-center">
                                     <div
                                         class="h-16 w-16 rounded-circle bg-gradient-to-b from-yellow-500 to-yellow-400 flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -87,13 +88,14 @@
                                 <div class="text-right flex items-center justify-center">
                                     <div
                                         class="h-16 w-16 rounded-circle bg-gradient-to-b from-red-500 to-red-400 flex items-center justify-center">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6" alt="">
+                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-light rounded-4.5 p-1 h-full shadow-sm">{!! $chart->container() !!}</div>
+                    <div class="bg-light rounded-4.5 p-1 pt-4 h-full shadow-sm">{!! $chart->container() !!}</div>
                 </div>
             </div>
 
@@ -115,7 +117,8 @@
 
                     <div class="w-full bg-light rounded-4.5 shadow-md col-span-4 p-4.5">
                         <div class="relative mb-4">
-                            <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+                            <div
+                                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
                                 <img src="{{ asset('assets/icons/search2.svg') }}" class="w-5 h-5" alt="">
                             </div>
                             <input id="searchInput" type="text"
@@ -125,62 +128,87 @@
 
                         <div class="mb-4 flex gap-4">
                             <button id="filter-all"
-                                class="filter-btn border-2 border-primaryRed bg-primaryRed text-white font-semibold py-2 px-4 rounded-lg active"
+                                class="filter-btn border-2 border-primaryBlue bg-primaryBlue text-white font-semibold py-2 px-4 rounded-lg active"
                                 onclick="filterStatus('semua', this)">Semua</button>
                             <button id="filter-accepted"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="filter-btn bg-lightBlue border-2 border-lightBlue2 text-primaryBlue font-semibold py-2 px-4 rounded-lg"
                                 onclick="filterStatus('diterima', this)">Diterima</button>
                             <button id="filter-rejected"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="filter-btn bg-lightBlue border-2 border-lightBlue2 text-primaryBlue font-semibold py-2 px-4 rounded-lg"
                                 onclick="filterStatus('ditolak', this)">Ditolak</button>
                             <button id="filter-pending"
-                                class="filter-btn bg-lightRed border-2 border-lightRed2 text-primaryRed font-semibold py-2 px-4 rounded-lg"
+                                class="filter-btn bg-lightBlue border-2 border-lightBlue2 text-primaryBlue font-semibold py-2 px-4 rounded-lg"
                                 onclick="filterStatus('menunggu', this)">Menunggu</button>
                         </div>
 
                         <div class="relative">
-                            <ul id="visitList" class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
+                            <ul id="visitList"
+                                class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kedatangan as $item)
-                                <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850">
-                                    <div class="flex gap-7 ml-4">
-                                        <div class="flex items-center justify-center h-full">
-                                            @if ($item->type == 'tamu')
-                                            <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                            @else
-                                            <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                            @endif
-                                        </div>
-                                        <div class="flex flex-col gap-2">
-                                            <h5 class="text-lg font-semibold">
-                                                {{ $item->user->nama }}
-                                            </h5>
-                                            <div class="flex gap-2">
-                                                <div class="mb-2 text-sm flex flex-col gap-3 leading-tight">
-                                                    @if ($item->type == 'tamu')
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Nama: </span>{{ $item->tamu->nama }}</p>
-                                                    <p class="font-semibold"><span class="font-normal">Email: </span>{{ $item->tamu->email }}</p>
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Tanggal Perjanjian: </span>{{ $item->formatWaktu }}</p>
-                                                    @else
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Nama Kurir: </span>{{ $item->ekspedisi->nama_kurir }}</p>
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Ekspedisi: </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                                    <p class="font-semibold capitalize"><span class="font-normal">Tanggal Kedatangan: </span>{{ $item->formatWaktu }}</p>
-                                                    @endif
-                                                </div>
+                                    <li
+                                        class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850" data-status="{{ $item->status }}">
+                                        <div class="flex gap-7 ml-4">
+                                            <div class="flex items-center justify-center h-full">
+                                                @if ($item->type == 'tamu')
+                                                    <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
+                                                @endif
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                @if ($item->type == 'tamu')
+                                                    <h5 class="text-lg font-semibold">
+                                                        {{ $item->tamu->nama }}
+                                                    </h5>
+                                                    <div class="flex gap-2">
+                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
+                                                            <p class="font-semibold"><span class="font-normal">Email:
+                                                                </span>{{ $item->tamu->email }}</p>
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Status:
+                                                                </span>{{ $item->status }}</p>
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Tanggal Perjanjian:
+                                                                </span>{{ $item->formatWaktu }}</p>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <h5 class="text-lg font-semibold">
+                                                        {{ $item->ekspedisi->nama_kurir }}
+                                                    </h5>
+                                                    <div class="flex gap-2">
+                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Nama
+                                                                    Kurir:
+                                                                </span>{{ $item->ekspedisi->nama_kurir }}</p>
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Ekspedisi:
+                                                                </span>{{ $item->ekspedisi->ekspedisi }}</p>
+                                                            <p class="font-semibold capitalize"><span
+                                                                    class="font-normal">Tanggal Kedatangan:
+                                                                </span>{{ $item->formatWaktu }}</p>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="ml-auto text-right flex items-center">
-                                        <a href="javascript:;" onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')" class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
-                                    </div>
-                                </li>
+                                        <div class="ml-auto text-right flex items-center">
+                                            <a href="javascript:;"
+                                                onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')"
+                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
+                                        </div>
+                                    </li>
                                 @empty
-                                <div class="flex items-center justify-center h-full">
-                                    <li class="text-center mt-4 text-grey text-lg">Tidak Ada Data Kunjungan</li>
-                                </div>
+                                    <div class="flex items-center justify-center h-full">
+                                        <li class="text-center mt-4 text-grey text-lg">Tidak Ada Data Kunjungan</li>
+                                    </div>
                                 @endforelse
                             </ul>
-                            <button id="scrollDown" class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightBlue2 p-3 mt-2 shadow-md shadow-grey">
-                                    <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5" alt="arrow">
+                            <button id="scrollDown"
+                                class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightBlue2 p-3 mt-2 shadow-md shadow-grey">
+                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5"
+                                    alt="arrow">
                             </button>
                         </div>
                     </div>
@@ -211,38 +239,38 @@
 
 <script>
     function filterStatus(status, element) {
-        const items = document.querySelectorAll('.search-item');
-        const buttons = document.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.search-item');
+            const buttons = document.querySelectorAll('.filter-btn');
 
-        // Filter the list items based on the status
-        items.forEach(item => {
-            if (status === 'semua' || item.getAttribute('data-status') === status) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
+            // Filter the list items based on the status
+            items.forEach(item => {
+                if (status === 'semua' || item.getAttribute('data-status') === status) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Reset all button colors to default
+            buttons.forEach(button => {
+                button.classList.remove('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
+                button.classList.add('bg-lightBlue', 'text-primaryBlue');
+            });
+
+            // Set the clicked button as active
+            element.classList.remove('bg-lightBlue', 'text-primaryBlue');
+            element.classList.add('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let items = document.querySelectorAll('.search-item');
+
+            items.forEach(function(item) {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(filter) ? '' : 'none';
+            });
         });
-
-        // Reset all button colors to default
-        buttons.forEach(button => {
-            button.classList.remove('border-primaryRed', 'bg-primaryRed', 'text-white', 'active');
-            button.classList.add('bg-lightRed', 'text-primaryRed');
-        });
-
-        // Set the clicked button as active
-        element.classList.remove('bg-lightRed', 'text-primaryRed');
-        element.classList.add('border-primaryRed', 'bg-primaryRed', 'text-white', 'active');
-    }
-    
-    document.getElementById('searchInput').addEventListener('input', function() {
-        let filter = this.value.toLowerCase();
-        let items = document.querySelectorAll('.search-item');
-
-        items.forEach(function(item) {
-            let text = item.textContent.toLowerCase();
-            item.style.display = text.includes(filter) ? '' : 'none';
-        });
-    });
 
     function loadDetail(id, type) {
         $.ajax({
