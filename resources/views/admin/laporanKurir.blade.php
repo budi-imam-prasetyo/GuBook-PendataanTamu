@@ -22,11 +22,11 @@
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
 
-    <x-FO.sidebar></x-FO.sidebar>
+    <x-admin.sidebar></x-admin.sidebar>
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-FO.navbar>Laporan Tamu</x-FO.navbar>
+        <x-admin.navbar>Laporan Tamu</x-admin.navbar>
 
         <div class="w-full grid grid-cols-7 gap-2 p-6 pt-3">
             <input type="text" id="searchInput" class="input input-bordered col-span-4" placeholder="Cari Tamu ..."
@@ -47,7 +47,7 @@
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('FO.laporanKurir') }}"
+                        <form id="filterForm" method="GET" action="{{ route('admin.laporanKurir') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -124,7 +124,7 @@
                                     class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
-                                        <a href="{{ route('FO.laporanTamu') }}"
+                                        <a href="{{ route('admin.laporanTamu') }}"
                                             class="btn btn-outline w-full">Reset</a>
                                     </div>
                                     <div class="flex-1">
@@ -329,7 +329,7 @@
             </div>
         </div>
 
-        <x-FO.footer />
+        <x-admin.footer />
 
     </main>
 
@@ -462,7 +462,7 @@
                     return;
                 }
 
-                fetch(`/FO/search-kurir?query=${encodeURIComponent(query)}`)
+                fetch(`/admin/search-kurir?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows

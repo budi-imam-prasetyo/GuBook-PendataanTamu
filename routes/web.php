@@ -49,6 +49,13 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::post('/pegawai/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.pegawai.update');
         Route::get('pegawai/export/', [AdminController::class, 'export'])->name('pegawai.export');
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
+        //? LAPORAN TAMU
+        Route::get('/laporan-tamu', [AdminController::class, 'laporanTamu'])->name('admin.laporanTamu');
+        Route::get('/search-tamu', [FOController::class, 'searchTamu'])->name('admin.searchTamu');
+        //? LAPORAN KURIR
+        Route::get('/laporan-kurir', [AdminController::class, 'laporanKurir'])->name('admin.laporanKurir');
+        Route::get('/search-kurir', [FOController::class, 'searchKurir'])->name('admin.searchKurir');
+
         //? KUNJUNGAN
         Route::get('/kunjungan', [AdminController::class, 'kunjungan'])->name('admin.kunjungan');
         Route::get('/kunjungan/{id_kedatangan}', [AdminController::class, 'getDetail']);
@@ -78,9 +85,9 @@ Route::middleware(['checkRole:FO'])->group(function () {
         Route::get('/tamu-detail/{id_kedatangan}', [FOController::class, 'getTamuDetail'])->name('tamu.Detail');
         Route::post('/update-kunjungan', [FOController::class, 'updateKedatangan'])->name('update-kedatangan');
         Route::get('/laporan-tamu', [FOController::class, 'laporanTamu'])->name('FO.laporanTamu');
+        Route::get('/search-tamu', [FOController::class, 'searchTamu'])->name('admin.searchTamu');
         Route::get('/laporan-kurir', [FOController::class, 'laporanKurir'])->name('FO.laporanKurir');
-        Route::get('/search-tamu', [FOController::class, 'searchTamu'])->name('search.tamu');
-        Route::get('/search-kurir', [FOController::class, 'searchKurir'])->name('search.kurir');
+        Route::get('/search-kurir', [FOController::class, 'searchKurir'])->name('admin.searchKurir');
         Route::get('/filter-tamu', [FOController::class, 'filterTamu'])->name('filter.tamu');
         Route::get('/kunjungan', [FOController::class, 'kunjungan'])->name('FO.kunjungan');
         Route::get('/kunjungan/{id_kedatangan}', [FOController::class, 'getDetail']);
