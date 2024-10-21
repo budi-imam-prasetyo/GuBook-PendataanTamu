@@ -125,6 +125,9 @@ class FOController extends Controller
         // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
 
         //! Chart
+        $max = 2; // Pastikan $max sudah didefinisikan
+        $max = ($max < 10) ? $max : (($max < 20) ? 5 : 10);
+
         $chart = (new Chart)->setType('bar')
             ->setWidth('100%')
             ->setHeight(300)
@@ -134,7 +137,7 @@ class FOController extends Controller
             ->setOptions([
                 'yaxis' => [
                     'stacked' => true,
-                    // 'stepSize' => 1
+                    'stepSize' => $max
                 ],
                 'plotOptions' => [
                     'line' => [

@@ -150,6 +150,9 @@ class AdminController extends Controller
         // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
 
         //! Chart
+        $max = 2; // Pastikan $max sudah didefinisikan
+        $max = ($max < 10) ? $max : (($max < 20) ? 5 : 10);
+
         $chart = (new Chart)->setType('area')
             ->setWidth('100%')
             ->setHeight(300)
@@ -159,7 +162,7 @@ class AdminController extends Controller
             ->setOptions(
                 [
                     'yaxis' => [
-                        'stepSize' => 2
+                        'stepSize' => $max
                     ]
                 ]
             );

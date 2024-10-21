@@ -146,6 +146,9 @@ class PegawaiController extends Controller
 
 
         //! Chart
+        $max = 2;
+        $max = ($max < 10) ? $max : (($max < 20) ? 5 : 10);
+
         $chart = (new Chart)->setType('bar')
             ->setWidth('100%')
             ->setHeight(300)
@@ -155,7 +158,7 @@ class PegawaiController extends Controller
             ->setOptions(
                 [
                     'yaxis' => [
-                        'stepSize' => 1
+                        'stepSize' => $max
                     ],
                     'colors' => ['#EF5F4C', '#CD5A36'],
                     'markers' => [
