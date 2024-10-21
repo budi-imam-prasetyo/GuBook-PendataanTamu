@@ -1,5 +1,5 @@
 <aside id="sidebar"
-    class="fixed inset-y-0 left-0 flex-wrap items-center justify-between hidden w-full p-0 m-4 overflow-y-auto antialiased bg-white border-0 shadow-lg dark:bg-slate-850 max-w-64 z-990 xl:z-0 xl:block sm:left-auto sm:right-0 rounded-2xl xl:left-0 xl:right-auto transition-transform duration-300 transform translate-x-0">
+    class="fixed inset-y-0 left-0 flex-wrap items-center justify-between hidden w-full p-0 m-4 overflow-y-auto antialiased bg-white border-0 shadow-lg  max-w-64 z-990 xl:z-0 xl:block sm:left-auto sm:right-0 rounded-2xl xl:left-0 xl:right-auto transition-transform duration-300 transform translate-x-0">
     <div class="h-full">
         <!-- Logo & Close Button -->
         <div class="flex justify-center h-20 relative">
@@ -18,7 +18,7 @@
                 <x-FO.sidebar-btn src="{{ asset('assets/icons/school.svg') }}" href="/FO/pegawai">pegawai</x-FO.sidebar-btn>
                 <!-- Dropdown for Laporan -->
                 <li class="relative">
-                    <div class="hover:bg-primaryBlue/5 rounded-lg mx-2 flex items-center whitespace-nowrap px-4 py-2.7 text-sm transition-colors select-none duration-200 ease-in-out text-slate-700 hover:text-primaryBlue dark:text-white cursor-pointer"
+                    <div class="hover:bg-primaryBlue/5 rounded-lg mx-2 flex items-center whitespace-nowrap px-4 py-2.7 text-sm transition-colors select-none duration-200 ease-in-out text-slate-700 hover:text-primaryBlue  cursor-pointer"
                         onclick="toggleDropdown()">
                         <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center text-center">
                             <img class="h-5" src="{{ asset('assets/icons/report.svg') }}" alt="laporan"></img>
@@ -35,12 +35,12 @@
                     <ul id="dropdown-menu" class="hidden flex-col space-y-2 py-2 pl-14 transition-all">
                         <li>
                             <a href="/FO/laporan-tamu"
-                                class="{{ request()->is('FO/laporan-tamu') ? 'rounded-lg bg-secondaryBlue/13 font-semibold text-primaryBlue' : 'ease' }} block text-sm px-4 py-2 text-slate-700 hover:bg-primaryBlue/5 hover:text-primaryBlue dark:text-white rounded-md select-none transition-all">Laporan
+                                class="{{ request()->is('FO/laporan-tamu') ? 'rounded-lg bg-secondaryBlue/13 font-semibold text-primaryBlue' : 'ease' }} block text-sm px-4 py-2 text-slate-700 hover:bg-primaryBlue/5 hover:text-primaryBlue  rounded-md select-none transition-all">Laporan
                                 Tamu</a>
                         </li>
                         <li>
                             <a href="/FO/laporan-kurir"
-                                class="{{ request()->is('FO/laporan-kurir') ? 'rounded-lg bg-secondaryBlue/13 font-semibold text-primaryBlue' : 'ease' }} block text-sm px-4 py-2 text-slate-700 hover:bg-primaryBlue/5 hover:text-primaryBlue dark:text-white rounded-md select-none transition-all">Laporan
+                                class="{{ request()->is('FO/laporan-kurir') ? 'rounded-lg bg-secondaryBlue/13 font-semibold text-primaryBlue' : 'ease' }} block text-sm px-4 py-2 text-slate-700 hover:bg-primaryBlue/5 hover:text-primaryBlue  rounded-md select-none transition-all">Laporan
                                 Kurir</a>
                         </li>
                     </ul>
@@ -51,13 +51,13 @@
 
                 <!-- Account Section -->
                 <li class="w-full mt-4">
-                    <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60 dark:text-white">Account
+                    <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60 ">Account
                         pages</h6>
                 </li>
 
                 <!-- Logout Button -->
                 <li class="mt-0.5 w-full">
-                    <a class="hover:bg-primaryBlue/5 rounded-lg mx-2 flex items-center whitespace-nowrap px-4 py-2.7 text-sm transition-colors duration-200 ease-in-out text-slate-700 hover:text-primaryBlue dark:text-white"
+                    <a class="hover:bg-primaryBlue/5 rounded-lg mx-2 flex items-center whitespace-nowrap px-4 py-2.7 text-sm transition-colors duration-200 ease-in-out text-slate-700 hover:text-primaryBlue "
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center text-center">

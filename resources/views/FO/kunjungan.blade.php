@@ -16,7 +16,7 @@
 </head>
 
 <body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -36,13 +36,13 @@
                             {{-- Card 1 --}}
                             <div class="col-span-1">
                                 <div
-                                    class="bg-lightBlue border-2 border-lightBlue2 dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                    class="bg-lightBlue border-2 border-lightBlue2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                                     <div class="p-6">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-1">
+                                                <h2 class="text-sm font-semibold text-gray-600 mb-1">
                                                     Selesai</h2>
-                                                <p class="text-2xl font-bold text-gray-800 dark:text-white">7</p>
+                                                <p class="text-2xl font-bold text-gray-800">7</p>
                                             </div>
                                             <div class="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-full">
                                                 <img src="{{ asset('assets/icons/group-user.svg') }}"
@@ -51,7 +51,7 @@
                                         </div>
                                     </div>
                                     <div class="bg-lightBlue2 px-6 py-3">
-                                        <p class="text-xs font-medium text-green-600 dark:text-green-300">
+                                        <p class="text-xs font-medium text-green-600">
                                             <span class="inline-block mr-1">↑</span>50% dari kemarin
                                         </p>
                                     </div>
@@ -60,13 +60,13 @@
                             {{-- Card 2 --}}
                             <div class="col-span-1">
                                 <div
-                                    class="bg-lightBlue border-2 border-lightBlue2 dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                    class="bg-lightBlue border-2 border-lightBlue2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                                     <div class="p-6">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-1">
+                                                <h2 class="text-sm font-semibold text-gray-600 mb-1">
                                                     Belum Datang</h2>
-                                                <p class="text-2xl font-bold text-gray-800 dark:text-white">2</p>
+                                                <p class="text-2xl font-bold text-gray-800">2</p>
                                             </div>
                                             <div
                                                 class="bg-gradient-to-br from-yellow-500 to-yellow-600 p-4 rounded-full">
@@ -75,8 +75,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bg-lightBlue2 dark:from-slate-700 dark:to-slate-600 px-6 py-3">
-                                        <p class="text-xs font-medium text-yellow-600 dark:text-yellow-300">
+                                    <div class="bg-lightBlue2   px-6 py-3">
+                                        <p class="text-xs font-medium text-yellow-600 ">
                                             <span class="inline-block mr-1">↑</span>25% dari kemarin
                                         </p>
                                     </div>
@@ -85,13 +85,13 @@
                             {{-- Card 3 --}}
                             <div class="col-span-1">
                                 <div
-                                    class="bg-lightBlue border-2 border-lightBlue2 dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                    class="bg-lightBlue border-2 border-lightBlue2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                                     <div class="p-6">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-1">
+                                                <h2 class="text-sm font-semibold text-gray-600 mb-1">
                                                     Tidak Hadir</h2>
-                                                <p class="text-2xl font-bold text-gray-800 dark:text-white">1</p>
+                                                <p class="text-2xl font-bold text-gray-800">1</p>
                                             </div>
                                             <div class="bg-gradient-to-br from-red-500 to-red-600 p-4 rounded-full">
                                                 <img src="{{ asset('assets/icons/group-user.svg') }}"
@@ -99,8 +99,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bg-lightBlue2 dark:from-slate-700 dark:to-slate-600 px-6 py-3">
-                                        <p class="text-xs font-medium text-red-600 dark:text-red-300">
+                                    <div class="bg-lightBlue2 px-6 py-3">
+                                        <p class="text-xs font-medium text-red-600">
                                             <span class="inline-block mr-1">↑</span>75% dari kemarin
                                         </p>
                                     </div>
@@ -170,7 +170,7 @@
                             <ul id="konfirmasiList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto border-y-2 border-lightBlue2">
                                 @forelse ($konfirmasi as $item)
-                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850"
+                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4"
                                         data-status="{{ $item->status }}"
                                         data-sudah-datang="{{ $item->sudah_datang ? 'true' : 'false' }}">
                                         <div class="flex gap-7 ml-4">
@@ -199,7 +199,7 @@
                                         <div class="ml-auto text-right flex items-center">
                                             <a href="javascript:;"
                                                 onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')"
-                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
+                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85">Detail</a>
                                         </div>
                                     </li>
                                 @empty
@@ -215,7 +215,7 @@
                             <ul id="kunjunganList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kunjungan_tamu as $item)
-                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850"
+                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4"
                                         data-status="{{ $item->status }}"
                                         data-sudah-datang="{{ $item->sudah_datang ? 'true' : 'false' }}">
                                         <div class="flex gap-7 ml-4">
@@ -244,7 +244,7 @@
                                         <div class="ml-auto text-right flex items-center">
                                             <a href="javascript:;"
                                                 onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')"
-                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
+                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85">Detail</a>
                                         </div>
                                     </li>
                                 @empty

@@ -20,13 +20,13 @@
     class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
+    <div class="absolute min-h-80 w-full bg-primaryRed"></div>
 
-    <x-FO.sidebar></x-FO.sidebar>
+    <x-pegawai.sidebar></x-pegawai.sidebar>
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-FO.navbar>Laporan Tamu</x-FO.navbar>
+        <x-pegawai.navbar>Laporan Tamu</x-pegawai.navbar>
 
         <div class="w-full grid grid-cols-7 gap-2 p-6 pt-3">
             <input type="text" id="searchInput" class="input input-bordered col-span-4" placeholder="Cari Tamu ..."
@@ -47,7 +47,7 @@
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('FO.laporanKurir') }}"
+                        <form id="filterForm" method="GET" action="{{ route('admin.laporanKurir') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -121,15 +121,15 @@
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
                                 <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</button>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
-                                        <a href="{{ route('FO.laporanTamu') }}"
+                                        <a href="{{ route('admin.laporanTamu') }}"
                                             class="btn btn-outline w-full">Reset</a>
                                     </div>
                                     <div class="flex-1">
                                         <button type="submit"
-                                            class="btn btn-primary bg-primaryBlue text-white opacity-100 w-full">Filter</button>
+                                            class="btn btn-error bg-primaryRed text-white opacity-100 w-full">Filter</button>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
         </div>
         <div class="overflow-x-auto p-6 pt-0">
             <table id="pegawaiTable" class="table w-full min-w-full shadow">
-                <thead class="tracking-widest text-slate-700 bg-lightBlue">
+                <thead class="tracking-widest text-slate-700 bg-lightRed">
                     <tr>
                         <th class="p-4 text-base text-center cursor-pointer select-none rounded-tl-lg">
                             <a
@@ -325,11 +325,11 @@
             </table>
 
             <div class="mt-4">
-                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination') }}
+                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination2') }}
             </div>
         </div>
 
-        <x-FO.footer />
+        <x-pegawai.footer />
 
     </main>
 
@@ -462,7 +462,7 @@
                     return;
                 }
 
-                fetch(`/FO/search-kurir?query=${encodeURIComponent(query)}`)
+                fetch(`/admin/search-kurir?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows

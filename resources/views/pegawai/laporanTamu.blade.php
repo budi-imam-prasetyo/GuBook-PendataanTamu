@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>GuBook | Kunjungan</title>
     <link rel="icon" href="{{ asset('assets/logo2.png') }}" type="image/x-icon" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -17,25 +16,29 @@
 </head>
 
 <body
-    class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
+    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
+    <div class="absolute min-h-80 w-full bg-primaryRed"></div>
 
-    <x-FO.sidebar></x-FO.sidebar>
+    <x-pegawai.sidebar></x-pegawai.sidebar>
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-FO.navbar>Laporan Tamu</x-FO.navbar>
+        <x-pegawai.navbar>Laporan Tamu</x-pegawai.navbar>
 
         <div class="w-full grid grid-cols-7 gap-2 p-6 pt-3">
             <input type="text" id="searchInput" class="input input-bordered col-span-4" placeholder="Cari Tamu ..."
                 autocomplete="off">
+            <select name="" id="" class="select select-bordered col-span-2">
+                <option value="sudah datang">Sudah Datang</option>
+                <option value="belum datang">Belum Datang</option>
+            </select>
             <div class="drawer drawer-end col-span-1 z-10">
                 <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
                     <!-- Page content here -->
-                    <label for="my-drawer-4" class="drawer-button btn font-normal">
+                    <label for="my-drawer-4" class="drawer-button btn font-normal truncate">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -47,7 +50,7 @@
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('FO.laporanKurir') }}"
+                        <form id="filterForm" method="GET" action="{{ route('admin.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -121,15 +124,15 @@
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
                                 <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</button>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
-                                        <a href="{{ route('FO.laporanTamu') }}"
+                                        <a href="{{ route('admin.laporanTamu') }}"
                                             class="btn btn-outline w-full">Reset</a>
                                     </div>
                                     <div class="flex-1">
                                         <button type="submit"
-                                            class="btn btn-primary bg-primaryBlue text-white opacity-100 w-full">Filter</button>
+                                            class="btn btn-error bg-primaryRed text-white opacity-100 w-full">Filter</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,14 +142,14 @@
             </div>
         </div>
         <div class="overflow-x-auto p-6 pt-0">
-            <table id="pegawaiTable" class="table w-full min-w-full shadow">
-                <thead class="tracking-widest text-slate-700 bg-lightBlue">
+            <table id="pegawaiTable" class="table w-full min-w-full ">
+                <thead class="tracking-widest text-slate-700 bg-lightRed">
                     <tr>
                         <th class="p-4 text-base text-center cursor-pointer select-none rounded-tl-lg">
                             <a
-                                href="{{ request()->fullUrlWithQuery(['sort' => 'nama_kurir', 'direction' => $sort === 'nama_kurir' && $direction === 'asc' ? 'desc' : 'asc']) }}">
-                                Nama Kurir
-                                @if ($sort === 'nama_kurir')
+                                href="{{ request()->fullUrlWithQuery(['sort' => 'nama', 'direction' => $sort === 'nama' && $direction === 'asc' ? 'desc' : 'asc']) }}">
+                                Nama
+                                @if ($sort === 'nama')
                                     @if ($direction === 'asc')
                                         ▲
                                     @else
@@ -157,9 +160,9 @@
                         </th>
                         <th class="p-4 text-base text-center cursor-pointer select-none">
                             <a
-                                href="{{ request()->fullUrlWithQuery(['sort' => 'nama_pegawai', 'direction' => $sort === 'nama_pegawai' && $direction === 'asc' ? 'desc' : 'asc']) }}">
+                                href="{{ request()->fullUrlWithQuery(['sort' => 'pegawai', 'direction' => $sort === 'pegawai' && $direction === 'asc' ? 'desc' : 'asc']) }}">
                                 Pegawai
-                                @if ($sort === 'nama_pegawai')
+                                @if ($sort === 'pegawai')
                                     @if ($direction === 'asc')
                                         ▲
                                     @else
@@ -170,22 +173,9 @@
                         </th>
                         <th class="p-4 text-base text-center cursor-pointer select-none">
                             <a
-                                href="{{ request()->fullUrlWithQuery(['sort' => 'ekspedisi', 'direction' => $sort === 'ekspedisi' && $direction === 'asc' ? 'desc' : 'asc']) }}">
-                                Ekspedisi
-                                @if ($sort === 'ekspedisi')
-                                    @if ($direction === 'asc')
-                                        ▲
-                                    @else
-                                        ▼
-                                    @endif
-                                @endif
-                            </a>
-                        </th>
-                        <th class="p-4 text-base text-center cursor-pointer select-none">
-                            <a
-                                href="{{ request()->fullUrlWithQuery(['sort' => 'no_telpon', 'direction' => $sort === 'no_telpon' && $direction === 'asc' ? 'desc' : 'asc']) }}">
-                                No Telpon
-                                @if ($sort === 'no_telpon')
+                                href="{{ request()->fullUrlWithQuery(['sort' => 'waktu_perjanjian', 'direction' => $sort === 'waktu_perjanjian' && $direction === 'asc' ? 'desc' : 'asc']) }}">
+                                Waktu Perjanjian
+                                @if ($sort === 'waktu_perjanjian')
                                     @if ($direction === 'asc')
                                         ▲
                                     @else
@@ -207,17 +197,30 @@
                                 @endif
                             </a>
                         </th>
+                        <th class="p-4 text-base text-center cursor-pointer select-none">
+                            <a
+                                href="{{ request()->fullUrlWithQuery(['sort' => 'status', 'direction' => $sort === 'status' && $direction === 'asc' ? 'desc' : 'asc']) }}">
+                                Status
+                                @if ($sort === 'status')
+                                    @if ($direction === 'asc')
+                                        ▲
+                                    @else
+                                        ▼
+                                    @endif
+                                @endif
+                            </a>
+                        </th>
                         <th class="p-4 text-base text-center select-none rounded-tr-lg">Aksi</th>
                     </tr>
                 </thead>
                 @if ($data)
                     <tbody id="pegawai-list" class="bg-white">
                         @foreach ($data as $laporanTamu)
-                            <tr class="border-b hover:bg-gray-100 group ">
+                            <tr class="border-b hover:bg-lightRed group ">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex flex-col text-center">
                                         <div class="text-sm font-medium text-gray-900 capitalize">
-                                            {{ $laporanTamu->nama_kurir }}
+                                            {{ $laporanTamu->nama_tamu }}
                                         </div>
                                         <div class="text-sm text-gray-500">
                                             {{ $laporanTamu->email }}
@@ -228,10 +231,12 @@
                                     {{ $laporanTamu->nama_pegawai }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                                    {{ $laporanTamu->ekspedisi->ekspedisi }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                                    {{ $laporanTamu->ekspedisi->no_telpon }}
+                                    <div class="flex flex-col items-center">
+                                        <span
+                                            class="">{{ \Carbon\Carbon::parse($laporanTamu->waktu_perjanjian)->format('H:i') }}</span>
+                                        <span
+                                            class="text-gray-500">{{ \Carbon\Carbon::parse($laporanTamu->waktu_perjanjian)->format('d M Y') }}</span>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     @if ($laporanTamu->waktu_kedatangan)
@@ -246,6 +251,41 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    @php
+                                        $statusConfig = [
+                                            'Belum Datang' => [
+                                                'class' => 'bg-yellow-50 text-yellow-800 border-yellow-200',
+                                                'icon' => 'clock',
+                                            ],
+                                            'Belum Dikonfirmasi' => [
+                                                'class' => 'bg-orange-50 text-orange-800 border-orange-200',
+                                                'icon' => 'info',
+                                            ],
+                                            'Tidak Datang' => [
+                                                'class' => 'bg-red-50 text-red-800 border-red-200',
+                                                'icon' => 'x',
+                                            ],
+                                            'Selesai' => [
+                                                'class' => 'bg-primaryRed text-orange-50 border-primaryRed',
+                                                'icon' => 'check',
+                                            ],
+                                            'Ditolak' => [
+                                                'class' => 'bg-red-800 text-red-50 border-red-800',
+                                                'icon' => 'ban',
+                                            ],
+                                        ];
+
+                                        $config = $statusConfig[$laporanTamu->status_display] ?? [
+                                            'class' => 'bg-gray-50 text-gray-800 border-gray-200',
+                                            'icon' => 'question',
+                                        ];
+                                    @endphp
+                                    <span
+                                        class="px-3 py-1 text-xs font-medium rounded-full border {{ $config['class'] }}">
+                                        {{ $laporanTamu->status_display }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
                                     <label for="detail-modal-{{ $laporanTamu->id_kedatangan }}"
                                         class="inline-flex items-center justify-center p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor"
@@ -255,8 +295,7 @@
                                         </svg>
                                     </label>
                                 </td>
-                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}"
-                                    class="modal-toggle" />
+                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}" class="modal-toggle" />
                                 <div class="modal backdrop-blur-sm">
                                     <div class="modal-box relative max-w-lg bg-white rounded-lg shadow-xl">
                                         <label for="detail-modal-{{ $laporanTamu->id_kedatangan }}"
@@ -267,12 +306,12 @@
                                                     d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </label>
-
+    
                                         <div class="p-6 pt-2">
                                             <div class="avatar flex justify-center">
                                                 <div class="avatar flex justify-center">
                                                     @if ($laporanTamu->foto)
-                                                        <img src="{{ asset('storage/img-kurir/' . $laporanTamu->foto) }}"
+                                                        <img src="{{ asset('storage/img-tamu/' . $laporanTamu->foto) }}"
                                                             class="w-30 rounded-full" alt="Foto Tamu">
                                                     @else
                                                         <img src="{{ $nullFoto }}" class="w-30 rounded-full"
@@ -280,19 +319,17 @@
                                                     @endif
                                                     {{-- {{ dd($laporanTamu->foto) }} --}}
                                                 </div>
-
+    
                                             </div>
                                             <h3 class="text-lg font-bold text-gray-900 mb-6">Detail Tamu</h3>
                                             <div class="space-y-4">
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">Nama</span>
-                                                    <span
-                                                        class="w-2/3 font-medium">{{ $laporanTamu->nama_kurir }}</span>
+                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->nama_tamu }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">No Telepon</span>
-                                                    <span
-                                                        class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
+                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">NIP</span>
@@ -305,9 +342,8 @@
                                                 <div class="flex items-center">
                                                     <span class="w-1/3 text-gray-500">Tanggal Kedatangan</span>
                                                     <span
-                                                        class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? date('d M Y, H:i', strtotime($laporanTamu->waktu_kedatangan)) : '-' }}</span>
-
-                                                </div>
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? \Carbon\Carbon::parse($laporanTamu->waktu_kedatangan)->format('d M Y, H:i') : '-' }}</span>
+                                                 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -325,11 +361,11 @@
             </table>
 
             <div class="mt-4">
-                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination') }}
+                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination2') }}
             </div>
         </div>
 
-        <x-FO.footer />
+        <x-pegawai.footer />
 
     </main>
 
@@ -462,73 +498,65 @@
                     return;
                 }
 
-                fetch(`/FO/search-kurir?query=${encodeURIComponent(query)}`)
+                fetch(`/admin/search-tamu?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows
 
-                        if (data.length === 0) {
-                            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="text-center py-4">Tidak ada data ditemukan</td>
-                </tr>
-                `;
-                            return;
-                        }
-
                         data.forEach(item => {
+                            // Tentukan class untuk status
+                            let statusClass = '';
+                            switch (item.status_display) {
+                                case 'Belum Datang':
+                                    statusClass = 'text-yellow-600';
+                                    break;
+                                case 'Belum Dikonfirmasi':
+                                    statusClass = 'text-orange-600';
+                                    break;
+                                case 'Tidak Datang':
+                                    statusClass = 'text-red-600';
+                                    break;
+                                case 'Selesai':
+                                    statusClass = 'text-green-600';
+                                    break;
+                                case 'Ditolak':
+                                    statusClass = 'text-gray-600';
+                                    break;
+                            }
+
                             const row = `
-                <tr class="border-b hover:bg-gray-100 group ">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex flex-col text-center">
-                            <div class="text-sm font-medium text-gray-900 capitalize">
-                                ${item.nama_kurir}
-                            </div>
-                            <div class="text-sm text-gray-500">
-                                ${item.email || ''}
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                        ${item.nama_pegawai}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                        ${item.ekspedisi}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                        ${item.no_telpon}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                        ${item.waktu_kedatangan ? 
-                            `<div class="flex flex-col items-center">
-                                <span>${new Date(item.waktu_kedatangan).toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</span>
-                                <span class="text-gray-500">${new Date(item.waktu_kedatangan).toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'})}</span>
-                             </div>` 
-                            : '<span class="font-bold">---</span>'
-                        }
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">
-                        <label for="detail-modal-${item.id_kedatangan}"
-                            class="inline-flex items-center justify-center p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </label>
-                    </td>
-                </tr>
-            `;
+                            <tr class="border-b hover:bg-gray-100 group ">
+                                <td class="px-4 text-sm text-center group-hover:text-gray-900">
+                                    <span class="capitalize">${item.nama}</span><br>
+                                    ${item.email}
+                                </td>
+                                <td class="px-4 text-base text-center group-hover:text-gray-900">
+                                    ${item.pegawai}
+                                </td>
+                                <td class="px-4 text-base text-center group-hover:text-gray-900">
+                                    ${item.waktu_perjanjian}
+                                </td>
+                                <td class="px-4 text-base text-center group-hover:text-gray-900">
+                                    ${item.waktu_kedatangan || 'Tidak tersedia'}
+                                </td>
+                                <td class="px-4 text-base text-center group-hover:text-gray-900">
+                                    <span class="${statusClass}">
+                                        ${item.status_display}
+                                    </span>
+                                </td>
+                                <td class="px-4 text-center">
+                                    <label for="detail-modal-${item.id}" class="btn btn-sm btn-outline">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11 7H9V5H11M11 15H9V9H11M10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0Z" fill="black"/>
+                                        </svg>
+                                    </label>
+                                </td>
+                            </tr>
+                        `;
                             tbody.innerHTML += row;
                         });
                     })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        tbody.innerHTML = `
-            <tr>
-                <td colspan="6" class="text-center py-4">Terjadi kesalahan saat mencari data</td>
-            </tr>
-        `;
-                    });
+                    .catch(error => console.error('Error:', error));
             }, 500); // Delay 500ms untuk mengurangi request ke server
         });
     });
