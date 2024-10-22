@@ -133,18 +133,17 @@
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
                             <h6 class="capitalize">Grafik Bulan Ini</h6>
                             <p class="mb-0 text-sm leading-normal">
+                                <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">
-                                    @if ($statistik > 0)
-                                        <span class="text-base text-green-500">+{{ abs($statistik) }} Kunjungan</span>
-                                    @elseif ($statistik < 0)
-                                        <span class="text-base text-red-500">-{{ abs($statistik) }} Kunjungan</span>
+                                    {{ abs(round($persentaseKenaikan, 2)) }}%
+                                    @if ($persentaseKenaikan >= 0)
+                                        lebih banyak
                                     @else
-                                        <span class="text-base text-orange-500">Tidak Ada Kenaikan Kunjungan</span>
+                                        lebih sedikit
                                     @endif
                                 </span>
                                 dari Bulan Sebelumnya
                             </p>
-
 
                             <div class="">
                                 {!! $chart->container() !!}
