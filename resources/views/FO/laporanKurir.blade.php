@@ -120,8 +120,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('FO.laporanKurir.export', request()->query()) }}"
+                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('FO.laporanTamu') }}"

@@ -49,8 +49,8 @@
                 </div>
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                    <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('FO.laporanTamu') }}"
+                        <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
+                            <form id="filterForm" method="GET" action="{{ route('FO.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -71,7 +71,7 @@
                                 </select>
                             </div>
 
-                            <!-- Daily Filter Options -->
+                            <!  -->
                             <div id="dailyFilter" class="hidden flex-col gap-2">
                                 <div class="flex gap-4 flex-col">
                                     <div class="flex flex-col gap-2">
@@ -123,8 +123,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('FO.laporanTamu.export', request()->query()) }}"
+                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('FO.laporanTamu') }}"
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> 
                     </div>
                 </div>
             </div>
@@ -342,7 +342,7 @@
                                                 <div class="flex items-center">
                                                     <span class="w-1/3 text-gray-500">Tanggal Kedatangan</span>
                                                     <span
-                                                        class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? $laporanTamu->waktu_kedatangan->format('d M Y, H:i') : '-' }}</span>
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? \Carbon\Carbon::parse($laporanTamu->waktu_kedatangan)->format('d M Y, H:i') : '-' }}</span>
                                                 </div>
                                             </div>
                                         </div>
