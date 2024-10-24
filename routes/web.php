@@ -52,9 +52,11 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         //? LAPORAN TAMU
         Route::get('/laporan-tamu', [AdminController::class, 'laporanTamu'])->name('admin.laporanTamu');
+        Route::get('/laporan-tamu/export', [ExportController::class, 'exportPDFTamu'])->name('admin.laporanTamu.export');
         Route::get('/search-tamu', [AdminController::class, 'searchTamu'])->name('admin.searchTamu');
         //? LAPORAN KURIR
         Route::get('/laporan-kurir', [AdminController::class, 'laporanKurir'])->name('admin.laporanKurir');
+        Route::get('/laporan-kurir/export', [ExportController::class, 'exportPDFKurir'])->name('admin.laporanKurir.export');
         Route::get('/search-kurir', [AdminController::class, 'searchKurir'])->name('admin.searchKurir');
 
         //? KUNJUNGAN

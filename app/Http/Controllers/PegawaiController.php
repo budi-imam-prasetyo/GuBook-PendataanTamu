@@ -526,7 +526,7 @@ class PegawaiController extends Controller
                     ->subject('Kunjungan Ditolak');
             });
         }
-        return response()->json(['success' => true]);
+        return redirect()->back()->with('success', 'Status kunjungan berhasil diperbarui.');
     }
 
 
