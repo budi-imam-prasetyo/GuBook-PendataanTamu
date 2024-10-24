@@ -17,7 +17,7 @@
 </head>
 
 <body
-    class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -120,8 +120,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('FO.laporanKurir.export', request()->query()) }}"
+                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('FO.laporanTamu') }}"
@@ -213,7 +213,7 @@
                 @if ($data)
                     <tbody id="pegawai-list" class="bg-white">
                         @foreach ($data as $laporanTamu)
-                            <tr class="border-b hover:bg-gray-100 group dark:hover:bg-gray-700">
+                            <tr class="border-b hover:bg-gray-100 group ">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex flex-col text-center">
                                         <div class="text-sm font-medium text-gray-900 capitalize">
@@ -478,7 +478,7 @@
 
                         data.forEach(item => {
                             const row = `
-                <tr class="border-b hover:bg-gray-100 group dark:hover:bg-gray-700">
+                <tr class="border-b hover:bg-gray-100 group ">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex flex-col text-center">
                             <div class="text-sm font-medium text-gray-900 capitalize">

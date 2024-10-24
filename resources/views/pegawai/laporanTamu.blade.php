@@ -19,13 +19,13 @@
     class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
-    <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
+    <div class="absolute min-h-80 w-full bg-primaryRed"></div>
 
-    <x-FO.sidebar></x-FO.sidebar>
+    <x-pegawai.sidebar></x-pegawai.sidebar>
 
     <main class="relative h-full max-h-screen rounded-xl transition-all duration-200 ease-in-out xl:ml-68">
         {{-- Navbar --}}
-        <x-FO.navbar>Laporan Tamu</x-FO.navbar>
+        <x-pegawai.navbar>Laporan Tamu</x-pegawai.navbar>
 
         <div class="w-full grid grid-cols-7 gap-2 p-6 pt-3">
             <input type="text" id="searchInput" class="input input-bordered col-span-4" placeholder="Cari Tamu ..."
@@ -49,8 +49,8 @@
                 </div>
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                        <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                            <form id="filterForm" method="GET" action="{{ route('FO.laporanTamu') }}"
+                    <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
+                        <form id="filterForm" method="GET" action="{{ route('admin.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -71,7 +71,7 @@
                                 </select>
                             </div>
 
-                            <!  -->
+                            <!-- Daily Filter Options -->
                             <div id="dailyFilter" class="hidden flex-col gap-2">
                                 <div class="flex gap-4 flex-col">
                                     <div class="flex flex-col gap-2">
@@ -123,27 +123,27 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <a href="{{ route('FO.laporanTamu.export', request()->query()) }}"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
+                                <button type="submit"
+                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</button>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
-                                        <a href="{{ route('FO.laporanTamu') }}"
+                                        <a href="{{ route('admin.laporanTamu') }}"
                                             class="btn btn-outline w-full">Reset</a>
                                     </div>
                                     <div class="flex-1">
                                         <button type="submit"
-                                            class="btn btn-primary bg-primaryBlue text-white opacity-100 w-full">Filter</button>
+                                            class="btn btn-error bg-primaryRed text-white opacity-100 w-full">Filter</button>
                                     </div>
                                 </div>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <div class="overflow-x-auto p-6 pt-0">
             <table id="pegawaiTable" class="table w-full min-w-full ">
-                <thead class="tracking-widest text-slate-700 bg-lightBlue">
+                <thead class="tracking-widest text-slate-700 bg-lightRed">
                     <tr>
                         <th class="p-4 text-base text-center cursor-pointer select-none rounded-tl-lg">
                             <a
@@ -216,7 +216,7 @@
                 @if ($data)
                     <tbody id="pegawai-list" class="bg-white">
                         @foreach ($data as $laporanTamu)
-                            <tr class="border-b hover:bg-gray-100 group ">
+                            <tr class="border-b hover:bg-lightRed group ">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex flex-col text-center">
                                         <div class="text-sm font-medium text-gray-900 capitalize">
@@ -258,7 +258,7 @@
                                                 'icon' => 'clock',
                                             ],
                                             'Belum Dikonfirmasi' => [
-                                                'class' => 'bg-blue-50 text-blue-800 border-blue-200',
+                                                'class' => 'bg-orange-50 text-orange-800 border-orange-200',
                                                 'icon' => 'info',
                                             ],
                                             'Tidak Datang' => [
@@ -266,11 +266,11 @@
                                                 'icon' => 'x',
                                             ],
                                             'Selesai' => [
-                                                'class' => 'bg-green-50 text-green-800 border-green-200',
+                                                'class' => 'bg-primaryRed text-orange-50 border-primaryRed',
                                                 'icon' => 'check',
                                             ],
                                             'Ditolak' => [
-                                                'class' => 'bg-gray-50 text-gray-800 border-gray-200',
+                                                'class' => 'bg-red-800 text-red-50 border-red-800',
                                                 'icon' => 'ban',
                                             ],
                                         ];
@@ -343,7 +343,7 @@
                                                     <span class="w-1/3 text-gray-500">Tanggal Kedatangan</span>
                                                     <span
                                                         class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? \Carbon\Carbon::parse($laporanTamu->waktu_kedatangan)->format('d M Y, H:i') : '-' }}</span>
-                                                </div>
+                                                 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -361,11 +361,11 @@
             </table>
 
             <div class="mt-4">
-                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination') }}
+                {{ $data->appends(['sort' => $sort, 'direction' => $direction])->links('components.pagination2') }}
             </div>
         </div>
 
-        <x-FO.footer />
+        <x-pegawai.footer />
 
     </main>
 
@@ -498,7 +498,7 @@
                     return;
                 }
 
-                fetch(`/FO/search-tamu?query=${encodeURIComponent(query)}`)
+                fetch(`/admin/search-tamu?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows
@@ -511,7 +511,7 @@
                                     statusClass = 'text-yellow-600';
                                     break;
                                 case 'Belum Dikonfirmasi':
-                                    statusClass = 'text-blue-600';
+                                    statusClass = 'text-orange-600';
                                     break;
                                 case 'Tidak Datang':
                                     statusClass = 'text-red-600';

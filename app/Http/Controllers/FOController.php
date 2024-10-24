@@ -15,12 +15,18 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PegawaiExport;
 use App\Imports\PegawaiImport;
 use App\Models\Tamu;
+use App\TamuTrait;
+use App\KurirTrait;    
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class FOController extends Controller
 {
+    use TamuTrait;
+    use KurirTrait;
+
     public function index(Request $request)
     {
         // Auth::logout();
@@ -125,6 +131,9 @@ class FOController extends Controller
         // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
 
         //! Chart
+        $max = 2; // Pastikan $max sudah didefinisikan
+        $max = ($max < 10) ? $max : (($max < 20) ? 5 : 10);
+
         $chart = (new Chart)->setType('bar')
             ->setWidth('100%')
             ->setHeight(300)
@@ -134,7 +143,7 @@ class FOController extends Controller
             ->setOptions([
                 'yaxis' => [
                     'stacked' => true,
-                    // 'stepSize' => 1
+                    'stepSize' => $max
                 ],
                 'plotOptions' => [
                     'line' => [
@@ -319,34 +328,7 @@ class FOController extends Controller
         // Iterate through the result set and add fotoUrl for each result
 
         // Apply date filters based on filter type
-        if ($request->filled('filterType')) {
-            switch ($request->filterType) {
-                case 'daily':
-                    if ($request->filled(['startDate', 'endDate'])) {
-                        $query->whereBetween('kedatangan_tamu.waktu_perjanjian', [
-                            Carbon::parse($request->startDate)->startOfDay(),
-                            Carbon::parse($request->endDate)->endOfDay()
-                        ]);
-                    }
-                    break;
-
-                case 'monthly':
-                    if ($request->filled(['month', 'monthYear'])) {
-                        $startDate = Carbon::createFromDate($request->monthYear, $request->month, 1)->startOfMonth();
-                        $endDate = $startDate->copy()->endOfMonth();
-                        $query->whereBetween('kedatangan_tamu.waktu_perjanjian', [$startDate, $endDate]);
-                    }
-                    break;
-
-                case 'yearly':
-                    if ($request->filled('year')) {
-                        $startDate = Carbon::createFromDate($request->year, 1, 1)->startOfYear();
-                        $endDate = $startDate->copy()->endOfYear();
-                        $query->whereBetween('kedatangan_tamu.waktu_perjanjian', [$startDate, $endDate]);
-                    }
-                    break;
-            }
-        }
+        $query = $this->applyDateFilterTamu($query, $request);
 
         // Execute the query with sorting and pagination
         $data = $query->orderBy($sort, $direction)->paginate(10);
@@ -387,6 +369,9 @@ class FOController extends Controller
 
         return view('FO.laporanTamu', compact('data', 'sort', 'direction', 'requests', 'currentFilter', 'nullFoto'));
     }
+    // Controller method
+
+    
     public function laporanKurir(Request $request)
     {
         $requests = $request;
@@ -406,37 +391,8 @@ class FOController extends Controller
             return $q->orderBy($sort, $direction);
         })->paginate(10);
 
-        // Iterate through the result set and add fotoUrl for each result
-
         // Apply date filters based on filter type
-        if ($request->filled('filterType')) {
-            switch ($request->filterType) {
-                case 'daily':
-                    if ($request->filled(['startDate', 'endDate'])) {
-                        $query->whereBetween('kedatangan_ekspedisi.waktu_perjanjian', [
-                            Carbon::parse($request->startDate)->startOfDay(),
-                            Carbon::parse($request->endDate)->endOfDay()
-                        ]);
-                    }
-                    break;
-
-                case 'monthly':
-                    if ($request->filled(['month', 'monthYear'])) {
-                        $startDate = Carbon::createFromDate($request->monthYear, $request->month, 1)->startOfMonth();
-                        $endDate = $startDate->copy()->endOfMonth();
-                        $query->whereBetween('kedatangan_ekspedisi.waktu_perjanjian', [$startDate, $endDate]);
-                    }
-                    break;
-
-                case 'yearly':
-                    if ($request->filled('year')) {
-                        $startDate = Carbon::createFromDate($request->year, 1, 1)->startOfYear();
-                        $endDate = $startDate->copy()->endOfYear();
-                        $query->whereBetween('kedatangan_ekspedisi.waktu_perjanjian', [$startDate, $endDate]);
-                    }
-                    break;
-            }
-        }
+        $query = $this->applyDateFilterKurir($query, $request);
 
         // Execute the query with sorting and pagination
         $data = $query->orderBy($sort, $direction)->paginate(10);
@@ -462,13 +418,13 @@ class FOController extends Controller
         $search = $request->get('query');
 
         $data = KedatanganEkspedisi::join('ekspedisi', 'kedatangan_ekspedisi.id_ekspedisi', '=', 'ekspedisi.id_ekspedisi')
-        ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
-        ->where(function ($query) use ($search) {
-            $query->where('ekspedisi.nama_kurir', 'LIKE', "%{$search}%")
-            ->orWhere('ekspedisi.ekspedisi', 'LIKE', "%{$search}%")
-            ->orWhere('users.nama', 'LIKE', "%{$search}%")
-            ->orWhere('ekspedisi.no_telpon', 'LIKE', "%{$search}%");
-        })
+            ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
+            ->where(function ($query) use ($search) {
+                $query->where('ekspedisi.nama_kurir', 'LIKE', "%{$search}%")
+                    ->orWhere('ekspedisi.ekspedisi', 'LIKE', "%{$search}%")
+                    ->orWhere('users.nama', 'LIKE', "%{$search}%")
+                    ->orWhere('ekspedisi.no_telpon', 'LIKE', "%{$search}%");
+            })
             ->select([
                 'kedatangan_ekspedisi.id_kedatangan',
                 'ekspedisi.nama_kurir',
@@ -488,12 +444,12 @@ class FOController extends Controller
         $search = $request->get('query');
 
         $data = KedatanganTamu::join('tamu', 'kedatangan_tamu.id_tamu', '=', 'tamu.id_tamu')
-        ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
-        ->where(function ($query) use ($search) {
-            $query->where('tamu.nama', 'LIKE', "%{$search}%")
-            ->orWhere('tamu.email', 'LIKE', "%{$search}%")
-            ->orWhere('users.nama', 'LIKE', "%{$search}%");
-        })
+            ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
+            ->where(function ($query) use ($search) {
+                $query->where('tamu.nama', 'LIKE', "%{$search}%")
+                    ->orWhere('tamu.email', 'LIKE', "%{$search}%")
+                    ->orWhere('users.nama', 'LIKE', "%{$search}%");
+            })
             ->select([
                 'kedatangan_tamu.*',
                 'tamu.nama',
@@ -551,23 +507,23 @@ class FOController extends Controller
             ]);
 
         $konfirmasi = KedatanganTamu::where('status', 'Menunggu')
-        ->paginate(10)
-        ->through(function ($item) {
-            $item->waktu_perjanjian = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
-            $item->waktu_kedatangan = $item->waktu_kedatangan ? Carbon::parse($item->waktu_kedatangan)->translatedFormat('l, d-m-Y H:i') : null;
-            $item->sudah_datang = $item->waktu_kedatangan && Carbon::parse($item->waktu_kedatangan)->diffInHours($item->waktu_perjanjian) <= 1;
-            return $item;
-        });
+            ->paginate(10)
+            ->through(function ($item) {
+                $item->waktu_perjanjian = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
+                $item->waktu_kedatangan = $item->waktu_kedatangan ? Carbon::parse($item->waktu_kedatangan)->translatedFormat('l, d-m-Y H:i') : null;
+                $item->sudah_datang = $item->waktu_kedatangan && Carbon::parse($item->waktu_kedatangan)->diffInHours($item->waktu_perjanjian) <= 1;
+                return $item;
+            });
         $kunjungan_tamu = KedatanganTamu::where('status', 'Diterima')
-        ->paginate(10)
-        ->through(function ($item) {
-            // Similar transformations as $konfirmasi
-            return $item;
-        });
+            ->paginate(10)
+            ->through(function ($item) {
+                // Similar transformations as $konfirmasi
+                return $item;
+            });
 
         return view('FO.kunjungan', compact('chart', 'konfirmasi', 'kunjungan_tamu'));
     }
-    
+
     public function getDetail($id_kedatangan)
     {
         $item = KedatanganTamu::find($id_kedatangan) ?? KedatanganEkspedisi::find($id_kedatangan);

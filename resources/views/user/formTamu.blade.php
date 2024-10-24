@@ -45,11 +45,11 @@
                 <ul class="flex flex-wrap -mb-px text-3xl font-medium">
                     <li class="mr-2">
                         <a href="/form-tamu"
-                            class="inline-block px-4 py-4 text-center border-b-2 rounded-t-lg text-light hover:text-lightBlue2 hover:border-lightBlue2 border-light dark:hover:text-lightBlue2">Tamu</a>
+                            class="inline-block px-4 py-4 text-center border-b-2 rounded-t-lg text-light hover:text-lightBlue2 hover:border-lightBlue2 border-light">Tamu</a>
                     </li>
                     <li class="mr-2">
                         <a href="/form-kurir"
-                            class="inline-block px-4 py-4 text-center border-b-2 border-transparent rounded-t-lg text-light hover:text-lightBlue2 hover:border-lightBlue2 dark:hover:text-gray-300">Kurir</a>
+                            class="inline-block px-4 py-4 text-center border-b-2 border-transparent rounded-t-lg text-light hover:text-lightBlue2 hover:border-lightBlue2">Kurir</a>
                     </li>
                 </ul>
             </div>

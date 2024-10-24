@@ -12,7 +12,7 @@
 </head>
 
 <body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased dark:bg-slate-900">
+    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -146,7 +146,7 @@
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kedatangan as $item)
                                     <li
-                                        class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 dark:bg-slate-850" data-status="{{ $item->status }}">
+                                        class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 " data-status="{{ $item->status }}">
                                         <div class="flex gap-7 ml-4">
                                             <div class="flex items-center justify-center h-full">
                                                 @if ($item->type == 'tamu')
@@ -196,7 +196,7 @@
                                         <div class="ml-auto text-right flex items-center">
                                             <a href="javascript:;"
                                                 onclick="loadDetail('{{ $item->id_kedatangan }}', '{{ $item->type }}')"
-                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 dark:text-white">Detail</a>
+                                                class="mb-0 inline-block cursor-pointer rounded-lg border-0 bg-transparent bg-150 bg-x-25 px-4 py-2.5 text-center align-middle text-sm font-bold leading-normal text-slate-700 shadow-none transition-all ease-in hover:-translate-y-px active:opacity-85 ">Detail</a>
                                         </div>
                                     </li>
                                 @empty

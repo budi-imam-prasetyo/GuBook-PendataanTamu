@@ -16,7 +16,7 @@
 </head>
 
 <body
-    class="m-0 font-sans text-base antialiased font-medium no-scrollbar bg-gray-50 leading-default text-slate-500 dark:bg-slate-900">
+    class="m-0 font-sans text-base antialiased font-medium no-scrollbar bg-gray-50 leading-default text-slate-500">
     @apexchartsScripts
     <div class="absolute w-full min-h-80 bg-primaryRed"></div>
     <!-- sidenav  -->
@@ -29,93 +29,96 @@
         <!-- cards -->
         <div class="w-full p-6 mx-auto">
             <!-- row 1 -->
-            <div class="flex flex-wrap -mx-3">
-                <!-- card1 -->
-                <div class="order-2 w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:order-1 xl:mb-0 xl:w-1/4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- Card 1: Kunjungan Tamu Hari Ini -->
+                <div class="col-span-1 sm:col-span-1 xl:col-span-1">
                     <div
-                        class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-3xl bg-clip-border dark:bg-slate-850 dark:shadow-dark-xl">
-                        <div class="flex-auto px-4 py-6">
-                            <div class="flex flex-row justify-between -mx-1">
-                                <div class="flex-none max-w-full px-3">
-                                    <div>
-                                        <p
-                                            class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
-                                            Kunjungan Tamu Hari Ini
-                                        </p>
-                                        <h5 class="mb-2 text-lg font-bold dark:text-white">{{ $tamuHariIni }}
-                                        </h5>
-                                    </div>
+                        class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <h2 class="text-sm font-semibold text-gray-600 mb-1">Tamu Hari
+                                        Ini</h2>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $tamuHariIni }}</p>
                                 </div>
-                                <div class="px-3 text-right">
-                                    <div
-                                        class="flex items-center justify-center w-16 h-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
-                                        <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6"
-                                            alt="">
-                                    </div>
+                                <div class="bg-gradient-to-br from-red-500 to-red-600 p-4 rounded-full">
+                                    <img src="{{ asset('assets/icons/group-user.svg') }}" class="h-6 w-6 text-white"
+                                        alt="Ikon Grup Pengguna">
                                 </div>
                             </div>
+                        </div>
+                        <div class="bg-primaryRed/12.5 px-6 py-3">
+                            <p class="text-xs font-medium text-orange-600 ">
+                                <span class="inline-block mr-1">{{ $persentaseTamuHarian >= 0 ? '↑' : '↓' }}</span>
+                                {{ number_format(abs($persentaseTamuHarian), 0) }}%
+                                {{ $persentaseTamuHarian >= 0 ? 'bertambah' : 'berkurang' }} dari kemarin
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- card2 -->
-                <div
-                    class="order-1 w-full max-w-full px-3 mb-6 sm:w-full sm:flex-none lg:w-full xl:order-2 xl:mb-0 xl:w-2/4">
+                <!-- Card 2: Kunjungan Minggu & Bulan Ini -->
+                <div class="col-span-1 sm:col-span-2 xl:col-span-2 sm:order-1 xl:order-none">
                     <div
-                        class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-3xl bg-clip-border dark:bg-slate-850 dark:shadow-dark-xl">
-                        <div class="flex-auto p-4">
-                            <div class="flex flex-row items-center justify-center -mx-3">
-                                <div class="flex-none w-1/3 max-w-full px-3">
-                                    <p
-                                        class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
-                                        Kunjungan Minggu Ini
+                        class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <h2 class="text-sm font-semibold text-gray-600 mb-1">Kunjungan
+                                        Minggu Ini</h2>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $totalMingguIni }}
                                     </p>
-                                    <h5 class="mb-2 text-lg font-bold dark:text-white">{{ $totalMingguIni }}
-                                    </h5>
                                 </div>
-                                <div class="px-3 text-center basis-1/3">
-                                    <div
-                                        class="flex items-center justify-center w-20 h-20 mx-auto rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
-                                        <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-10"
-                                            alt="">
-                                    </div>
+                                <div class="bg-gradient-to-br from-red-500 to-orange-600 p-4 rounded-full ml-4">
+                                    <img src="{{ asset('assets/icons/calendar.svg') }}" class="h-7 w-7 text-white"
+                                        alt="Calendar Icon">
                                 </div>
-                                <div class="flex-none w-1/3 max-w-full px-3">
-                                    <p
-                                        class="mb-0 font-sans text-lg font-semibold leading-normal text-right dark:text-white dark:opacity-60">
-                                        Kunjungan Bulan Ini
-                                    </p>
-                                    <h5 class="mb-2 text-lg font-bold text-right dark:text-white">
-                                        {{ $totalBulanIni }}</h5>
+                                <div class="flex-1 text-right">
+                                    <h2 class="text-sm font-semibold text-gray-600 mb-1">Kunjungan
+                                        Bulan Ini</h2>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $totalBulanIni }}</p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="bg-primaryRed/20 px-6 py-3 flex justify-between">
+                            <p class="text-xs font-medium text-red-600">
+                                <span
+                                    class="inline-block mr-1">{{ $persentaseKenaikanMingguan >= 0 ? '↑' : '↓' }}</span>
+                                {{ number_format(abs($persentaseKenaikanMingguan), 0) }}%
+                                {{ $persentaseKenaikanMingguan >= 0 ? 'bertambah' : 'berkurang' }} dari minggu kemarin
+                            </p>
+                            <p class="text-xs font-medium text-red-600">
+                                <span class="inline-block mr-1">{{ $persentaseKenaikan >= 0 ? '↑' : '↓' }}</span>
+                                {{ number_format(abs($persentaseKenaikan), 0) }}%
+                                {{ $persentaseKenaikan >= 0 ? 'bertambah' : 'berkurang' }} dari bulan kemarin
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- card 3 -->
-                <div class="order-3 w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:order-3 xl:w-1/4">
+                <!-- Card 3: Kunjungan Kurir Hari Ini -->
+                <div class="col-span-1 sm:col-span-1 xl:col-span-1">
                     <div
-                        class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-3xl bg-clip-border dark:bg-slate-850 dark:shadow-dark-xl">
-                        <div class="flex-auto px-4 py-6">
-                            <div class="flex flex-row justify-between -mx-3">
-                                <div class="pl-6 text-left">
-                                    <div
-                                        class="flex items-center justify-center w-16 h-16 rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
-                                        <img src="{{ asset('assets/icons/box.svg') }}" class="h-6" alt="">
-                                    </div>
+                        class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-full">
+                                    <img src="{{ asset('assets/icons/box.svg') }}" class="h-6 w-6 text-white"
+                                        alt="Box Icon">
                                 </div>
-                                <div class="flex-none max-w-full px-3">
-                                    <div class="text-right">
-                                        <p
-                                            class="mb-0 font-sans text-lg font-semibold leading-normal dark:text-white dark:opacity-60">
-                                            Kunjungan Kurir Hari Ini
-                                        </p>
-                                        <h5 class="mb-2 text-lg font-bold dark:text-white">
-                                            {{ $kurirHariIni }}</h5>
-                                    </div>
+                                <div class="flex-1 text-right">
+                                    <h2 class="text-sm font-semibold text-gray-600 mb-1">Kurir Hari
+                                        Ini</h2>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $kurirHariIni }}</p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="bg-primaryRed/12.5 px-6 py-3">
+                            <p class="text-xs font-medium text-orange-600 text-right">
+                                <span class="inline-block mr-1">{{ $persentaseKurirHarian >= 0 ? '↑' : '↓' }}</span>
+                                {{ number_format(abs($persentaseKurirHarian), 0) }}%
+                                {{ $persentaseKurirHarian >= 0 ? 'bertambah' : 'berkurang' }} dari kemarin
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -128,20 +131,19 @@
                     <div
                         class="relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-dark/12.5 bg-white bg-clip-border shadow">
                         <div class="mb-0 rounded-2xl border-b-0 border-solid border-dark/12.5 p-6 pb-0 pt-4">
-                            <h6 class="capitalize dark:text-white">Grafik Bulan Ini</h6>
-                            <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
+                            <h6 class="capitalize">Grafik Bulan Ini</h6>
+                            <p class="mb-0 text-sm leading-normal">
+                                <i class="fa fa-arrow-up text-emerald-500"></i>
                                 <span class="font-semibold">
-                                    @if ($statistik > 0)
-                                        <span class="text-base text-green-500">+{{ abs($statistik) }} Kunjungan</span>
-                                    @elseif ($statistik < 0)
-                                        <span class="text-base text-red-500">-{{ abs($statistik) }} Kunjungan</span>
+                                    {{ abs(round($persentaseKenaikan, 2)) }}%
+                                    @if ($persentaseKenaikan >= 0)
+                                        lebih banyak
                                     @else
-                                        <span class="text-base text-orange-500">Tidak Ada Kenaikan Kunjungan</span>
+                                        lebih sedikit
                                     @endif
                                 </span>
                                 dari Bulan Sebelumnya
                             </p>
-
 
                             <div class="">
                                 {!! $chart->container() !!}
@@ -158,14 +160,14 @@
                     class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow rounded-2xl bg-clip-border">
                     <div class="flex justify-between px-4">
                         <div class="p-6 px-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
-                            <h6 class="mb-0 text-lg font-bold dark:text-white">
+                            <h6 class="mb-0 text-lg font-bold">
                                 Daftar Kunjungan
                             </h6>
                         </div>
                         @if ($kedatangan->isNotEmpty())
                             <a href="{{ route('pegawai.kunjungan') }}">
                                 <div class="p-6 px-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
-                                    <p class="flex gap-2 mb-0 font-semibold dark:text-white">
+                                    <p class="flex gap-2 mb-0 font-semibold">
                                         Lihat Semua <img src="{{ asset('assets/icons/arrow.svg') }}"
                                             class="w-3 rotate-180" alt="">
                                     </p>
@@ -177,7 +179,7 @@
                         <ul class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0">
                             @forelse ($kedatangan->take(3) as $item)
                                 <li
-                                    class="relative flex px-6 py-4 mb-2 border-0 rounded-xl rounded-t-inherit bg-lightRed dark:bg-slate-850">
+                                    class="relative flex px-6 py-4 mb-2 border-0 rounded-xl rounded-t-inherit bg-lightRed">
                                     <div class="flex ml-4 gap-7">
                                         <div class="flex items-center justify-center h-full">
                                             @if ($item->type == 'tamu')
