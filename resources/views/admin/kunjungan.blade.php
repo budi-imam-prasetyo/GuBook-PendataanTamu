@@ -144,7 +144,7 @@
                         <div class="relative">
                             <ul id="visitList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
-                                @forelse ($kedatangan as $item)
+                                @forelse ($kedatanganTamu as $item)
                                     <li
                                         class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 " data-status="{{ $item->status }}">
                                         <div class="flex gap-7 ml-4">
@@ -156,14 +156,13 @@
                                                 @endif
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                @if ($item->type == 'tamu')
                                                     <h5 class="text-lg font-semibold">
-                                                        {{ $item->tamu->nama }}
+                                                        {{ $item->nama }}
                                                     </h5>
                                                     <div class="flex gap-2">
                                                         <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
                                                             <p class="font-semibold"><span class="font-normal">Email:
-                                                                </span>{{ $item->tamu->email }}</p>
+                                                                </span>{{ $item->email }}</p>
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Status:
                                                                 </span>{{ $item->status }}</p>
@@ -172,25 +171,6 @@
                                                                 </span>{{ $item->formatWaktu }}</p>
                                                         </div>
                                                     </div>
-                                                @else
-                                                    <h5 class="text-lg font-semibold">
-                                                        {{ $item->ekspedisi->nama_kurir }}
-                                                    </h5>
-                                                    <div class="flex gap-2">
-                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Nama
-                                                                    Kurir:
-                                                                </span>{{ $item->ekspedisi->nama_kurir }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Ekspedisi:
-                                                                </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Tanggal Kedatangan:
-                                                                </span>{{ $item->formatWaktu }}</p>
-                                                        </div>
-                                                    </div>
-                                                @endif
                                             </div>
                                         </div>
                                         <div class="ml-auto text-right flex items-center">

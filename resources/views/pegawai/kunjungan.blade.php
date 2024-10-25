@@ -142,26 +142,21 @@
                         <div class="relative">
                             <ul id="visitList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
-                                @forelse ($kedatangan as $item)
+                                @forelse ($kedatanganTamu as $item)
                                     <li class="relative flex px-6 py-4 mb-2 border-2 search-item rounded-xl rounded-t-inherit border-lightRed2 bg-lightRed dark:bg-slate-850"
                                         data-status="{{ $item->status }}">
                                         <div class="flex ml-4 gap-7">
                                             <div class="flex items-center justify-center h-full">
-                                                @if ($item->type == 'tamu')
                                                     <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                                @endif
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                @if ($item->type == 'tamu')
                                                     <h5 class="text-lg font-semibold">
-                                                        {{ $item->tamu->nama }}
+                                                        {{ $item->nama }}
                                                     </h5>
                                                     <div class="flex gap-2">
                                                         <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
                                                             <p class="font-semibold"><span class="font-normal">Email:
-                                                                </span>{{ $item->tamu->email }}</p>
+                                                                </span>{{ $item->email }}</p>
                                                             <p class="font-semibold capitalize"><span
                                                                     class="font-normal">Status:
                                                                 </span>{{ $item->status }}</p>
@@ -170,25 +165,6 @@
                                                                 </span>{{ $item->formatWaktu }}</p>
                                                         </div>
                                                     </div>
-                                                @else
-                                                    <h5 class="text-lg font-semibold">
-                                                        {{ $item->ekspedisi->nama_kurir }}
-                                                    </h5>
-                                                    <div class="flex gap-2">
-                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Nama
-                                                                    Kurir:
-                                                                </span>{{ $item->ekspedisi->nama_kurir }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Ekspedisi:
-                                                                </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Tanggal Kedatangan:
-                                                                </span>{{ $item->formatWaktu }}</p>
-                                                        </div>
-                                                    </div>
-                                                @endif
                                             </div>
                                         </div>
                                         <div class="flex items-center ml-auto text-right">
@@ -203,7 +179,7 @@
                                     </div>
                                 @endforelse
                             </ul>
-                            @if ($kedatangan->count() > 3)
+                            @if ($kedatanganTamu->count() > 3)
                             <button id="scrollDown"
                             class="absolute p-3 mt-2 rounded-full shadow-md bottom-3 start-1/2 outline outline-2 outline-light bg-lightRed2 shadow-grey">
                             <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 rotate-90"

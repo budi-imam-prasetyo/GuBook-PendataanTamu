@@ -296,6 +296,7 @@ class AdminController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganTamu::with(['tamu', 'user'])
+            ->orderBy('waktu_perjanjian', 'desc')
             ->select('kedatangan_tamu.*')
             ->join('tamu', 'kedatangan_tamu.id_tamu', '=', 'tamu.id_tamu')
             ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
@@ -387,6 +388,7 @@ class AdminController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganEkspedisi::with(['ekspedisi', 'user'])
+            ->orderBy('waktu_kedatangan', 'desc')
             ->select('kedatangan_ekspedisi.*')
             ->join('ekspedisi', 'kedatangan_ekspedisi.id_ekspedisi', '=', 'ekspedisi.id_ekspedisi')
             ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
@@ -543,21 +545,12 @@ class AdminController extends Controller
                 ],
             ]);
 
-        $kedatanganTamu = KedatanganTamu::all()->map(function ($item) {
-            $item->type = 'tamu';
+        $kedatanganTamu = KedatanganTamu::orderBy('waktu_perjanjian', 'desc')->get()->map(function ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
             return $item;
         });
 
-        $kedatanganKurir = KedatanganEkspedisi::all()->map(function ($item) {
-            $item->type = 'kurir';
-            $item->formatWaktu = Carbon::parse($item->waktu_kedatangan)->translatedFormat('l, d-m-Y H:i');
-            return $item;
-        });
-
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
-
-        return view('admin.kunjungan', compact('chart', 'kedatangan'));
+        return view('admin.kunjungan', compact('chart', 'kedatanganTamu'));
     }
 
     public function getDetail($id_kedatangan)

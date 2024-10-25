@@ -201,10 +201,11 @@ class PegawaiController extends Controller
         $id_user = Auth::id();
 
         $query = KedatanganTamu::where('id_user', $id_user)->with(['tamu', 'user'])
+            ->orderBy('waktu_perjanjian', 'desc')
             ->select('kedatangan_tamu.*')
             ->join('tamu', 'kedatangan_tamu.id_tamu', '=', 'tamu.id_tamu')
             ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
-            ->select('kedatangan_tamu.*', 'tamu.nama as nama_tamu', 'users.nama as nama_pegawai');
+            ->select('kedatangan_tamu.*', 'tamu.nama as nama_tamu', 'users.nama as nama_pegawai', 'tamu.email as email_tamu');
 
         // Gunakan when untuk menangani sorting
         $data = $query->when($sort === 'tamu.nama', function ($q) use ($direction) {
@@ -242,7 +243,7 @@ class PegawaiController extends Controller
                         $query->whereBetween('kedatangan_tamu.waktu_perjanjian', [$startDate, $endDate]);
                     }
                     break;
-                }
+            }
         }
 
         // Execute the query with sorting and pagination
@@ -294,6 +295,7 @@ class PegawaiController extends Controller
 
 
         $query = KedatanganEkspedisi::where('id_user', $id_user)->with(['ekspedisi', 'user'])
+            ->orderBy('waktu_kedatangan', 'desc')
             ->select('kedatangan_ekspedisi.*')
             ->join('ekspedisi', 'kedatangan_ekspedisi.id_ekspedisi', '=', 'ekspedisi.id_ekspedisi')
             ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
@@ -465,21 +467,15 @@ class PegawaiController extends Controller
                 ],
             ]);
 
-        $kedatanganTamu = KedatanganTamu::all()->where('id_user', $id_user)->map(function ($item) {
-            $item->type = 'tamu';
+
+        $kedatanganTamu = KedatanganTamu::where('id_user', $id_user)->orderBy('waktu_perjanjian', 'desc')->get()->map(function ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
             return $item;
         });
 
-        $kedatanganKurir = KedatanganEkspedisi::all()->where('id_user', $id_user)->map(function ($item) {
-            $item->type = 'kurir';
-            $item->formatWaktu = Carbon::parse($item->waktu_kedatangan)->translatedFormat('l, d-m-Y H:i');
-            return $item;
-        });
+        // $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
 
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
-
-        return view('pegawai.kunjungan', compact('chart', 'kedatangan'));
+        return view('pegawai.kunjungan', compact('chart', 'kedatanganTamu'));
     }
 
     public function getDetail($id_kedatangan)

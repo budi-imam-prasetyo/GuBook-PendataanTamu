@@ -313,6 +313,7 @@ class FOController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganTamu::with(['tamu', 'user'])
+            ->orderBy('waktu_perjanjian', 'desc')
             ->select('kedatangan_tamu.*')
             ->join('tamu', 'kedatangan_tamu.id_tamu', '=', 'tamu.id_tamu')
             ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
@@ -379,6 +380,7 @@ class FOController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganEkspedisi::with(['ekspedisi', 'user'])
+            ->orderBy('waktu_kedatangan', 'desc')
             ->select('kedatangan_ekspedisi.*')
             ->join('ekspedisi', 'kedatangan_ekspedisi.id_ekspedisi', '=', 'ekspedisi.id_ekspedisi')
             ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
@@ -507,6 +509,7 @@ class FOController extends Controller
             ]);
 
         $konfirmasi = KedatanganTamu::where('status', 'Menunggu')
+            ->orderBy('waktu_perjanjian', 'desc')
             ->paginate(10)
             ->through(function ($item) {
                 $item->waktu_perjanjian = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
@@ -517,7 +520,6 @@ class FOController extends Controller
         $kunjungan_tamu = KedatanganTamu::where('status', 'Diterima')
             ->paginate(10)
             ->through(function ($item) {
-                // Similar transformations as $konfirmasi
                 return $item;
             });
 
