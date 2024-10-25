@@ -185,11 +185,7 @@
                                     </div>
                                 @endforelse
                             </ul>
-                            <button id="scrollDown"
-                                class="absolute bottom-3 start-1/2 rounded-full outline outline-2 outline-light bg-lightBlue2 p-3 mt-2 shadow-md shadow-grey">
-                                <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="rotate-90 w-5"
-                                    alt="arrow">
-                            </button>
+                            {{ $kedatanganTamu->links('components.pagination') }}
                         </div>
                     </div>
                 </div>

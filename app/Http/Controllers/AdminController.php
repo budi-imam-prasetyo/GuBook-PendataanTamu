@@ -545,10 +545,14 @@ class AdminController extends Controller
                 ],
             ]);
 
-        $kedatanganTamu = KedatanganTamu::orderBy('waktu_perjanjian', 'desc')->get()->map(function ($item) {
+        $kedatanganTamu = KedatanganTamu::orderBy('waktu_perjanjian', 'desc')
+        ->paginate(10);  // Menggunakan paginate, bukan get()
+
+        $kedatanganTamu->getCollection()->transform(function ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
             return $item;
         });
+
 
         return view('admin.kunjungan', compact('chart', 'kedatanganTamu'));
     }
