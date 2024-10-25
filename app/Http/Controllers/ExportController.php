@@ -21,6 +21,7 @@ class ExportController extends Controller
 
         // Apply date filters
         $query = $this->applyDateFilterTamu($query, $request);
+        $titleHeader = $this->headerDateTamu($request);
 
         // Group by date and count
         $data = $query->select(
@@ -32,7 +33,7 @@ class ExportController extends Controller
             ->get();
 
         // Generate PDF
-        $pdf = Pdf::loadView('FO.pdf.laporan-tamu', compact('data'))
+        $pdf = Pdf::loadView('FO.pdf.laporan-tamu', compact('data', 'titleHeader'))
         ->setPaper('a4', 'landscape');
 
         // Generate filename and return PDF
@@ -46,6 +47,7 @@ class ExportController extends Controller
 
         // Apply date filters
         $query = $this->applyDateFilterKurir($query, $request);
+        $titleHeader = $this->headerDateKurir($request);
 
         // Group by date and count
         $data = $query->select(
@@ -57,7 +59,7 @@ class ExportController extends Controller
             ->get();
 
         // Generate PDF
-        $pdf = PDF::loadView('FO.pdf.laporan-tamu', compact('data'))
+        $pdf = PDF::loadView('FO.pdf.laporan-tamu', compact('data', 'titleHeader'))
         ->setPaper('a4', 'landscape');
 
         // Generate filename and return PDF

@@ -50,7 +50,7 @@
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('admin.laporanTamu') }}"
+                        <form id="filterForm" method="GET" action="{{ route('pegawai.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -123,8 +123,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('pegawai.laporanKurir.export', request()->query()) }}"
+                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('admin.laporanTamu') }}"
@@ -498,7 +498,7 @@
                     return;
                 }
 
-                fetch(`/admin/search-tamu?query=${encodeURIComponent(query)}`)
+                fetch(`/pegawai/search-tamu?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows

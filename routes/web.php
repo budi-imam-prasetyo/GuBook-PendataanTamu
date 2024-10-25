@@ -74,9 +74,11 @@ Route::middleware(['checkRole:pegawai'])->group(function () {
         Route::get('/', [PegawaiController::class, 'index']);
         //? LAPORAN TAMU
         Route::get('/laporan-tamu', [PegawaiController::class, 'laporanTamu'])->name('pegawai.laporanTamu');
+        Route::get('/laporan-tamu/export', [ExportController::class, 'exportPDFTamu'])->name('pegawai.laporanTamu.export');
         Route::get('/search-tamu', [PegawaiController::class, 'searchTamu'])->name('pegawai.searchTamu');
         //? LAPORAN KURIR
         Route::get('/laporan-kurir', [PegawaiController::class, 'laporanKurir'])->name('pegawai.laporanKurir');
+        Route::get('/laporan-kurir/export', [ExportController::class, 'exportPDFKurir'])->name('pegawai.laporanKurir.export');
         Route::get('/search-kurir', [PegawaiController::class, 'searchKurir'])->name('pegawai.searchKurir');
         //? KUNJUNGAN
         Route::get('/kunjungan', [PegawaiController::class, 'kunjungan'])->name('pegawai.kunjungan');

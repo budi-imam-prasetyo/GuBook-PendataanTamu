@@ -242,7 +242,7 @@ class PegawaiController extends Controller
                         $query->whereBetween('kedatangan_tamu.waktu_perjanjian', [$startDate, $endDate]);
                     }
                     break;
-            }
+                }
         }
 
         // Execute the query with sorting and pagination
