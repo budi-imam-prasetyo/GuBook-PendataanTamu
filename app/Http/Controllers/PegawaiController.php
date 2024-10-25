@@ -468,7 +468,11 @@ class PegawaiController extends Controller
             ]);
 
 
-        $kedatanganTamu = KedatanganTamu::where('id_user', $id_user)->orderBy('waktu_perjanjian', 'desc')->get()->map(function ($item) {
+        $kedatanganTamu = KedatanganTamu::where('id_user', $id_user)
+        ->orderBy('waktu_perjanjian', 'desc')
+        ->paginate(10);
+
+        $kedatanganTamu->getCollection()->transform(function ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
             return $item;
         });

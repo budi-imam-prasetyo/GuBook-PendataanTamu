@@ -147,24 +147,24 @@
                                         data-status="{{ $item->status }}">
                                         <div class="flex ml-4 gap-7">
                                             <div class="flex items-center justify-center h-full">
-                                                    <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
+                                                <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                    <h5 class="text-lg font-semibold">
-                                                        {{ $item->nama }}
-                                                    </h5>
-                                                    <div class="flex gap-2">
-                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
-                                                            <p class="font-semibold"><span class="font-normal">Email:
-                                                                </span>{{ $item->email }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Status:
-                                                                </span>{{ $item->status }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Tanggal Perjanjian:
-                                                                </span>{{ $item->formatWaktu }}</p>
-                                                        </div>
+                                                <h5 class="text-lg font-semibold">
+                                                    {{ $item->nama }}
+                                                </h5>
+                                                <div class="flex gap-2">
+                                                    <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
+                                                        <p class="font-semibold"><span class="font-normal">Email:
+                                                            </span>{{ $item->email }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Status:
+                                                            </span>{{ $item->status }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Perjanjian:
+                                                            </span>{{ $item->formatWaktu }}</p>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="flex items-center ml-auto text-right">
@@ -179,18 +179,12 @@
                                     </div>
                                 @endforelse
                             </ul>
-                            @if ($kedatanganTamu->count() > 3)
-                            <button id="scrollDown"
-                            class="absolute p-3 mt-2 rounded-full shadow-md bottom-3 start-1/2 outline outline-2 outline-light bg-lightRed2 shadow-grey">
-                            <img src="{{ asset('assets/icons/arrow-left.svg') }}" class="w-5 rotate-90"
-                            alt="arrow">
-                        </button>
-                        @endif
+                            {{ $kedatanganTamu->links('components.pagination2') }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         <x-pegawai.footer />
     </main>
 
