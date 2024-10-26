@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendToPegawai;
+use App\Mail\SendToTamu;
+use App\Mail\SendToTamuTolak;
 use App\Models\Ekspedisi;
 use App\Models\KedatanganEkspedisi;
 use App\Models\KedatanganTamu;
@@ -163,12 +166,14 @@ class UserController extends Controller
         $kedatanganTamu->tujuan = $request->tujuan;
         $kedatanganTamu->waktu_perjanjian = $request->waktu_perjanjian;
         $kedatanganTamu->waktu_kedatangan = null;
+        $kedatanganTamu->token = Str::random(32);
 
         // Generate QR code in PNG format
         $qrCodeContent = "$kedatanganTamu->id_kedatangan";
         $qrCodePng = DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
         $kedatanganTamu->qr_code = $qrCodePng;
         $kedatanganTamu->save();
+        // dd($kedatanganTamu);
 
         // Kirim email kepada pegawai
         $pegawaiData = explode(',', $request->pegawai);
@@ -176,15 +181,63 @@ class UserController extends Controller
         $pegawaiEmail = $pegawai->email;
         // dd($pegawaiEmail);
         // Ambil data pegawai berdasarkan id_user
-        Mail::to($pegawaiEmail)->send(new TamuNotification($tamu));
+        Mail::to($pegawaiEmail)->send(new SendToPegawai($kedatanganTamu));
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
         }
 
-
         return redirect()->back()->with('success', 'Pertemuan berhasil ditambahkan!');
+    }
+
+    public function konfirmasiKedatanganEmail($id_kedatangan, $token, $action)
+    {
+        $kedatangan = KedatanganTamu::findOrFail($id_kedatangan);
+        $tamu = Tamu::findOrFail($kedatangan->id_tamu);
+
+        if ($kedatangan->token !== $token) {
+            return redirect()->back();
+        }
+
+        if ($action === 'terima') {
+            $kedatangan->update(['status' => 'diterima', 'token' => null]);
+            $qrCodePath = 'qrcode/' . $kedatangan->id_kedatangan . 'png';
+            Storage::disk('public')->put($qrCodePath, base64_decode($kedatangan->QR_code));
+            $fullQr_code = public_path('storage/' . $qrCodePath);
+            Mail::to($tamu->email)->send(new SendToTamu($kedatangan, $tamu));
+
+            return view('mails.SendToTamu', ['status' => 'diterima']);
+        } elseif ($action === 'tolak') {
+            // $kedatangan->update(['status' => 'Ditolak', 'token' => null]);
+            // Mail::to($tamu->email)->send(new SendToTamu($kedatangan, $tamu));
+
+            return view('mails.alasanPegawai', ['status' => 'ditolak', 'id_kedatangan' => $id_kedatangan, 'token' => $token]);
+        }
+        // return view('pegawai.email.confir_terima');
+    }
+
+    public function submitTolak(Request $request, $id_kedatangan, $token)
+    {
+        $kedatangan = KedatanganTamu::findOrFail($id_kedatangan);
+        $tamu = Tamu::findOrFail($kedatangan->id_tamu);
+
+        // Verifikasi token
+        if ($kedatangan->token !== $token) {
+            return redirect()->back()->with('error', 'Token tidak valid.');
+        }
+
+        // Update status kedatangan menjadi 'Ditolak'
+        $kedatangan->update([
+            'status' => 'ditolak',
+            'token' => null,
+        ]);
+
+        // Kirim email dengan alasan penolakan
+        $alasan_penolakan = $request->input('alasan');
+        Mail::to($tamu->email)->send(new SendToTamuTolak($kedatangan, $tamu, $alasan_penolakan));
+
+        return redirect()->route('welcome')->with('success', 'Penolakan berhasil dikirim.');
     }
 
 

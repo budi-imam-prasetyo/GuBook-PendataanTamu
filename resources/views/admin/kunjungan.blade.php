@@ -11,8 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased">
+<body class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -145,32 +144,28 @@
                             <ul id="visitList"
                                 class="mb-0 flex flex-col gap-2.5 rounded-lg pl-0 max-h-116 min-h-116 overflow-y-auto">
                                 @forelse ($kedatanganTamu as $item)
-                                    <li
-                                        class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 " data-status="{{ $item->status }}">
+                                    <li class="search-item relative mb-2 flex rounded-xl rounded-t-inherit border-2 border-lightBlue2 bg-lightBlue px-6 py-4 "
+                                        data-status="{{ $item->status }}">
                                         <div class="flex gap-7 ml-4">
                                             <div class="flex items-center justify-center h-full">
-                                                @if ($item->type == 'tamu')
-                                                    <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                                @endif
+                                                <img src="{{ asset('assets/icons/user2.svg') }}" alt="">
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                    <h5 class="text-lg font-semibold">
-                                                        {{ $item->nama }}
-                                                    </h5>
-                                                    <div class="flex gap-2">
-                                                        <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
-                                                            <p class="font-semibold"><span class="font-normal">Email:
-                                                                </span>{{ $item->email }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Status:
-                                                                </span>{{ $item->status }}</p>
-                                                            <p class="font-semibold capitalize"><span
-                                                                    class="font-normal">Tanggal Perjanjian:
-                                                                </span>{{ $item->formatWaktu }}</p>
-                                                        </div>
+                                                <h5 class="text-lg font-semibold capitalize">
+                                                    {{ $item->tamu->nama }}
+                                                </h5>
+                                                <div class="flex gap-2">
+                                                    <div class="flex flex-col gap-3 mb-2 text-sm leading-tight">
+                                                        <p class="font-semibold"><span class="font-normal">Email:
+                                                            </span>{{ $item->tamu->email }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Status:
+                                                            </span>{{ $item->status }}</p>
+                                                        <p class="font-semibold capitalize"><span
+                                                                class="font-normal">Tanggal Perjanjian:
+                                                            </span>{{ $item->formatWaktu }}</p>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="ml-auto text-right flex items-center">
@@ -215,38 +210,38 @@
 
 <script>
     function filterStatus(status, element) {
-            const items = document.querySelectorAll('.search-item');
-            const buttons = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.search-item');
+        const buttons = document.querySelectorAll('.filter-btn');
 
-            // Filter the list items based on the status
-            items.forEach(item => {
-                if (status === 'semua' || item.getAttribute('data-status') === status) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            // Reset all button colors to default
-            buttons.forEach(button => {
-                button.classList.remove('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
-                button.classList.add('bg-lightBlue', 'text-primaryBlue');
-            });
-
-            // Set the clicked button as active
-            element.classList.remove('bg-lightBlue', 'text-primaryBlue');
-            element.classList.add('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
-        }
-
-        document.getElementById('searchInput').addEventListener('input', function() {
-            let filter = this.value.toLowerCase();
-            let items = document.querySelectorAll('.search-item');
-
-            items.forEach(function(item) {
-                let text = item.textContent.toLowerCase();
-                item.style.display = text.includes(filter) ? '' : 'none';
-            });
+        // Filter the list items based on the status
+        items.forEach(item => {
+            if (status === 'semua' || item.getAttribute('data-status') === status) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
         });
+
+        // Reset all button colors to default
+        buttons.forEach(button => {
+            button.classList.remove('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
+            button.classList.add('bg-lightBlue', 'text-primaryBlue');
+        });
+
+        // Set the clicked button as active
+        element.classList.remove('bg-lightBlue', 'text-primaryBlue');
+        element.classList.add('border-primaryBlue', 'bg-primaryBlue', 'text-white', 'active');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        let filter = this.value.toLowerCase();
+        let items = document.querySelectorAll('.search-item');
+
+        items.forEach(function(item) {
+            let text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
 
     function loadDetail(id, type) {
         $.ajax({

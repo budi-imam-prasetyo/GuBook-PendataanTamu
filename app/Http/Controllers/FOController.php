@@ -21,6 +21,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\FotoTamuSubmitted;
+use Illuminate\Support\Facades\Mail;
 
 class FOController extends Controller
 {
@@ -118,17 +120,46 @@ class FOController extends Controller
 
         //! View List Kunjungan Tamu dan Kurir
         $kedatanganTamu = KedatanganTamu::all()->map(function ($item) {
-            $item->type = 'tamu';
-            return $item;
-        });
+                $item->type = 'tamu';
+                $item->sort_time = $item->waktu_perjanjian;
+                return $item;
+            });
+
         $kedatanganKurir = KedatanganEkspedisi::all()->map(function ($item) {
             $item->type = 'kurir';
+            $item->sort_time = $item->waktu_kedatangan;
             return $item;
         });
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
+        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('sort_time');
 
+        // Filter berdasarkan hari ini saja
+        $selesai = $kedatangan->filter(function ($item) {
+            // Kedatangan dan perjanjian sudah terjadi, dan waktunya hari ini
+            return $item->waktu_kedatangan !== null
+            && $item->waktu_perjanjian !== null
+            && $item->status === 'diterima'
+            && Carbon::parse($item->waktu_kedatangan)->isToday();  // Tambahkan kondisi hari ini
+        });
 
-        // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
+        $hari_ini = $kedatangan->filter(function ($item) {
+            // Perjanjian hari ini dan belum datang
+            return $item->waktu_kedatangan === null
+            && $item->status === 'diterima'
+            && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
+
+        $menunggu = $kedatangan->filter(function ($item) {
+            // Waktu perjanjian di masa depan, harus hari ini
+            return $item->waktu_kedatangan === null
+            && $item->waktu_perjanjian > now()
+            && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
+
+        $ditolak = $kedatangan->filter(function ($item) {
+            // Status ditolak dan harus hari ini
+            return $item->status === 'ditolak'
+            && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
 
         //! Chart
         $max = 2; // Pastikan $max sudah didefinisikan
@@ -173,7 +204,11 @@ class FOController extends Controller
             'persentaseTamuHarian',
             'persentaseKurirHarian',
             'persentaseKenaikanMingguan',
-            'data'
+            'data',
+            'selesai',
+            'hari_ini',
+            'menunggu',
+            'ditolak'
         ));
     }
 
@@ -221,9 +256,16 @@ class FOController extends Controller
                     ]);
                 } else if ($now->lessThan($waktuPerjanjian)) {
                     return response()->json([
-                        'success' => false,
-                        'message' => 'Waktu scan belum mencapai jadwal perjanjian.'
-                    ], 403);
+                        // 'success' => false,
+                        // 'message' => 'Waktu scan belum mencapai jadwal perjanjian.'
+                        'success' => true,
+                        'name' => $tamu->nama,
+                        'email' => $tamu->email,
+                        'phone' => $tamu->no_telpon,
+                        'waktu_perjanjian' => $kedatangan->waktu_perjanjian,
+                        'status' => $kedatangan->status
+                    ]);
+                    // ], 403);
                 } else {
                     return response()->json([
                         'success' => false,
@@ -256,20 +298,20 @@ class FOController extends Controller
 
             // Handle foto
             if ($request->hasFile('foto')) {
-                $foto = $request->file('foto');
-                $namaFoto = time() . '_' . $request->id_tamu . '.' . $foto->getClientOriginalExtension();
-                $foto->storeAs('public/img-tamu', $namaFoto);
-                $kedatanganTamu->foto = $namaFoto;
+                $fotoPath = $request->file('foto')->store('public/fotos');
+                $kedatanganTamu->foto = $fotoPath;
             }
 
             $kedatanganTamu->save();
 
-            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+            // Kirim email setelah foto disubmit
+            Mail::to($kedatanganTamu->user->email)->send(new FotoTamuSubmitted($kedatanganTamu));
+
+            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui dan email terkirim.']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
-
 
     public function pegawai(Request $request)
     {

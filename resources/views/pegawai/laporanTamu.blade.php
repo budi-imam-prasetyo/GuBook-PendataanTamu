@@ -212,8 +212,18 @@
                         <th class="p-4 text-base text-center select-none rounded-tr-lg">Aksi</th>
                     </tr>
                 </thead>
-                @if ($data)
-                    <tbody id="pegawai-list" class="bg-white">
+                <tbody id="pegawai-list" class="bg-white">
+                    @if ($data->isEmpty())
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada Kedatangan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                    @else
                         @foreach ($data as $laporanTamu)
                             <tr class="border-b hover:bg-lightRed group ">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center capitalize">
@@ -345,14 +355,8 @@
                                 </div>
                             </tr>
                         @endforeach
-                    </tbody>
-                @else
-                    <tbody id="pegawai-list" class="bg-white border min-h-52">
-                        <tr>
-                            <td class="text-center">Tidak ada data</td>
-                        </tr>
-                    </tbody>
-                @endif
+                    @endif
+                </tbody>
             </table>
 
             <div class="mt-4">

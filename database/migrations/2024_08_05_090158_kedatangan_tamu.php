@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->timestamp('waktu_kedatangan')->nullable();
             $table->string('status')->default('menunggu');
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }

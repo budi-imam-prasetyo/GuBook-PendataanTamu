@@ -34,6 +34,12 @@ Route::post('/store/kurir', [UserController::class, 'storeKurir'])->name('kurir.
 Route::get('/list-pegawai', [UserController::class, 'listPegawai']);
 Route::get('/tentang', [UserController::class, 'about']);
 Route::post('/check-appointments', [UserController::class, 'checkAppointments']);
+Route::get('/kedatangan/submit-terima/{id_kedatangan}/{token}/{action}', [UserController::class, 'konfirmasiKedatanganEmail'])
+    ->name('kedatangan.submit-terima')
+    ->where(['action' => 'terima|tolak']);
+
+Route::post('/kedatangan/submit-penolakan/{id_kedatangan}/{token}', [UserController::class, 'submitTolak'])
+    ->name('kedatangan.submit-penolakan');
 //* ROUTE USER
 
 

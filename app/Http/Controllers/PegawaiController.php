@@ -136,13 +136,44 @@ class PegawaiController extends Controller
         //! View List Kunjungan Tamu dan Kurir
         $kedatanganTamu = KedatanganTamu::all()->where('id_user', $id_user)->map(function ($item) {
             $item->type = 'tamu';
+            $item->sort_time = $item->waktu_perjanjian;
             return $item;
         });
         $kedatanganKurir = KedatanganEkspedisi::all()->where('id_user', $id_user)->map(function ($item) {
             $item->type = 'kurir';
+            $item->sort_time = $item->waktu_kedatangan;
             return $item;
         });
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
+        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('sort_time');
+
+        // Filter berdasarkan hari ini saja
+        $selesai = $kedatangan->filter(function ($item) {
+            // Kedatangan dan perjanjian sudah terjadi, dan waktunya hari ini
+            return $item->waktu_kedatangan !== null
+                && $item->waktu_perjanjian !== null
+                && $item->status === 'diterima'
+                && Carbon::parse($item->waktu_kedatangan)->isToday();  // Tambahkan kondisi hari ini
+        });
+
+        $hari_ini = $kedatangan->filter(function ($item) {
+            // Perjanjian hari ini dan belum datang
+            return $item->waktu_kedatangan === null
+                && $item->status === 'diterima'
+                && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
+
+        $menunggu = $kedatangan->filter(function ($item) {
+            // Waktu perjanjian di masa depan, harus hari ini
+            return $item->waktu_kedatangan === null
+                && $item->waktu_perjanjian > now()
+                && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
+
+        $ditolak = $kedatangan->filter(function ($item) {
+            // Status ditolak dan harus hari ini
+            return $item->status === 'ditolak'
+                && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
 
 
         //! Chart
@@ -189,7 +220,11 @@ class PegawaiController extends Controller
             'persentaseKenaikan',
             'persentaseTamuHarian',
             'persentaseKurirHarian',
-            'persentaseKenaikanMingguan'
+            'persentaseKenaikanMingguan',
+            'selesai',
+            'hari_ini',
+            'menunggu',
+            'ditolak'
         ));
     }
 
@@ -530,10 +565,10 @@ class PegawaiController extends Controller
     }
 
 
-    public function ship()
-    {
-        $users = Pegawai::all();
-        Mail::to('budiimamprsty@gmail.com')->send(new SendEmail($users));
-        return 'oke';
-    }
+    // public function ship()
+    // {
+    //     $users = Pegawai::all();
+    //     Mail::to('budiimamprsty@gmail.com')->send(new SendEmail($users));
+    //     return 'oke';
+    // }
 }

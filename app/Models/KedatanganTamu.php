@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Str;
 
 class KedatanganTamu extends Model
 {
@@ -24,7 +25,14 @@ class KedatanganTamu extends Model
         'waktu_perjanjian',
         'foto',
         'waktu_kedatangan',
+        'status',
+        'token'
     ];
+
+    public static function generateToken()
+    {
+        return \Illuminate\Support\Str::random(32); // Generate random string 32 karakter
+    }
 
     public function tamu()
     {

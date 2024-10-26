@@ -14,10 +14,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nama' => 'Acid',
-            'email' => 'acid@gmail.com',
+            'nama' => 'p',
+            'email' => 'p@gmail.com',
             'password' => bcrypt('12345678'),
-            'role' => 'pegawai'
+            'role' => 'FO'
         ]);
         User::create([
             'nama' => 'Jul',
@@ -50,10 +50,10 @@ class UserSeeder extends Seeder
             'role' => 'pegawai'
         ]);
         User::create([
-            'nama' => 'P',
-            'email' => 'p@gmail.com',
+            'nama' => 'ryoo',
+            'email' => 'apriliasugiarti81@gmail.com',
             'password' => bcrypt('12345678'),
-            'role' => 'FO'
+            'role' => 'pegawai'
         ]);
     }
 }
