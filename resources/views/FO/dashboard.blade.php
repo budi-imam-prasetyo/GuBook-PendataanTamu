@@ -142,7 +142,7 @@
 
             <div class="w-full max-w-full mt-6 md:flex-none">
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-lg rounded-2xl overflow-hidden bg-clip-border">
-                    <div class="flex justify-between items-center p-6 border-b bg-primaryBlue text-white">
+                    <div class="flex justify-between items-center p-6 border-b bg-primaryBlue text-white">  
                         <h2 class="text-xl font-bold">Daftar Kunjungan</h2>
                         @if ($kedatangan->isNotEmpty())
                         <a href="{{ route('admin.kunjungan') }}" class="flex items-center text-white hover:underline">
@@ -153,42 +153,53 @@
                         </a>
                         @endif
                     </div>
-                    <div class="flex-auto p-4 pt-6">
-                        <ul class="mb-0 flex flex-col gap-4">
-                            @forelse ($kedatangan->take(3) as $item)
-                            <li class="relative flex px-6 py-4 mb-2 bg-gray-50 border border-gray-200 rounded-lg hover:shadow-md transition-transform duration-300 ease-in-out hover:-translate-y-1">
-                                <div class="flex items-center gap-6">
-                                    <div class="flex items-center justify-center">
-                                        @if ($item->type == 'tamu')
-                                        <img class="w-10 h-10" src="{{ asset('assets/icons/user2.svg') }}" alt="">
-                                        @else
-                                        <img class="w-10 h-10" src="{{ asset('assets/icons/box2.svg') }}" alt="">
-                                        @endif
-                                    </div>
-                                    <div class="flex flex-col gap-1">
-                                        <h5 class="text-lg font-semibold text-gray-900">
-                                            {{ $item->user->nama }}
-                                        </h5>
-                                        <div class="text-gray-700 text-sm">
-                                            @if ($item->type == 'tamu')
-                                            <p><span class="font-medium">Nama: </span>{{ $item->tamu->nama }}</p>
-                                            <p><span class="font-medium">Email: </span>{{ $item->tamu->email }}</p>
-                                            <p><span class="font-medium">Tanggal Perjanjian: </span>{{ $item->waktu_perjanjian }}</p>
-                                            @else
-                                            <p><span class="font-medium">Nama Kurir: </span>{{ $item->ekspedisi->nama_kurir }}</p>
-                                            <p><span class="font-medium">Ekspedisi: </span>{{ $item->ekspedisi->ekspedisi }}</p>
-                                            <p><span class="font-medium">Tanggal Kedatangan: </span>{{ $item->waktu_kedatangan }}</p>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @empty
-                            <div class="w-full my-4">
-                                <p class="text-center text-gray-500">Belum ada kunjungan</p>
-                            </div>
-                            @endforelse
-                        </ul>
+                    <div role="tablist" class="tabs tabs-bordered w-full mx-auto my-4">
+
+                        <input type="radio" name="my_tabs" role="tab" class="tab"
+                            aria-label="Pertemuan Hari Ini" checked/>
+                        <div role="tabpanel" class="tab-content p-4">
+                            @if ($hari_ini->isEmpty())
+                                <p class="text-center text-gray-500">Tidak ada pertemuan hari ini.</p>
+                            @else
+                                @foreach ($hari_ini as $item)
+                                    @include('components.kedatanganTamu', ['item' => $item])
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <input type="radio" name="my_tabs" role="tab" class="tab"
+                            aria-label="Menunggu Konfirmasi" />
+                        <div role="tabpanel" class="tab-content p-4">
+                            @if ($menunggu->isEmpty())
+                                <p class="text-center text-gray-500">Tidak ada kunjungan yang menunggu konfirmasi hari
+                                    ini.</p>
+                            @else
+                                @foreach ($menunggu as $item)
+                                    @include('components.kedatanganTamu', ['item' => $item])
+                                @endforeach
+                            @endif
+                        </div>
+                        <input type="radio" name="my_tabs" role="tab" class="tab" aria-label="Selesai"/>
+                        <div role="tabpanel" class="tab-content p-4">
+                            @if ($selesai->isEmpty())
+                                <p class="text-center text-gray-500">Tidak ada kunjungan selesai hari ini.</p>
+                            @else
+                                @foreach ($selesai as $item)
+                                    @include('components.kedatanganTamu', ['item' => $item])
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <input type="radio" name="my_tabs" role="tab" class="tab" aria-label="Ditolak" />
+                        <div role="tabpanel" class="tab-content p-4">
+                            @if ($ditolak->isEmpty())
+                                <p class="text-center text-gray-500">Tidak ada kunjungan yang ditolak hari ini.</p>
+                            @else
+                                @foreach ($ditolak as $item)
+                                    @include('components.kedatanganTamu', ['item' => $item])
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

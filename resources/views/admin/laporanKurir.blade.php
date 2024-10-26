@@ -16,8 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body
-    class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
+<body class="m-0 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -120,8 +119,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('admin.laporanKurir.export', request()->query()) }}"
+                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('admin.laporanTamu') }}"
@@ -210,8 +209,18 @@
                         <th class="p-4 text-base text-center select-none rounded-tr-lg">Aksi</th>
                     </tr>
                 </thead>
-                @if ($data)
-                    <tbody id="pegawai-list" class="bg-white">
+                <tbody id="pegawai-list" class="bg-white">
+                    @if ($data->isEmpty())
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada Kedatangan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                    @else
                         @foreach ($data as $laporanTamu)
                             <tr class="border-b hover:bg-gray-100 group ">
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -314,14 +323,7 @@
                                 </div>
                             </tr>
                         @endforeach
-                    </tbody>
-                @else
-                    <tbody id="pegawai-list" class="bg-white border min-h-52">
-                        <tr>
-                            <td class="text-center">Tidak ada data</td>
-                        </tr>
-                    </tbody>
-                @endif
+                    @endif
             </table>
 
             <div class="mt-4">

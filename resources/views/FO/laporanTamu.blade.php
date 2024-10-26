@@ -15,8 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
+<body class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryBlue"></div>
@@ -49,8 +48,8 @@
                 </div>
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                        <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                            <form id="filterForm" method="GET" action="{{ route('FO.laporanTamu') }}"
+                    <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
+                        <form id="filterForm" method="GET" action="{{ route('FO.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -71,72 +70,72 @@
                                 </select>
                             </div>
 
-                            <!  -->
-                            <div id="dailyFilter" class="hidden flex-col gap-2">
-                                <div class="flex gap-4 flex-col">
-                                    <div class="flex flex-col gap-2">
-                                        <label for="startDate" class="font-medium">Tanggal Mulai</label>
-                                        <input type="date" id="startDate" name="startDate"
-                                            class="input input-bordered" value="{{ $currentFilter['startDate'] }}">
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="endDate" class="font-medium">Tanggal Selesai</label>
-                                        <input type="date" id="endDate" name="endDate" class="input input-bordered"
-                                            value="{{ $currentFilter['endDate'] }}">
+                            <! -->
+                                <div id="dailyFilter" class="hidden flex-col gap-2">
+                                    <div class="flex gap-4 flex-col">
+                                        <div class="flex flex-col gap-2">
+                                            <label for="startDate" class="font-medium">Tanggal Mulai</label>
+                                            <input type="date" id="startDate" name="startDate"
+                                                class="input input-bordered" value="{{ $currentFilter['startDate'] }}">
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <label for="endDate" class="font-medium">Tanggal Selesai</label>
+                                            <input type="date" id="endDate" name="endDate"
+                                                class="input input-bordered" value="{{ $currentFilter['endDate'] }}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Monthly Filter Options -->
-                            <div id="monthlyFilter" class="hidden flex-col gap-2">
-                                <div class="flex gap-4 flex-col">
+                                <!-- Monthly Filter Options -->
+                                <div id="monthlyFilter" class="hidden flex-col gap-2">
+                                    <div class="flex gap-4 flex-col">
+                                        <div class="flex flex-col gap-2">
+                                            <label for="month" class="font-medium">Bulan</label>
+                                            <select id="month" name="month"
+                                                class="select select-bordered w-full min-w-[200px]">
+                                                @foreach (range(1, 12) as $month)
+                                                    <option value="{{ $month }}"
+                                                        {{ $currentFilter['month'] == $month ? 'selected' : '' }}>
+                                                        {{ Carbon\Carbon::createFromDate(null, $month, 1)->format('F') }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <label for="monthYear" class="font-medium">Tahun</label>
+                                            <select id="monthYear" name="monthYear"
+                                                class="select select-bordered w-full min-w-[200px]">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Yearly Filter Options -->
+                                <div id="yearlyFilter" class="hidden flex-col gap-2">
                                     <div class="flex flex-col gap-2">
-                                        <label for="month" class="font-medium">Bulan</label>
-                                        <select id="month" name="month"
+                                        <label for="year" class="font-medium">Tahun</label>
+                                        <select id="year" name="year"
                                             class="select select-bordered w-full min-w-[200px]">
-                                            @foreach (range(1, 12) as $month)
-                                                <option value="{{ $month }}"
-                                                    {{ $currentFilter['month'] == $month ? 'selected' : '' }}>
-                                                    {{ Carbon\Carbon::createFromDate(null, $month, 1)->format('F') }}
-                                                </option>
-                                            @endforeach
                                         </select>
                                     </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="monthYear" class="font-medium">Tahun</label>
-                                        <select id="monthYear" name="monthYear"
-                                            class="select select-bordered w-full min-w-[200px]">
-                                        </select>
-                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Yearly Filter Options -->
-                            <div id="yearlyFilter" class="hidden flex-col gap-2">
-                                <div class="flex flex-col gap-2">
-                                    <label for="year" class="font-medium">Tahun</label>
-                                    <select id="year" name="year"
-                                        class="select select-bordered w-full min-w-[200px]">
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Submit and Reset Buttons -->
-                            <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <a href="{{ route('FO.laporanTamu.export', request()->query()) }}"
-                                    class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
-                                <div class="w-full flex gap-4">
-                                    <div class="flex-1">
-                                        <a href="{{ route('FO.laporanTamu') }}"
-                                            class="btn btn-outline w-full">Reset</a>
-                                    </div>
-                                    <div class="flex-1">
-                                        <button type="submit"
-                                            class="btn btn-primary bg-primaryBlue text-white opacity-100 w-full">Filter</button>
+                                <!-- Submit and Reset Buttons -->
+                                <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
+                                    <a href="{{ route('FO.laporanTamu.export', request()->query()) }}"
+                                        class="btn btn-primary bg-primaryBlue w-full text-white opacity-100">Ekspor</a>
+                                    <div class="w-full flex gap-4">
+                                        <div class="flex-1">
+                                            <a href="{{ route('FO.laporanTamu') }}"
+                                                class="btn btn-outline w-full">Reset</a>
+                                        </div>
+                                        <div class="flex-1">
+                                            <button type="submit"
+                                                class="btn btn-primary bg-primaryBlue text-white opacity-100 w-full">Filter</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form> 
+                        </form>
                     </div>
                 </div>
             </div>
@@ -213,8 +212,18 @@
                         <th class="p-4 text-base text-center select-none rounded-tr-lg">Aksi</th>
                     </tr>
                 </thead>
-                @if ($data)
-                    <tbody id="pegawai-list" class="bg-white">
+                <tbody id="pegawai-list" class="bg-white">
+                    @if ($data->isEmpty())
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada Kedatangan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                    @else
                         @foreach ($data as $laporanTamu)
                             <tr class="border-b hover:bg-gray-100 group ">
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -295,7 +304,8 @@
                                         </svg>
                                     </label>
                                 </td>
-                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}" class="modal-toggle" />
+                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}"
+                                    class="modal-toggle" />
                                 <div class="modal backdrop-blur-sm">
                                     <div class="modal-box relative max-w-lg bg-white rounded-lg shadow-xl">
                                         <label for="detail-modal-{{ $laporanTamu->id_kedatangan }}"
@@ -306,7 +316,7 @@
                                                     d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </label>
-    
+
                                         <div class="p-6 pt-2">
                                             <div class="avatar flex justify-center">
                                                 <div class="avatar flex justify-center">
@@ -319,17 +329,19 @@
                                                     @endif
                                                     {{-- {{ dd($laporanTamu->foto) }} --}}
                                                 </div>
-    
+
                                             </div>
                                             <h3 class="text-lg font-bold text-gray-900 mb-6">Detail Tamu</h3>
                                             <div class="space-y-4">
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">Nama</span>
-                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->nama_tamu }}</span>
+                                                    <span
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->nama_tamu }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">No Telepon</span>
-                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
+                                                    <span
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">NIP</span>
@@ -350,14 +362,7 @@
                                 </div>
                             </tr>
                         @endforeach
-                    </tbody>
-                @else
-                    <tbody id="pegawai-list" class="bg-white border min-h-52">
-                        <tr>
-                            <td class="text-center">Tidak ada data</td>
-                        </tr>
-                    </tbody>
-                @endif
+                    @endif
             </table>
 
             <div class="mt-4">

@@ -27,7 +27,7 @@ class TamuNotification extends Mailable
     public function build()
     {
         return $this->subject('Notifikasi Tamu Baru')
-        ->view('mails.SendTamu')
+        ->view('mails.SendToPegawai')
         ->with(['tamu' => $this->tamu]);
     }
 

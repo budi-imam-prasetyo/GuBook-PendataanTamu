@@ -79,6 +79,21 @@ trait KurirTrait
         return $filename;
     }
 
+    protected function headerDateKurir(Request $request)
+    {
+        $title = "";
+
+        if ($request->filterType === 'daily' && $request->filled(['startDate', 'endDate'])) {
+            $title = $request->startDate . '-sampai-' . $request->endDate;
+        } elseif ($request->filterType === 'monthly' && $request->filled(['month', 'monthYear'])) {
+            $title = 'Bulan-' . $request->month . '-' . $request->monthYear;
+        } elseif ($request->filterType === 'yearly' && $request->filled('year')) {
+            $title = 'Tahun-' . $request->year;
+        }
+
+        return $title;
+    }
+
     /**
      * Apply date filter based on filter type
      * 

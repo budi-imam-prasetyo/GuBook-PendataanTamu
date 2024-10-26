@@ -63,16 +63,6 @@
                     {{-- Pagination Elements --}}
                     @foreach ($elements as $element)
                         {{-- "Three Dots" Separator --}}
-                        @if (is_string($element))
-                            <li>
-                                <span
-                                    class="cursor-not-allowed border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500">
-                                    {{ $element }}
-                                </span>
-                            </li>
-                        @endif
-
-                        {{-- Array Of Links --}}
                         @if (is_array($element))
                             @foreach ($element as $page => $url)
                                 {{-- Show active page, first page, last page, and two pages around the current page --}}

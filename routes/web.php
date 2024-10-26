@@ -34,6 +34,12 @@ Route::post('/store/kurir', [UserController::class, 'storeKurir'])->name('kurir.
 Route::get('/list-pegawai', [UserController::class, 'listPegawai']);
 Route::get('/tentang', [UserController::class, 'about']);
 Route::post('/check-appointments', [UserController::class, 'checkAppointments']);
+Route::get('/kedatangan/submit-terima/{id_kedatangan}/{token}/{action}', [UserController::class, 'konfirmasiKedatanganEmail'])
+    ->name('kedatangan.submit-terima')
+    ->where(['action' => 'terima|tolak']);
+
+Route::post('/kedatangan/submit-penolakan/{id_kedatangan}/{token}', [UserController::class, 'submitTolak'])
+    ->name('kedatangan.submit-penolakan');
 //* ROUTE USER
 
 
@@ -52,9 +58,11 @@ Route::middleware(['checkRole:superadmin'])->group(function () {
         Route::post('pegawai/import/', [AdminController::class, 'import'])->name('pegawai.import');
         //? LAPORAN TAMU
         Route::get('/laporan-tamu', [AdminController::class, 'laporanTamu'])->name('admin.laporanTamu');
+        Route::get('/laporan-tamu/export', [ExportController::class, 'exportPDFTamu'])->name('admin.laporanTamu.export');
         Route::get('/search-tamu', [AdminController::class, 'searchTamu'])->name('admin.searchTamu');
         //? LAPORAN KURIR
         Route::get('/laporan-kurir', [AdminController::class, 'laporanKurir'])->name('admin.laporanKurir');
+        Route::get('/laporan-kurir/export', [ExportController::class, 'exportPDFKurir'])->name('admin.laporanKurir.export');
         Route::get('/search-kurir', [AdminController::class, 'searchKurir'])->name('admin.searchKurir');
 
         //? KUNJUNGAN
@@ -72,9 +80,11 @@ Route::middleware(['checkRole:pegawai'])->group(function () {
         Route::get('/', [PegawaiController::class, 'index']);
         //? LAPORAN TAMU
         Route::get('/laporan-tamu', [PegawaiController::class, 'laporanTamu'])->name('pegawai.laporanTamu');
+        Route::get('/laporan-tamu/export', [ExportController::class, 'exportPDFTamu'])->name('pegawai.laporanTamu.export');
         Route::get('/search-tamu', [PegawaiController::class, 'searchTamu'])->name('pegawai.searchTamu');
         //? LAPORAN KURIR
         Route::get('/laporan-kurir', [PegawaiController::class, 'laporanKurir'])->name('pegawai.laporanKurir');
+        Route::get('/laporan-kurir/export', [ExportController::class, 'exportPDFKurir'])->name('pegawai.laporanKurir.export');
         Route::get('/search-kurir', [PegawaiController::class, 'searchKurir'])->name('pegawai.searchKurir');
         //? KUNJUNGAN
         Route::get('/kunjungan', [PegawaiController::class, 'kunjungan'])->name('pegawai.kunjungan');

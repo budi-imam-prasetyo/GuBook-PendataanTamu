@@ -138,16 +138,45 @@ class AdminController extends Controller
         //! View List Kunjungan Tamu dan Kurir
         $kedatanganTamu = KedatanganTamu::all()->map(function ($item) {
             $item->type = 'tamu';
+            $item->sort_time = $item->waktu_perjanjian;
             return $item;
         });
+
         $kedatanganKurir = KedatanganEkspedisi::all()->map(function ($item) {
             $item->type = 'kurir';
+            $item->sort_time = $item->waktu_kedatangan;
             return $item;
         });
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
+        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('sort_time');
 
+        // Filter berdasarkan hari ini saja
+        $selesai = $kedatangan->filter(function ($item) {
+            // Kedatangan dan perjanjian sudah terjadi, dan waktunya hari ini
+            return $item->waktu_kedatangan !== null
+            && $item->waktu_perjanjian !== null
+            && $item->status === 'diterima'
+            && Carbon::parse($item->waktu_kedatangan)->isToday();  // Tambahkan kondisi hari ini
+        });
+        
+        $hari_ini = $kedatangan->filter(function ($item) {
+            // Perjanjian hari ini dan belum datang
+            return $item->waktu_kedatangan === null
+            && $item->status === 'diterima'
+            && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
 
-        // dd($persentaseKenaikan, $totalBulanIni, $totalBulanLalu);
+        $menunggu = $kedatangan->filter(function ($item) {
+            // Waktu perjanjian di masa depan, harus hari ini
+            return $item->waktu_kedatangan === null
+            && $item->waktu_perjanjian > now()
+            && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
+
+        $ditolak = $kedatangan->filter(function ($item) {
+            // Status ditolak dan harus hari ini
+            return $item->status === 'ditolak'
+                && Carbon::parse($item->waktu_perjanjian)->isToday();  // Hari ini
+        });
 
         //! Chart
         $max = 2; // Pastikan $max sudah didefinisikan
@@ -177,10 +206,13 @@ class AdminController extends Controller
             'persentaseKenaikan',
             'persentaseTamuHarian',
             'persentaseKurirHarian',
-            'persentaseKenaikanMingguan'
+            'persentaseKenaikanMingguan',
+            'selesai',
+            'hari_ini',
+            'menunggu',
+            'ditolak'
         ));
     }
-
 
 
     public function pegawai()
@@ -296,6 +328,7 @@ class AdminController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganTamu::with(['tamu', 'user'])
+            ->orderBy('waktu_perjanjian', 'desc')
             ->select('kedatangan_tamu.*')
             ->join('tamu', 'kedatangan_tamu.id_tamu', '=', 'tamu.id_tamu')
             ->join('users', 'kedatangan_tamu.id_user', '=', 'users.id')
@@ -387,6 +420,7 @@ class AdminController extends Controller
         $direction = $request->get('direction', 'asc');
 
         $query = KedatanganEkspedisi::with(['ekspedisi', 'user'])
+            ->orderBy('waktu_kedatangan', 'desc')
             ->select('kedatangan_ekspedisi.*')
             ->join('ekspedisi', 'kedatangan_ekspedisi.id_ekspedisi', '=', 'ekspedisi.id_ekspedisi')
             ->join('users', 'kedatangan_ekspedisi.id_user', '=', 'users.id')
@@ -543,21 +577,16 @@ class AdminController extends Controller
                 ],
             ]);
 
-        $kedatanganTamu = KedatanganTamu::all()->map(function ($item) {
-            $item->type = 'tamu';
+        $kedatanganTamu = KedatanganTamu::orderBy('waktu_perjanjian', 'desc')
+        ->paginate(10);  // Menggunakan paginate, bukan get()
+
+        $kedatanganTamu->getCollection()->transform(function ($item) {
             $item->formatWaktu = Carbon::parse($item->waktu_perjanjian)->translatedFormat('l, d-m-Y H:i');
             return $item;
         });
 
-        $kedatanganKurir = KedatanganEkspedisi::all()->map(function ($item) {
-            $item->type = 'kurir';
-            $item->formatWaktu = Carbon::parse($item->waktu_kedatangan)->translatedFormat('l, d-m-Y H:i');
-            return $item;
-        });
 
-        $kedatangan = $kedatanganTamu->merge($kedatanganKurir)->sortByDesc('waktu_kedatangan');
-
-        return view('admin.kunjungan', compact('chart', 'kedatangan'));
+        return view('admin.kunjungan', compact('chart', 'kedatanganTamu'));
     }
 
     public function getDetail($id_kedatangan)

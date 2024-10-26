@@ -130,10 +130,25 @@
                             </button>
                         </div>
                         <input type="submit" value="Kirim"
-                            class="w-full h-12 py-2 text-base text-white rounded-lg cursor-pointer bg-secondaryBlue hover:text-lightBlue2">
+                            class="w-full h-12 py-2 text-base text-white rounded-lg cursor-pointer bg-secondaryBlue hover:text-lightBlue2"/>
                     </div>
                 </div>
             </form>
+            @if (session('success'))
+                <div class="p-4 mb-4 text-green-800 bg-green-200 rounded-lg z-990">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="p-4 mb-4 text-red-800 bg-red-200 rounded-lg z-990">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Modal HTML -->
             {{-- <div id="qrCodeModal"
@@ -226,48 +241,6 @@
                     'Jam atau hari perjanjian tidak valid. Pilih jam antara 07:00 - 17:00 dari Senin sampai Jumat.');
                 return;
             }
-
-            fetch(this.action, {
-                    method: this.method,
-                    body: new FormData(this),
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                        'Accept': 'application/json',
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errors => {
-                            let errorMessages = '';
-                            for (const [key, value] of Object.entries(errors.errors)) {
-                                errorMessages += `${value.join(' ')}\n`;
-                            }
-                            throw new Error(errorMessages);
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        const qrCodeImg = document.createElement('img');
-                        qrCodeImg.src = 'data:image/png;base64,' + data.qr_code;
-                        qrCodeImg.alt = 'QR Code';
-                        qrCodeImg.style.width = '100%';
-
-                        const qrCodeContent = document.getElementById('qrCodeContent');
-                        qrCodeContent.innerHTML = '';
-                        qrCodeContent.appendChild(qrCodeImg);
-
-                        const downloadBtn = document.getElementById('downloadBtn');
-                        downloadBtn.href = qrCodeImg.src;
-                        downloadBtn.download = 'qr_code.png';
-
-                        alert('Pertemuan berhasil ditambahkan!');
-                    }
-                })
-                .catch(error => {
-                    console.log(data.message);
-                });
         });
     </script>
 </body>

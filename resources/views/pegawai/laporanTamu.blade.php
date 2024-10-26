@@ -15,8 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body
-    class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
+<body class="m-0 bg-gray-50 font-sans text-base font-medium leading-default text-slate-500 antialiased ">
     @apexchartsScripts
 
     <div class="absolute min-h-80 w-full bg-primaryRed"></div>
@@ -50,7 +49,7 @@
                 <div class="drawer-side">
                     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="menu flex flex-col gap-4 p-4 bg-white min-h-full rounded-lg w-full md:w-80 shadow mb-4">
-                        <form id="filterForm" method="GET" action="{{ route('admin.laporanTamu') }}"
+                        <form id="filterForm" method="GET" action="{{ route('pegawai.laporanTamu') }}"
                             class="flex flex-col gap-4 h-full">
                             {{-- Preserve existing sort parameters --}}
                             <input type="hidden" name="sort" value="{{ $sort }}">
@@ -123,8 +122,8 @@
 
                             <!-- Submit and Reset Buttons -->
                             <div class="fixed bottom-0 left-0 right-0 flex flex-col p-4 gap-4 w-full">
-                                <button type="submit"
-                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</button>
+                                <a href="{{ route('pegawai.laporanKurir.export', request()->query()) }}"
+                                    class="btn btn-error bg-primaryRed w-full text-white opacity-100">Ekspor</a>
                                 <div class="w-full flex gap-4">
                                     <div class="flex-1">
                                         <a href="{{ route('admin.laporanTamu') }}"
@@ -160,9 +159,9 @@
                         </th>
                         <th class="p-4 text-base text-center cursor-pointer select-none">
                             <a
-                                href="{{ request()->fullUrlWithQuery(['sort' => 'pegawai', 'direction' => $sort === 'pegawai' && $direction === 'asc' ? 'desc' : 'asc']) }}">
+                                href="{{ request()->fullUrlWithQuery(['sort' => 'email_tamu', 'direction' => $sort === 'email_tamu' && $direction === 'asc' ? 'desc' : 'asc']) }}">
                                 Pegawai
-                                @if ($sort === 'pegawai')
+                                @if ($sort === 'email_tamu')
                                     @if ($direction === 'asc')
                                         ▲
                                     @else
@@ -213,22 +212,25 @@
                         <th class="p-4 text-base text-center select-none rounded-tr-lg">Aksi</th>
                     </tr>
                 </thead>
-                @if ($data)
-                    <tbody id="pegawai-list" class="bg-white">
+                <tbody id="pegawai-list" class="bg-white">
+                    @if ($data->isEmpty())
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada Kedatangan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-4"></td>
+                        </tr>
+                    @else
                         @foreach ($data as $laporanTamu)
                             <tr class="border-b hover:bg-lightRed group ">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex flex-col text-center">
-                                        <div class="text-sm font-medium text-gray-900 capitalize">
-                                            {{ $laporanTamu->nama_tamu }}
-                                        </div>
-                                        <div class="text-sm text-gray-500">
-                                            {{ $laporanTamu->email }}
-                                        </div>
-                                    </div>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center capitalize">
+                                    {{ $laporanTamu->nama_tamu }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                                    {{ $laporanTamu->nama_pegawai }}
+                                    {{ $laporanTamu->email_tamu }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     <div class="flex flex-col items-center">
@@ -295,7 +297,8 @@
                                         </svg>
                                     </label>
                                 </td>
-                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}" class="modal-toggle" />
+                                <input type="checkbox" id="detail-modal-{{ $laporanTamu->id_kedatangan }}"
+                                    class="modal-toggle" />
                                 <div class="modal backdrop-blur-sm">
                                     <div class="modal-box relative max-w-lg bg-white rounded-lg shadow-xl">
                                         <label for="detail-modal-{{ $laporanTamu->id_kedatangan }}"
@@ -306,7 +309,7 @@
                                                     d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </label>
-    
+
                                         <div class="p-6 pt-2">
                                             <div class="avatar flex justify-center">
                                                 <div class="avatar flex justify-center">
@@ -319,17 +322,19 @@
                                                     @endif
                                                     {{-- {{ dd($laporanTamu->foto) }} --}}
                                                 </div>
-    
+
                                             </div>
                                             <h3 class="text-lg font-bold text-gray-900 mb-6">Detail Tamu</h3>
                                             <div class="space-y-4">
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">Nama</span>
-                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->nama_tamu }}</span>
+                                                    <span
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->nama_tamu }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">No Telepon</span>
-                                                    <span class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
+                                                    <span
+                                                        class="w-2/3 font-medium">{{ $laporanTamu->no_telpon }}</span>
                                                 </div>
                                                 <div class="flex items-center border-b border-gray-100 pb-4">
                                                     <span class="w-1/3 text-gray-500">NIP</span>
@@ -343,21 +348,15 @@
                                                     <span class="w-1/3 text-gray-500">Tanggal Kedatangan</span>
                                                     <span
                                                         class="w-2/3 font-medium">{{ $laporanTamu->waktu_kedatangan ? \Carbon\Carbon::parse($laporanTamu->waktu_kedatangan)->format('d M Y, H:i') : '-' }}</span>
-                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </tr>
                         @endforeach
-                    </tbody>
-                @else
-                    <tbody id="pegawai-list" class="bg-white border min-h-52">
-                        <tr>
-                            <td class="text-center">Tidak ada data</td>
-                        </tr>
-                    </tbody>
-                @endif
+                    @endif
+                </tbody>
             </table>
 
             <div class="mt-4">
@@ -498,7 +497,7 @@
                     return;
                 }
 
-                fetch(`/admin/search-tamu?query=${encodeURIComponent(query)}`)
+                fetch(`/pegawai/search-tamu?query=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         tbody.innerHTML = ''; // Clear existing rows
